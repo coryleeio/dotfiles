@@ -14,7 +14,7 @@
 font pango:monospace 8
 
 focus_follows_mouse no
-bindsym Mod1+Shift+L exec "/bin/screen_lock"
+bindsym Mod1+Shift+L exec "~/bin/screen_lock"
 
 exec --no-startup-id nm-applet
 
@@ -185,7 +185,7 @@ bar {
 # Please remove the following exec line:
 #######################################################################
 exec i3-config-wizard
-exec xautolock -time 15 -locker '/bin/screen_lock' &
+exec xautolock -time 15 -locker '~/bin/screen_lock' &
 exec --no-startup-id nm-applet &
 
 
