@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+user = ENV['SSH_USER'] ||= ENV['USER']
+user_home = ENV['HOME']
+servers_by_name = {}
+
+Dir.glob("#{user_home}/.awscache/*") do |aws_cached_info_filename|
+  contents = JSON.parse(File.read(aws_cached_info_filename))
+  reservations = contents['Reservations']
+  reservations.each do |reservation|
+  	instances = reservation['Instances']
+  	next if instances.nil? || instances.count == 0
+  	instances.each do |instance|
+	  	network_interfaces = instance['NetworkInterfaces']
+	  	tags = instance['Tags']
+	  	instance_name = nil
+	  	next if tags.nil?
+	  	tags.each do |tag|
+	  		instance_name = tag['Value'] if tag['Key'] == 'Name'
+	  	end
+	  	unless instance_name.nil?
+	  		next if network_interfaces.count == 0
+	  		network_interface = network_interfaces.first
+  			servers_by_name[instance_name] = [] if servers_by_name[instance_name].nil?
+  			servers_by_name[instance_name].push(network_interface['PrivateIpAddresses'].first['PrivateIpAddress'])
+	  	end
+  	end
+  end
+end
+
+ssh_config_output = ""
+generated_ssh_config_filepath = "#{user_home}/.ssh/config.d/generated"
+generated_clusterssh_config_filepath = "#{user_home}/.clusterssh/clusters"
+
+File.new(generated_ssh_config_filepath, 'w') unless File.exists?(generated_ssh_config_filepath)
+File.new(generated_clusterssh_config_filepath, 'w') unless File.exists?(generated_clusterssh_config_filepath)
+ssh_config = File.open(generated_ssh_config_filepath, 'w')
+cluser_config = File.open(generated_clusterssh_config_filepath, 'w')
+servers_by_name.each do |tagName, ip_list|
+	ip_list.each_with_index do |ip, index|
+		ssh_config.write("Host #{tagName}-#{index + 1}\n")
+		ssh_config.write("   HostName #{ip}\n")
+		ssh_config.write("   User #{user}\n\n")
+	end
+	prefixed_ips = ip_list.map{|ip| "#{user}@#{ip}"}.join(' ')
+	cluster_str = "#{tagName} #{prefixed_ips}"
+	cluser_config.write("#{cluster_str}\n\n")
+end
+ssh_config.close() unless ssh_config.nil?
+cluser_config.close() unless cluser_config.nil?
+
+
+
+
+

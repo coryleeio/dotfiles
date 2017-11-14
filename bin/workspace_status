@@ -1,0 +1,12 @@
+#!/bin/bash
+mkdir -p $HOME/Workspace
+cd $HOME/Workspace
+for D in *; do
+    if [ -d "${D}" ]; then
+ 	echo ""
+        echo "===== ${D} ====="   # your processing here
+        pushd ${D}
+ 	git status
+ 	popd
+    fi
+done
