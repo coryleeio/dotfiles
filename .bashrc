@@ -116,11 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-function vpn()
-{
-  cd ~/anyconnect/vpn
-}
-
 function update_aws_cache()
 {
   mkdir -p ~/.awscache
