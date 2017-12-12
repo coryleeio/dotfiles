@@ -132,6 +132,11 @@ function cluster_list()
   cat ~/.clusterssh/clusters
 }
 
+function hbn()
+{
+  cat ~/.ssh/config.d/generated | grep 'Host ' | grep $1
+}
+
 function calc()
 {
   let "x = $1"
