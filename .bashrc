@@ -143,6 +143,12 @@ function calc()
   echo $x
 }
 
+function screenshot()
+{
+  # screenshot window with focus
+  sleep 1 && gnome-screenshot -w
+}
+
 export EDITOR=vim
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null
@@ -157,3 +163,4 @@ source $HOME/.secret
 : ${SSH_USER?"Need to set SSH_USER"}
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+source <(kubectl completion bash)
