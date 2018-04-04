@@ -146,7 +146,7 @@ function calc()
 function screenshot()
 {
   # screenshot window with focus
-  sleep 1 && gnome-screenshot -w
+  gnome-screenshot -d 1 -w -f $1
 }
 
 export EDITOR=vim
