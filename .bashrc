@@ -145,8 +145,12 @@ function calc()
 
 function screenshot()
 {
-  # screenshot window with focus
-  gnome-screenshot -d 1 -w -f $1
+  if [ -z "$1" ]
+  then
+    echo "Usage: screenshot FILENAME"
+  else
+    gnome-screenshot -d 1 -w -f ~/Pictures/$1.png
+  fi
 }
 
 export EDITOR=vim
