@@ -1,4 +1,10 @@
 {
+  "python.linting.pylintEnabled": false,
+  "python.linting.pep8Enabled": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 0,
+  "python.linting.lintOnSave": true,
+  "python.linting.enabled": true,
   "editor.fontSize": 17,
   "markdown.preview.fontSize": 17,
   "terminal.integrated.fontSize": 17,
