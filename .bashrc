@@ -153,6 +153,7 @@ function screenshot()
   fi
 }
 
+
 export EDITOR=vim
 
 ssh-add ~/.ssh/id_rsa 2>/dev/null

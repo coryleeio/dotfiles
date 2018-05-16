@@ -8,22 +8,6 @@ NC='\033[0m' # No Color
 mkdir -p $HOME/Workspace
 cd $HOME/Workspace
 
-if [ $# -eq 0 ]
-  then
-    echo "usage: workspace_push <BRANCH> \"<COMMIT_MESSAGE>\""
-    exit 0
-fi
-
-if [ -z "$1" ]
-  then
-    echo "Need branch specified"
-fi
-
-if [ -z "$2" ]
-  then
-    echo "No argument supplied"
-fi
-
 for D in *; do
     if [ -d "${D}" ]; then
  	printf ""
@@ -31,15 +15,10 @@ for D in *; do
         pushd ${D}
 	
  	git status | grep 'working directory clean'
-        if [ ! $? -eq 0 ]
+        if [ $? -eq 0 ]
         	then
-			git checkout -b $1
-			git add --all
-			git commit -am "${2}"
-			git push --set-upstream origin $1
-			hub pull-request -m "${2}" -r $WORKSPACE_PUSH_GITHUB_PR_USERS --browse
-	fi
-
+      		git branch | grep -v master | xargs git branch -d
+		fi
  	popd
     fi
 done

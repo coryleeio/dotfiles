@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+if [ $# -eq 0 ]
+  then
+    echo "usage: make_pr <BRANCH> \"<COMMIT_MESSAGE>\""
+    exit 0
+fi
+
+if [ -z "$1" ]
+  then
+    echo "Need branch specified"
+fi
+
+if [ -z "$2" ]
+  then
+    echo "No message supplied"
+fi
+
+git checkout -b $1
+
+git add --all
+git commit -am "${2}"
+git push --set-upstream origin $1
+sleep 1
+hub pull-request -m "${2}" -r $WORKSPACE_PUSH_GITHUB_PR_USERS --browse
