@@ -17,7 +17,7 @@ for D in *; do
  	git status | grep 'working directory clean'
         if [ $? -eq 0 ]
         	then
-      		git branch | grep -v master | xargs git branch -d
+      		git branch | grep -v master | xargs git branch -D
 		fi
  	popd
     fi

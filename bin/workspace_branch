@@ -6,7 +6,7 @@ for D in *; do
  	echo ""
         echo "===== ${D} ====="   # your processing here
         pushd ${D} > /dev/null
- 	git status
- 	popd > /dev/null
+ 	git branch
+ 	popd> /dev/null
     fi
 done
