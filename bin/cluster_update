@@ -7,7 +7,7 @@ user_home = ENV['HOME']
 servers_by_name = {}
 
 Dir.glob("#{user_home}/.awscache/*") do |aws_cached_info_filename|
-  continue if aws_cached_info_filename.include?('olive') || aws_cached_info_filename.include?('mck')
+  next if aws_cached_info_filename.include?('olive') || aws_cached_info_filename.include?('mck')
   contents = JSON.parse(File.read(aws_cached_info_filename))
   reservations = contents['Reservations']
   reservations.each do |reservation|
