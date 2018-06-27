@@ -169,3 +169,8 @@ source $HOME/.secret
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 source <(kubectl completion bash)
+
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Workspace
+source /usr/local/bin/virtualenvwrapper.sh
