@@ -33,7 +33,8 @@ for D in *; do
  	git status | grep 'working directory clean'
       if [ ! $? -eq 0 ]
       	then
-        make_pr $1 $2
+	CMD="make_pr '$1' '$2'"
+	eval $CMD
       fi
  	popd
     fi
