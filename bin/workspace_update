@@ -9,11 +9,11 @@ for D in *; do
         printf "${NC} ===== ${D} ====="   # your processing here
         pushd ${D}
 	
-    git status | grep 'working directory clean'
+    git status | grep 'working tree clean'
     if [ ! $? -eq 0 ]
     then
         printf "${RED}HAS CHANGES\n"
-        printf "run 'codebase_status' first\n"
+        printf "run 'workspace_status' first\n"
         printf "\n"
         git status
         exit 1
