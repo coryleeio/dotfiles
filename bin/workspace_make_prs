@@ -30,7 +30,7 @@ for D in *; do
         printf "${NC} ===== ${D} ====="   # your processing here
         pushd ${D}
 	
- 	git status | grep 'working directory clean'
+ 	git status | grep 'working tree clean'
       if [ ! $? -eq 0 ]
       	then
 	CMD="make_pr '$1' '$2'"

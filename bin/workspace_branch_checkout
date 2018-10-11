@@ -14,7 +14,7 @@ for D in *; do
         printf "${NC} ===== ${D} ====="   # your processing here
         pushd ${D} > /dev/null
     
-    git status | grep 'working directory clean'
+    git status | grep 'working tree clean'
     if [ ! $? -eq 0 ]
     then
         printf "${RED}HAS CHANGES\n"
