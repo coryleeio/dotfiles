@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+
 function update_aws_cache()
 {
   mkdir -p ~/.awscache
@@ -159,18 +161,17 @@ export EDITOR=vim
 ssh-add ~/.ssh/id_rsa 2>/dev/null
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-source $HOME/.rvm/scripts/rvm
 source $HOME/.secret
 
 : ${AWS_MFA_ARN?"Need to set AWS_MFA_ARN"}
 : ${SSH_USER?"Need to set SSH_USER"}
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
-source <(kubectl completion bash)
-
 
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Workspace
-source /usr/local/bin/virtualenvwrapper.sh
+export PROJECT_HOME=$HOME/.virtualenvsprojects
+source /home/coryleeio/.local/bin/virtualenvwrapper.sh
+
+
+
+
