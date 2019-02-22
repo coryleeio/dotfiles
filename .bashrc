@@ -139,6 +139,11 @@ function hbn()
   cat ~/.ssh/config.d/generated | grep 'Host ' | grep $1
 }
 
+function gimp()
+{
+  flatpak run org.gimp.GIMP//stable &
+}
+
 function calc()
 {
   let "x = $1"
@@ -151,7 +156,7 @@ function screenshot()
   then
     echo "Usage: screenshot FILENAME"
   else
-    gnome-screenshot -d 1 -w -f ~/Pictures/$1.png
+    gnome-screenshot -d 1 -w -c -f ~/Pictures/$1.png
   fi
 }
 
