@@ -139,6 +139,12 @@ function hbn()
   cat ~/.ssh/config.d/generated | grep 'Host ' | grep $1
 }
 
+function render-config()
+{
+  workon configuration
+  $WORKSPACE/configuration/util/bake_config.sh
+}
+
 function gimp()
 {
   flatpak run org.gimp.GIMP//stable &
