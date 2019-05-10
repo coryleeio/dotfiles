@@ -145,6 +145,19 @@ function render-config()
   $WORKSPACE/configuration/util/bake_config.sh
 }
 
+
+function x()
+{
+  git commit -am "Iterating..."
+  git push
+}
+
+function tr()
+{
+  git commit -am "Addressing code review comments"
+  git push
+}
+
 function gimp()
 {
   flatpak run org.gimp.GIMP//stable &
@@ -162,7 +175,7 @@ function screenshot()
   then
     echo "Usage: screenshot FILENAME"
   else
-    gnome-screenshot -d 1 -w -c -f ~/Pictures/$1.png
+    gnome-screenshot -d 1 -w -f ~/Pictures/$1.png
   fi
 }
 
@@ -181,6 +194,8 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/.virtualenvsprojects
 source /home/coryleeio/.local/bin/virtualenvwrapper.sh
 
+
+alias g="/usr/bin/git"
 
 
 
