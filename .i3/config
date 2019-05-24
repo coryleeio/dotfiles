@@ -199,6 +199,6 @@ bar {
 exec i3-config-wizard
 exec xautolock -time 15 -locker '/home/coryleeio/bin/screen_lock' &
 exec --no-startup-id nm-applet &
-exec skypeforlinux &
+exec discord &
 
 
