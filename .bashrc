@@ -197,5 +197,9 @@ source /home/coryleeio/.local/bin/virtualenvwrapper.sh
 
 alias g="/usr/bin/git"
 
+source <(kubectl completion bash | sed s/kubectl/k/g)
+
+
+
 
 
