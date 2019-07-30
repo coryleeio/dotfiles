@@ -180,6 +180,12 @@ function screenshot()
 }
 
 
+function mks()
+{
+   minikube start --vm-driver=kvm2 --memory=9056 --cpus=6
+}
+
+
 export EDITOR=vim
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -196,8 +202,10 @@ source /home/coryleeio/.local/bin/virtualenvwrapper.sh
 
 
 alias g="/usr/bin/git"
-
+alias k="/usr/bin/kubectl"
+alias h="/usr/bin/helm"
 source <(kubectl completion bash | sed s/kubectl/k/g)
+source <(helm completion bash | sed s/helm/h/g)
 
 
 
