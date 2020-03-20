@@ -129,6 +129,12 @@ function work()
   cd ~/Workspace
 }
 
+function works()
+{
+	cd ~/Workspace
+	subl .
+}
+
 function cluster_list()
 {
   cat ~/.clusterssh/clusters
@@ -196,18 +202,20 @@ source $HOME/.secret
 
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/.virtualenvsprojects
-source /home/coryleeio/.local/bin/virtualenvwrapper.sh
-
-
 alias g="/usr/bin/git"
 alias k="/usr/bin/kubectl"
 alias h="/usr/bin/helm"
 source <(kubectl completion bash | sed s/kubectl/k/g)
+source <(kubectl completion bash)
+source <(helm completion bash)
 source <(helm completion bash | sed s/helm/h/g)
 
 
 
 
 
+
+complete -C /usr/local/bin/vault vault
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Workspace
+source /home/coryleeio/.local/bin/virtualenvwrapper.sh
