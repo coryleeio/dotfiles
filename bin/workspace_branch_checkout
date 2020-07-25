@@ -1,8 +1,8 @@
 #!/bin/bash
 RED='\033[0;31m'
 NC='\033[0m' # No Color
-mkdir -p $HOME/Workspace
-cd $HOME/Workspace
+mkdir -p $WORKSPACE
+cd $WORKSPACE
 if [ $# -eq 0 ]
   then
     echo "usage: workspace_branch_checkout <BRANCH>"

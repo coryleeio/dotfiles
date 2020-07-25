@@ -217,5 +217,5 @@ source <(helm completion bash | sed s/helm/h/g)
 
 complete -C /usr/local/bin/vault vault
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Workspace
+export PROJECT_HOME=$WORKSPACE
 source /home/coryleeio/.local/bin/virtualenvwrapper.sh

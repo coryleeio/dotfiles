@@ -5,8 +5,8 @@
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
-mkdir -p $HOME/Workspace
-cd $HOME/Workspace
+mkdir -p $WORKSPACE
+cd $WORKSPACE
 
 for D in *; do
     if [ -d "${D}" ]; then
