@@ -1,12 +1,16 @@
 #!/bin/bash
 mkdir -p $WORKSPACE
 cd $WORKSPACE
-for D in *; do
-    if [ -d "${D}" ]; then
- 	echo ""
-        echo "===== ${D} ====="   # your processing here
-        pushd ${D} > /dev/null
- 	git status
- 	popd > /dev/null
-    fi
+for O in *; do
+    pushd ${O} > /dev/null
+    for D in *; do
+        if [ -d "${D}" ]; then
+        echo ""
+            echo "===== ${D} ====="   # your processing here
+            pushd ${D} > /dev/null
+        git status
+        popd > /dev/null
+        fi
+    done
+    popd > /dev/null
 done

@@ -8,24 +8,28 @@ if [ $# -eq 0 ]
     echo "usage: workspace_branch_checkout <BRANCH>"
     exit 0
 fi
-for D in *; do
-    if [ -d "${D}" ]; then
-    printf ""
-        printf "${NC} ===== ${D} ====="   # your processing here
-        pushd ${D} > /dev/null
-    
-    git status | grep 'working tree clean'
-    if [ ! $? -eq 0 ]
-    then
-        printf "${RED}HAS CHANGES\n"
-        printf "run 'codebase_status' first\n"
-        printf "\n"
-        git status
-        exit 1
-    fi
-    git fetch
-    git checkout $1 || true
-    git rebase
-    popd > /dev/null
-    fi
+for O in *; do
+  	pushd ${O} > /dev/null
+    for D in *; do
+        if [ -d "${D}" ]; then
+        printf ""
+            printf "${NC} ===== ${D} ====="   # your processing here
+            pushd ${D} > /dev/null
+        
+        git status | grep 'working tree clean'
+        if [ ! $? -eq 0 ]
+        then
+            printf "${RED}HAS CHANGES\n"
+            printf "run 'codebase_status' first\n"
+            printf "\n"
+            git status
+            exit 1
+        fi
+        git fetch
+        git checkout $1 || true
+        git rebase
+        popd > /dev/null
+        fi
+    done
+popd > /dev/null
 done
