@@ -5,9 +5,9 @@ My dotfile repo
 To use:
 ###
 
-	git clone --bare git@github.com:coryleeio/dotfiles.git $HOME/Workspace/coryleeio/dotfiles
+	git clone --bare git@github.com:coryleeio/dotfiles.git $HOME/.cfg
 
-	alias config='/usr/bin/git --git-dir=$HOME/Workspace/coryleeio/dotfiles/ --work-tree=$HOME'
+	alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 	config checkout
 
