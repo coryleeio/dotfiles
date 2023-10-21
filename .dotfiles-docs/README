@@ -7,9 +7,10 @@ To setup:
 
 	git clone git@github.com:coryleeio/dotfiles.git $HOME/Workspace/coryleeio/dotfiles
 
-	git clone --bare git@github.com:coryleeio/dotfiles.git $HOME/dotfiles
+	git clone --bare git@github.com:coryleeio/dotfiles.git $HOME/.dotfiles
 
-	alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+	# add this to config
+	alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 	config checkout
 
