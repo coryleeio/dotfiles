@@ -119,6 +119,7 @@ alias kind='sudo kind'
 alias kubectl='sudo kubectl'
 alias linkerd='sudo linkerd'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias vim="nvim"
 
 export PATH=$PATH:/home/coryl/.linkerd2/bin
