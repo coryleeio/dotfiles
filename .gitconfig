@@ -1,25 +1,7 @@
 [user]
-	email = cory@edx.org
-	name = Cory Lee
-[push]
-	default = current
-
-[alias]
-s = status
-a = !git add . && git status
-au = !git add -u . && git status
-aa = !git add . && git add -u . && git status
-c = commit
-ca = commit --amend
-cane = commit --amend --no-edit
-yolo = !git commit --amend --no-edit && git push --force
-l = log --graph --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(white)- %an, %ar%Creset'
-lg = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%an%d%Creset %s %Cgreen(%cr)%Creset' --date=relative
-d = diff --color-words
-co = checkout
-pro = pull --rebase origin
-po = push origin
-cp = cherry-pick
-ri = !sh -c 'git rebase -i HEAD~$1' -
-untrack = update-index --assume-unchanged
-track = update-index --no-assume-unchanged
+        email = cl10001123@gmail.com
+        name = Cory Lee
+[init]
+        defaultBranch = main
+[http]
+        postBuffer = 157286400

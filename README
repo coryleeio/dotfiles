@@ -5,9 +5,9 @@ My dotfile repo
 To use:
 ###
 
-	git clone --bare <git-repo-url> $HOME/.cfg
+	git clone --bare <git-repo-url> $HOME/Workspace/coryleeio/dotfiles
 
-	alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+	alias config='/usr/bin/git --git-dir=$HOME/Workspace/coryleeio/dotfiles/ --work-tree=$HOME'
 
 	config checkout
 
@@ -24,4 +24,4 @@ Move offending files to .config-backup
 Original setup guide
 ###
 
-	https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+	https://www.atlassian.com/git/tutorials/dotfiles
