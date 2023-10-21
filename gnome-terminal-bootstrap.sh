@@ -1,4 +1,9 @@
-# https://draculatheme.com/gnome-terminal
+
+repo:
+https://github.com/Gogh-Co/Gogh
+
+demo:
+https://gogh-co.github.io/Gogh/
 
 pacman -Syu dconf
 export TERMINAL=gnome-terminal
@@ -6,6 +11,8 @@ export TERMINAL=gnome-terminal
 
 git clone https://github.com/Gogh-Co/Gogh.git
 cd Gogh/installs
+
+# aci is what i'm using atm
 
 ./3024-day.sh
 ./dehydration.sh
