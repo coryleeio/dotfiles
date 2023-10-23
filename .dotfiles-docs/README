@@ -5,7 +5,9 @@ My dotfile repo
 To setup:
 ###
 
-	git clone git@github.com:coryleeio/dotfiles.git $HOME/Workspace/coryleeio/dotfiles
+  pacman -Syu fzf ripgrep
+
+  git clone git@github.com:coryleeio/dotfiles.git $HOME/Workspace/coryleeio/dotfiles
 
 	git clone --bare git@github.com:coryleeio/dotfiles.git $HOME/.dotfiles
 
