@@ -125,7 +125,7 @@ alias vim="nvim"
 export PATH=$PATH:/home/coryl/.linkerd2/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/.bin
 source "$HOME/.cargo/env"
 source "$HOME/.asdf/asdf.sh"
 
