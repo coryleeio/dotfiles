@@ -19,6 +19,7 @@ PS1='[\u@\h \W]\$ '
 export PATH=$PATH:/home/coryl/.linkerd2/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:$HOME/.bin
 . "$HOME/.cargo/env"
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
