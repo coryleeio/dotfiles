@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+tmux new-session \; \
+  split-window -v -p 20 \; \
+  select-pane -t 1 \;
+
+
+
+
