@@ -111,24 +111,6 @@ export EDITOR=nvim
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias work='cd ~/Workspace/coryleeio/Scratch'
-alias docker='sudo docker'
-alias kind='sudo kind'
-alias kubectl='sudo kubectl'
-alias linkerd='sudo linkerd'
-alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias vim="nvim"
-
-export PATH=$PATH:/home/coryl/.linkerd2/bin
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
-export PATH=$PATH:$HOME/.bin
-source "$HOME/.cargo/env"
-source "$HOME/.asdf/asdf.sh"
-
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/.zshmacros
