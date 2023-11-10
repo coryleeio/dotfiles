@@ -20,5 +20,11 @@ return {
       "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
       { desc = "Go to previous harpoon mark" }
     )
+    keymap.set(
+      "n",
+      "<leader>he",
+      "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
+      { desc = "Open harpoon quick menu" }
+    )
   end,
 }
