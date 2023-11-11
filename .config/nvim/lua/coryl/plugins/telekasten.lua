@@ -6,8 +6,8 @@ return {
 
     telekasten.setup({
       home = vim.fn.expand("$HOME/Workspace/coryleeio/Scratch/"),
-      dailies = vim.fn.expand("$HOME/Workspace/coryleeio/Scratch/Updates/Dailies/"),
-      weeklies = vim.fn.expand("$HOME/Workspace/coryleeio/Scratch/Updates/Weeklies/"),
+      dailies = vim.fn.expand("$HOME/Workspace/coryleeio/Scratch/Updates/Standup/"),
+      weeklies = vim.fn.expand("$HOME/Workspace/coryleeio/Scratch/Updates/Weekly/"),
     })
 
     local keymap = vim.keymap -- for conciseness
