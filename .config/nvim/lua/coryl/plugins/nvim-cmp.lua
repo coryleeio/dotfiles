@@ -43,6 +43,7 @@ return {
         { name = "copilot" }, -- copilot
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
+        { name = "orgmode" }, -- nvim-orgmode
         { name = "path" }, -- file system paths
       }),
       -- configure lspkind for vs-code like pictograms in completion menu
