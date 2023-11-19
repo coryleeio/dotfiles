@@ -9,7 +9,6 @@ alias linkerd='sudo linkerd'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias vim="nvim"
-alias emacs="emacsclient -c -a 'emacs'"
 
 export PATH=$PATH:/home/coryl/.linkerd2/bin
 export PATH=$PATH:/usr/local/go/bin
