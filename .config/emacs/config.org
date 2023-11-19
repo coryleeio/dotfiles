@@ -1,6 +1,6 @@
-#+TITLE: DT's GNU Emacs Config
-#+AUTHOR: Derek Taylor (DT)
-#+DESCRIPTION: DT's personal Emacs config.
+#+TITLE: Cory's Emacs Config
+#+AUTHOR: Cory Lee
+#+DESCRIPTION: Cory's personal Emacs config.
 #+STARTUP: showeverything
 #+OPTIONS: toc:2
 
@@ -16,7 +16,6 @@
 - [[#dired][DIRED]]
 - [[#elfeed][ELFEED]]
 - [[#evil][EVIL]]
-- [[#flycheck][FLYCHECK]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
@@ -27,6 +26,8 @@
 - [[#highlight-todo][HIGHLIGHT TODO]]
 - [[#ivy-counsel][IVY (COUNSEL)]]
 - [[#language-support][LANGUAGE SUPPORT]]
+  - [[#lsp-and-syntax-highlighting][LSP and Syntax highlighting]]
+  - [[#linting][LINTING]]
 - [[#minibuffer-escape][MINIBUFFER ESCAPE]]
 - [[#modeline][MODELINE]]
 - [[#neotree][NEOTREE]]
@@ -239,17 +240,6 @@ An RSS newsfeed reader for Emacs.  Move through the articles with 'j/k'.  Move t
 
 #+end_src
 
-* FLYCHECK
-Install =luacheck= from your Linux distro's repositories for flycheck to work correctly with lua files.  Install =python-pylint= for flycheck to work with python files.  Haskell works with flycheck as long as =haskell-ghc= or =haskell-stack-ghc= is installed.  For more information on language support for flycheck, [[https://www.flycheck.org/en/latest/languages.html][read this]].
-
-#+begin_src emacs-lisp
-(use-package flycheck
-  :ensure t
-  :defer t
-  :diminish
-  :init (global-flycheck-mode))
-
-#+end_src
 
 * FONTS
 Defining the various fonts that Emacs will use.
@@ -589,12 +579,36 @@ Adding highlights to TODO and related words.
 #+end_src
 
 * LANGUAGE SUPPORT
-Emacs has built-in programming language modes for Lisp, Scheme, DSSSL, Ada, ASM, AWK, C, C++, Fortran, Icon, IDL (CORBA), IDLWAVE, Java, Javascript, M4, Makefiles, Metafont, Modula2, Object Pascal, Objective-C, Octave, Pascal, Perl, Pike, PostScript, Prolog, Python, Ruby, Simula, SQL, Tcl, Verilog, and VHDL.  Other languages will require you to install additional modes.
+These modes configure syntax highlighting and lsp integration, you still need to have the language server installed for it to work.
 
+** LSP and Syntax highlighting 
+
+*** Haskell 
 #+begin_src emacs-lisp
 (use-package haskell-mode)
+#+end_src
+
+*** Lua
+#+begin_src emacs-lisp
 (use-package lua-mode)
+#+end_src
+
+*** PHP
+#+begin_src emacs-lisp
 (use-package php-mode)
+#+end_src
+ 
+
+** LINTING
+*** flycheck
+ Install =luacheck= from your Linux distro's repositories for flycheck to work correctly with lua files.  Install =python-pylint= for flycheck to work with python files.  Haskell works with flycheck as long as =haskell-ghc= or =haskell-stack-ghc= is installed.  For more information on language support for flycheck, [[https://www.flycheck.org/en/latest/languages.html][read this]].
+
+#+begin_src emacs-lisp
+(use-package flycheck
+  :ensure t
+  :defer t
+  :diminish
+  :init (global-flycheck-mode))
 
 #+end_src
 
@@ -656,9 +670,14 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
     :init (add-hook 'org-mode-hook 'toc-org-enable))
     :config
     (setq org-agenda-files (list 
-        "/home/coryl/Workspace/coryleeio/Scratch/orgfiles/refile.org"
-        "/home/coryl/Workspace/coryleeio/Scratch/orgfiles/org/"
-    ))
+        "~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
+        "~/Workspace/coryleeio/Scratch/orgfiles/org/"
+    )
+	;; you need aplay installed and on your path for this to work
+    ;; test by running that binary with your clock sound passed in.
+	;; only works with a wav
+    org-clock-sound "~/.config/emacs/alarm.wav"
+    )
 #+end_src
 
 ** Enabling Org Bullets
@@ -916,7 +935,7 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 	  which-key-min-display-lines 6
 	  which-key-side-window-slot -10
 	  which-key-side-window-max-height 0.25
-	  which-key-idle-delay 0.8
+	  which-key-idle-delay 0.2
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
