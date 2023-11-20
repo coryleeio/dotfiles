@@ -361,8 +361,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "o t" '(org-todo :wk "Org todo")
     "o B" '(org-babel-tangle :wk "Org babel tangle")
     "o T" '(org-todo-list :wk "Org todo list")
-    "o T" '(org-refile :wk "Org refile")
-    "o T" '(org schedule :wk "Org schedule"))
+    "o r" '(org-refile :wk "Org refile")
+    "o s" '(org schedule :wk "Org schedule"))
 
   (dt/leader-keys
     "o b" '(:ignore t :wk "Tables")
