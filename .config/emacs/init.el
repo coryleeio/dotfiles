@@ -1,3 +1,6 @@
+(when (< emacs-major-version 29)
+  (error (format "This config only works with Emacs 29 and newer; you have version ~a" emacs-major-version)))
+
 (org-babel-load-file
  (expand-file-name
   "config.org"
