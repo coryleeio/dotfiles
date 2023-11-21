@@ -49,11 +49,11 @@
 - [[#which-key][WHICH-KEY]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
-To keep this =config.org= a reasonable length, I have moved a lot of code to individual scripts that will be sourced by this config.  These scripts are found in "~/.config/emacs/scripts" and do not contain any code that most people are likely to need to edit.
+To keep this =config.org= a reasonable length, I have moved a lot of code to individual scripts that will be sourced by this config.  These scripts are found in (concat user-emacs-directory "scripts") and do not contain any code that most people are likely to need to edit.
 
 ** Adding the scripts directory to path
 #+begin_src emacs-lisp
-(add-to-list 'load-path "~/.config/emacs/scripts/")
+(add-to-list 'load-path (concat user-emacs-directory "scripts/"))
 #+end_src
 
 ** Sourcing the scripts
@@ -83,7 +83,7 @@ By default, Emacs creates automatic backups of files in their original directori
 (defun bedrock--backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
-  (let* ((backupRootDir "~/.config/emacs/emacs-backup/")
+  (let* ((backupRootDir (concat user-emacs-directory "emacs-backup/"))
          (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
     (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
@@ -105,7 +105,7 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "These are your fathers parenthesis. Elegant weapons for a more... civilized age")
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "~/.config/emacs/images/pylon.png")  ;; use custom image as banner
+  (setq dashboard-startup-banner (concat user-emacs-directory "images/pylon.png"))  ;; use custom image as banneru
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
@@ -294,14 +294,17 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "f" '(:ignore t :wk "Files")    
     "f c" '((lambda () (interactive)
-              (find-file "~/.config/emacs/config.org")) 
+              (find-file (concat user-emacs-directory "config.org")))
+
             :wk "Open emacs config.org")
     "f e" '((lambda () (interactive)
-              (dired "~/.config/emacs/")) 
+
+              (dired user-emacs-directory)) 
             :wk "Open user-emacs-directory in dired")
     "f d" '(find-grep-dired :wk "Search for string in files in DIR")
     "f i" '((lambda () (interactive)
-              (find-file "~/.config/emacs/init.el")) 
+
+              (find-file (concat user-emacs-directory "init.el")))
             :wk "Open emacs init.el")
     "f u" '(sudo-edit-find-file :wk "Sudo find file")
     "f U" '(sudo-edit :wk "Sudo edit file"))
@@ -356,7 +359,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "h m" '(describe-mode :wk "Describe mode")
     "h r" '(:ignore t :wk "Reload")
     "h r r" '((lambda () (interactive)
-                (load-file "~/.config/emacs/init.el")
+                (load-file (concat user-emacs-directory "init.el"))
                 (ignore (elpaca-process-queues)))
               :wk "Reload emacs config")
     "h t" '(load-theme :wk "Load theme")
@@ -561,7 +564,8 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
 	;; only works with a wav
-    (setq org-clock-sound "~/.config/emacs/alarm.wav")
+
+    (setq org-clock-sound (concat user-emacs-directory "alarm.wav"))
 #+end_src
 
 ** Enabling Org Bullets
@@ -628,7 +632,8 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   :config
   
   ;; Sets a file to write to when we save states
-  (setq persp-state-default-file "~/.config/emacs/sessions"))
+
+(setq persp-state-default-file (concat user-emacs-directory "sessions")))
 
 
 ;; This will group buffers by persp-name in ibuffer.
@@ -912,7 +917,7 @@ Vterm is a terminal emulator within Emacs.
 The first line below designates the directory where will place all of our custom-made themes, which I have created only one (dtmacs).  You can create your own Emacs themes with the help of the [[https://emacsfodder.github.io/emacs-theme-editor/][Emacs Theme Editor]].  I am also installing =doom-themes= because it contains a huge collection of themes.  M-x load-theme will list all of the themes available.
 
 #+begin_src emacs-lisp
-(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
 
 (use-package doom-themes
   :config
