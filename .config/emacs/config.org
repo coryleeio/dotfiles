@@ -537,15 +537,20 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
     :config
-    (setq org-agenda-files (list 
-        "~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
-        "~/Workspace/coryleeio/Scratch/orgfiles/org/"
-    )
+    (setq org-agenda-files '( 
+	"~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
+	"~/Workspace/coryleeio/Scratch/orgfiles/org/"
+    ))
+
+    (setq org-refile-targets
+      '((nil :maxlevel . 1)
+	(org-agenda-files :maxlevel . 1)))
+    (setq org-refile-use-outline-path t)
+    (setq org-refile-use-outline-path 'file)
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
 	;; only works with a wav
-    org-clock-sound "~/.config/emacs/alarm.wav"
-    )
+    (setq org-clock-sound "~/.config/emacs/alarm.wav")
 #+end_src
 
 ** Enabling Org Bullets
