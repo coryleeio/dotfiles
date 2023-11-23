@@ -54,6 +54,10 @@
 - [[#theme][THEME]]
 - [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
+- [[#language-support][LANGUAGE SUPPORT]]
+  - [[#elgot][ELGOT]]
+  - [[#treesitter][TREESITTER]]
+  - [[#file-types][FILE TYPES]]
 - [[#vertico][VERTICO]]
 - [[#wgrep][WGREP]]
 - [[#which-key][WHICH-KEY]]
@@ -722,7 +726,6 @@ Orderless: powerful completion style
     (setq org-refile-targets
       '((nil :maxlevel . 1)
 	(org-agenda-files :maxlevel . 1)))
-    (setq org-refile-use-outline-path t)
     (setq org-refile-use-outline-path 'file)
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
@@ -1110,6 +1113,61 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 
 #+end_src
 
+* LANGUAGE SUPPORT 
+
+
+** ELGOT 
+LSP Client
+
+Helpful resources:
+- https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
+
+#+begin_src emacs-lisp
+(use-package eglot
+  ;; no :ensure t here because it's built-in
+
+  ;; Configure hooks to automatically turn-on eglot for selected modes
+  ; :hook
+  ; (((python-mode ruby-mode elixir-mode) . eglot))
+
+  
+  :custom
+  (eglot-send-changes-idle-time 0.1)
+  (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
+
+  :config
+  (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
+  ;; Sometimes you need to tell Eglot where to find the language server
+  ; (add-to-list 'eglot-server-programs
+  ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  )
+#+end_src
+** TREESITTER
+
+#+begin_src emacs-lisp
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+#+end_src
+
+** FILE TYPES
+Syntax highlighting spacing awareness etc for various common file types
+
+#+begin_src emacs-lisp
+
+(use-package markdown-mode
+  :hook ((markdown-mode . visual-line-mode)))
+
+(use-package yaml-mode
+  :ensure t)
+
+(use-package json-mode
+  :ensure t)
+
+#+end_src
 * VERTICO
 Modern vertical selector with autocomplete filtering an  intuitive hotkeys
 
