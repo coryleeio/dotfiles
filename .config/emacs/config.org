@@ -61,6 +61,7 @@
 - [[#vertico][VERTICO]]
 - [[#wgrep][WGREP]]
 - [[#which-key][WHICH-KEY]]
+- [[#yasnippet][YASNIPPET]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 To keep this =config.org= a reasonable length, I have moved a lot of code to individual scripts that will be sourced by this config.  These scripts are found in (concat user-emacs-directory "scripts") and do not contain any code that most people are likely to need to edit.
@@ -161,7 +162,7 @@ Search for stuff, store and load multiple things in registers
 
 * CORFU
 
-Popup completion-at-point
+Popup completion-at-point, does the same thing as company, but uses the native emacs apis.  It is not the completion in the minibuffer, that is vertico
 
 #+begin_src emacs-lisp
 
@@ -169,11 +170,25 @@ Popup completion-at-point
   :ensure t
   :init
   (global-corfu-mode)
-  :bind
-  (:map corfu-map
-        ("SPC" . corfu-insert-separator)
-        ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)))
+  :custom
+  (corfu-cycle t)                 ; Allows cycling through candidates
+  (corfu-auto t)                  ; Enable auto completion
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.3)
+  (corfu-popupinfo-delay '(0.5 . 0.2))
+  (corfu-preview-current 'insert) ; insert previewed candidate
+  (corfu-preselect 'prompt)
+  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
+  :bind (:map corfu-map
+              ("S-SPC"      . corfu-insert-separator)
+              ("TAB"        . corfu-next)
+              ([tab]        . corfu-next)
+              ("S-TAB"      . corfu-previous)
+              ([backtab]    . corfu-previous)
+              ("S-<return>" . corfu-insert)
+              ("RET"        . corfu-complete)
+              ("ESC"        . corfu-reset))
+  )
 
 ;; Part of corfu
 (use-package corfu-popupinfo
@@ -377,7 +392,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     :states '(normal insert visual emacs)
     :keymaps 'override
     :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC") ;; access leader in insert mode
+    :global-prefix "S-SPC") ;; access leader in insert mode
 
   (dt/leader-keys
     "SPC" '(execute-extended-command :wk "M-x")
@@ -1099,6 +1114,7 @@ The first line below designates the directory where will place all of our custom
 #+end_src
 
 * TLDR
+Lets you view cheatsheets for various tools
 
 #+begin_src emacs-lisp
 (use-package tldr)
@@ -1167,7 +1183,7 @@ Syntax highlighting spacing awareness etc for various common file types
 
 #+end_src
 * VERTICO
-Modern vertical selector with autocomplete filtering an  intuitive hotkeys
+Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR THE MINIBUFFER.  Corfu for the minibuffer.
 
 #+begin_src emacs-lisp
 (use-package vertico
@@ -1187,7 +1203,7 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys
 
 * WGREP 
 
-Write + grep
+Lets you apply sed like transformations to groups of open buffers and save them.  Useful for really wide editing of files. Write + grep
 
 #+begin_src emacs-lisp
 (use-package wgrep
@@ -1218,4 +1234,13 @@ Write + grep
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
 #+end_src
+
+* YASNIPPET
+Templates
+
+#+begin_src emacs-lisp
+(use-package yasnippet :config (yas-global-mode))
+(use-package yasnippet-snippets :ensure t)
+#+end_src
+
 
