@@ -55,7 +55,7 @@
 - [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
 - [[#language-support][LANGUAGE SUPPORT]]
-  - [[#elgot][ELGOT]]
+  - [[#eglot][EGLOT]]
   - [[#treesitter][TREESITTER]]
   - [[#file-types][FILE TYPES]]
 - [[#vertico][VERTICO]]
@@ -1116,7 +1116,7 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 * LANGUAGE SUPPORT 
 
 
-** ELGOT 
+** EGLOT 
 LSP Client
 
 Helpful resources:
@@ -1126,11 +1126,6 @@ Helpful resources:
 (use-package eglot
   ;; no :ensure t here because it's built-in
 
-  ;; Configure hooks to automatically turn-on eglot for selected modes
-  ; :hook
-  ; (((python-mode ruby-mode elixir-mode) . eglot))
-
-  
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
