@@ -1167,6 +1167,9 @@ Syntax highlighting spacing awareness etc for various common file types
 (use-package json-mode
   :ensure t)
 
+(use-package lua-mode
+  :ensure t)
+
 #+end_src
 * VERTICO
 Modern vertical selector with autocomplete filtering an  intuitive hotkeys
