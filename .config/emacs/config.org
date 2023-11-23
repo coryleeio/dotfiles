@@ -9,10 +9,15 @@
   - [[#adding-the-scripts-directory-to-path][Adding the scripts directory to path]]
   - [[#sourcing-the-scripts][Sourcing the scripts]]
 - [[#all-the-icons][ALL THE ICONS]]
+- [[#avy][AVY]]
 - [[#backup][BACKUP]]
+- [[#cape][Cape]]
+- [[#consult][CONSULT]]
+- [[#corfu][CORFU]]
 - [[#dashboard][DASHBOARD]]
 - [[#diminish][DIMINISH]]
 - [[#dired][DIRED]]
+- [[#embark][EMBARK]]
 - [[#evil][EVIL]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
@@ -23,9 +28,12 @@
   - [[#magit][Magit]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
+- [[#kind-icons][Kind Icons]]
+- [[#marginalia][Marginalia]]
 - [[#minibuffer-escape][MINIBUFFER ESCAPE]]
 - [[#modeline][MODELINE]]
 - [[#neotree][NEOTREE]]
+- [[#orderless][Orderless]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -46,6 +54,8 @@
 - [[#theme][THEME]]
 - [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
+- [[#vertico][VERTICO]]
+- [[#wgrep][WGREP]]
 - [[#which-key][WHICH-KEY]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
@@ -74,6 +84,16 @@ To keep this =config.org= a reasonable length, I have moved a lot of code to ind
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 #+end_src
 
+* AVY
+Like vim motions - Lets you type something you want to do a motion to and it will show you hotkeys for jumping to any of those above and below your cursor on the buffer.  
+This is a motion so it can be used with other commands.
+
+#+begin_src emacs-lisp
+(use-package avy
+  :ensure t
+  :demand t)
+#+end_src
+
 * BACKUP 
 By default, Emacs creates automatic backups of files in their original directories, such "file.el" and the backup "file.el~".  This leads to a lot of clutter, so let's tell Emacs to put all backups that it creates in the =TRASH= directory.
 
@@ -93,6 +113,85 @@ If the new path's directories does not exist, create them."
 #+end_src
 
 
+* Cape
+
+Fancy completion-at-point functions
+
+#+begin_src emacs-lisp
+(use-package cape
+  :ensure t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
+
+#+end_src
+* CONSULT
+
+Search for stuff, store and load multiple things in registers
+
+#+begin_src emacs-lisp
+(use-package consult
+ :bind (
+         ;; Drop-in replacements
+         ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
+         ("M-y"   . consult-yank-pop)   ; orig. yank-pop
+         ;; Searching
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)       ; Alternative: rebind C-s to use
+         ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
+         ("M-s L" . consult-line-multi) ; isearch to M-s s
+         ("M-s o" . consult-outline)
+         ;; Isearch integration
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history) ; orig. isearch-edit-string
+         ("M-s l" . consult-line)            ; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)      ; needed by consult-line to detect isearch
+ )
+:config
+;; Narrowing lets you restrict results to certain groups of candidates
+(setq consult-narrow-key "<"))
+#+end_src
+
+
+
+* CORFU
+
+Popup completion-at-point
+
+#+begin_src emacs-lisp
+
+(use-package corfu
+  :ensure t
+  :init
+  (global-corfu-mode)
+  :bind
+  (:map corfu-map
+        ("SPC" . corfu-insert-separator)
+        ("C-n" . corfu-next)
+        ("C-p" . corfu-previous)))
+
+;; Part of corfu
+(use-package corfu-popupinfo
+  :elpaca nil
+  :after corfu
+  :hook (corfu-mode . corfu-popupinfo-mode)
+  :custom
+  (corfu-popupinfo-delay '(0.25 . 0.1))
+  (corfu-popupinfo-hide nil)
+  :config
+  (corfu-popupinfo-mode))
+
+;; Make corfu popup come up in terminal overlay
+(use-package corfu-terminal
+  :if (not (display-graphic-p))
+  :elpaca nil
+  :config
+  (corfu-terminal-mode))
+
+;; Fancy completion-at-point functions; there's too much in the cape package to
+;; configure here; dive in when you're comfortable!
+#+end_src
 * DASHBOARD
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
 
@@ -150,6 +249,35 @@ This package implements hiding or abbreviation of the modeline displays (lighter
 )
 
 #+end_src
+
+* EMBARK
+Take contextual actions on things in the minibuffer (jump to files, stuff like that)
+
+#+begin_src emacs-lisp
+
+(use-package embark
+  :ensure t
+  :demand t
+  :after avy
+  :init
+  ;; Add the option to run embark when using avy
+  (defun bedrock/avy-action-embark (pt)
+    (unwind-protect
+        (save-excursion
+          (goto-char pt)
+          (embark-act))
+      (select-window
+       (cdr (ring-ref avy-ring 0))))
+    t)
+
+  ;; After invoking avy-goto-char-timer, hit "." to run embark at the next
+  ;; candidate you select
+  (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
+
+(use-package embark-consult
+  :ensure t)
+#+end_src
+
 
 * EVIL
 [[https://github.com/emacs-evil/evil][Evil]] is an extensible vi/vim layer for Emacs.  Because...let's face it.  The Vim keybindings are just plain better.
@@ -494,6 +622,30 @@ Adding highlights to TODO and related words.
 
 #+end_src
 
+* Kind Icons
+
+Pretty icons for corfu
+
+#+begin_src emacs-lisp
+(use-package kind-icon
+  :if (display-graphic-p)
+  :ensure t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+#+end_src
+
+
+* Marginalia
+
+#+begin_src emacs-lisp
+(use-package marginalia
+:ensure t
+:config
+:diminish
+(marginalia-mode))
+#+end_src
+
 * MINIBUFFER ESCAPE
 By default, Emacs requires you to hit ESC three times to escape quit the minibuffer.  
 
@@ -542,6 +694,17 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
                  (make-local-variable 'auto-hscroll-mode)
                  (setq auto-hscroll-mode nil)))))
 
+#+end_src
+
+* Orderless 
+
+Orderless: powerful completion style
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :ensure t
+  :config
+  (setq completion-styles '(orderless)))
 #+end_src
 
 * ORG MODE
@@ -947,7 +1110,38 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 
 #+end_src
 
+* VERTICO
+Modern vertical selector with autocomplete filtering an  intuitive hotkeys
+
+#+begin_src emacs-lisp
+(use-package vertico
+  :ensure t
+  :init
+  ;; You'll want to make sure that e.g. fido-mode isn't enabled
+  (vertico-mode))
+
+(use-package vertico-directory
+  :after vertico
+  :elpaca nil
+  :bind (:map vertico-map
+              ("M-DEL" . vertico-directory-delete-word)))
+
+;; Marginalia: annotations for minibuffer
+#+end_src
+
+* WGREP 
+
+Write + grep
+
+#+begin_src emacs-lisp
+(use-package wgrep
+  :ensure t
+  :config
+  (setq wgrep-auto-save-buffer t))
+#+end_src
+
 * WHICH-KEY
+
 #+begin_src emacs-lisp
 (use-package which-key
   :init
