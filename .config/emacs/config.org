@@ -226,9 +226,9 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   (setq dashboard-startup-banner (concat user-emacs-directory "images/pylon.png"))  ;; use custom image as banneru
   (setq dashboard-center-content nil) ;; set to 't' for centered content
   (setq dashboard-items '((recents . 5)
-                          (agenda . 5 )
+                         ;; (agenda . 0 )
                           (bookmarks . 3)
-                          (projects . 3)
+                          (projects . 10)
                           (registers . 3)))
   (setq dashboard-projects-switch-function 'projectile-persp-switch-project)
   :custom 
