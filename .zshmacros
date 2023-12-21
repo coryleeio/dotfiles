@@ -2,7 +2,7 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias work='cd ~/Workspace/coryleeio/Scratch'
+alias work='cd ~/Workspace/coryleeio/Scratch && git status'
 alias docker='sudo docker'
 alias kind='sudo kind'
 alias kubectl='sudo kubectl'
