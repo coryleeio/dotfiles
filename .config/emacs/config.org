@@ -727,6 +727,13 @@ Orderless: powerful completion style
       '((nil :maxlevel . 1)
 	(org-agenda-files :maxlevel . 1)))
     (setq org-refile-use-outline-path 'file)
+
+    (setq org-default-notes-file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
+
+    (setq org-capture-templates
+     '(("t" "Todo" entry (file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org") 
+            "* TODO  %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\")>")))
+    
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
 	;; only works with a wav
