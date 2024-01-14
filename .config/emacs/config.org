@@ -509,6 +509,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "o c" '(org-toggle-checkbox :wk "Org toggle checkbox")
     "o C" '(org-reset-checkbox-state-subtree :wk "Org reset checkbox state subtree")
     "o t" '(org-todo :wk "Org todo")
+    "o k" '(org-capture :wk "Org capture")
     "o B" '(org-babel-tangle :wk "Org babel tangle")
     "o T" '(org-todo-list :wk "Org todo list")
     "o r" '(org-refile :wk "Org refile")
@@ -548,10 +549,14 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r f" '(org-roam-node-find :wk "Roam node find")
     "r i" '(org-roam-node-insert :wk "Roam node insert")
     "r t" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
-    "r j" '(:ignore t :wk "Roam Daily Journal Prefix")
-    "r j d" '(org-roam-dailies-goto-date :wk "Roam Dailies by Date")
-    "r j t" '(org-roam-dailies-goto-today :wk "Roam Dailies Today")
-    "r j y" '(org-roam-dailies-goto-yesterday :wk "Roam Dailies Yesterday")
+    "r j" '(:ignore t :wk "Journal")
+    "r j d" '(org-roam-dailies-goto-date :wk "Roam Journal Goto Date")
+    "r j t" '(org-roam-dailies-goto-today :wk "Roam Journal Goto Today")
+    "r j y" '(org-roam-dailies-goto-yesterday :wk "Roam Journal Goto Yesterday")
+    "r j c" '(:ignore t :wk "Capture")
+    "r j c d" '(org-roam-dailies-capture-date :wk "Roam Journal Capture Date")
+    "r j c t" '(org-roam-dailies-capture-today :wk "Roam Journal Capture Today")
+    "r j c y" '(org-roam-dailies-capture-yesterday :wk "Roam Journal Capture Yesterday")
  ) 
   ;; projectile-command-map already has a ton of bindings 
   ;; set for us, so no need to specify each individually.
@@ -731,8 +736,23 @@ Orderless: powerful completion style
     (setq org-default-notes-file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
 
     (setq org-capture-templates
-     '(("t" "Todo" entry (file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org") 
-            "* TODO  %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\")>")))
+     '(
+         ("t" "Task" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Tasks") 
+            "* TODO %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\")>")
+         ("d" "Daily Task" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Tasks") 
+            "* TODO %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\") +1d>")
+         ("i" "Idea" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Ideas") 
+            "* %?")
+         ("b" "Book" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Book") 
+            "* %?")
+         ("a" "Article" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Articles") 
+            "* %?")
+         ("v" "Video" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Videos") 
+            "* %?")
+         ("g" "Game" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Games") 
+            "* %?")
+      )
+     )
     
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
@@ -801,27 +821,45 @@ Zettlekasten in emacs
   :custom
   (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
   (org-roam-capture-templates
-   '(("d" "default" plain
-      "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+   '(
+     ("z" "zettel" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Permanent")
       :unnarrowed t)
-     ("v" "video reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/video.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
+     ("v" "video reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
       :unnarrowed t)
-     ("b" "book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/book.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
+     ("b" "book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
+      :unnarrowed t)
+     ("a" "article reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
+      :unnarrowed t)
+     ("a" "game reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
       :unnarrowed t)
      ("p" "project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
-      :unnarrowed t)))
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Permanent")
+      :unnarrowed t)
+    )
+  )
   (org-roam-completion-everywhere t)
   (org-roam-dailies-directory "journal/")
   (org-roam-dailies-capture-templates
-    '(("d" "default" entry "* %<%I:%M %p>: %?"
-       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+   '(
+     ("d" "default(daily)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/daily.org")
+       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: :Daily:Fleeting")
+       :unnarrowed t)
+
+     ("w" "weekly" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/weekly.org")
+       :if-new (file+head "%<%Y>-Week-%(my/get-week-number).org" "#+title: ${title}\n#+filetags: :Weekly:Fleeting")
+       :unnarrowed t)
+    )
+  )
   :config
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (defun my/get-week-number ()
+    (format-time-string "%V" (org-current-time)))
   (org-roam-setup)
   (org-roam-db-autosync-mode))
 #+end_src
