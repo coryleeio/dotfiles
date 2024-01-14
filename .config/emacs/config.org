@@ -23,9 +23,6 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
-- [[#git-programs][GIT PROGRAMS]]
-  - [[#git-time-machine][Git Time Machine]]
-  - [[#magit][Magit]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
 - [[#kind-icons][Kind Icons]]
@@ -41,6 +38,7 @@
   - [[#org-level-headers][Org Level Headers]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 - [[#org-roam][ORG ROAM]]
+  - [[#load-todo-from-roam-files-tagged-as-project-files][Load TODO from roam files tagged as project files]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
 - [[#persp-projectile][PERSP-PROJECTILE]]
@@ -62,7 +60,6 @@
 - [[#vertico][VERTICO]]
 - [[#wgrep][WGREP]]
 - [[#which-key][WHICH-KEY]]
-- [[#yasnippet][YASNIPPET]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 To keep this =config.org= a reasonable length, I have moved a lot of code to individual scripts that will be sourced by this config.  These scripts are found in (concat user-emacs-directory "scripts") and do not contain any code that most people are likely to need to edit.
@@ -591,29 +588,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
 #+end_src
 
-* GIT PROGRAMS
-** Git Time Machine
-[[https://github.com/emacsmirror/git-timemachine][git-timemachine]] is a program that allows you to move backwards and forwards through a file's commits.  'SPC g t' will open the time machine on a file if it is in a git repo.  Then, while in normal mode, you can use 'CTRL-j' and 'CTRL-k' to move backwards and forwards through the commits.
-
-
-#+begin_src emacs-lisp
-(use-package git-timemachine
-  :after git-timemachine
-  :hook (evil-normalize-keymaps . git-timemachine-hook)
-  :config
-    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
-    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision)
-)
-#+end_src
-
-** Magit
-[[https://magit.vc/manual/][Magit]] is a full-featured git client for Emacs.
-
-#+begin_src emacs-lisp
-(use-package magit)
-
-#+end_src
-
 * HIGHLIGHT TODO
 Adding highlights to TODO and related words.
 
@@ -739,11 +713,6 @@ Orderless: powerful completion style
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
     :config
-    (setq org-agenda-files '( 
-	"~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
-	"~/Workspace/coryleeio/Scratch/orgfiles/org/"
-    ))
-
     (setq org-refile-targets
       '((nil :maxlevel . 1)
 	(org-agenda-files :maxlevel . 1)))
@@ -807,11 +776,13 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 * ORG ROAM
 Zettlekasten in emacs
 
+
 #+begin_src emacs-lisp
 (use-package org-roam
   :ensure t
   :init
-  (setq org-roam-v2-ack t)
+
+  ;; Build the agenda list the first time for the session
   :custom
   (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
   (org-roam-capture-templates
@@ -840,6 +811,32 @@ Zettlekasten in emacs
   (org-roam-db-autosync-mode))
 #+end_src
 
+** Load TODO from roam files tagged as project files
+
+#+begin_src emacs-lisp
+(defun my/org-roam-filter-by-tag (tag-name)
+  (lambda (node)
+    (member tag-name (org-roam-node-tags node))))
+
+(defun my/org-roam-list-notes-by-tag (tag-name)
+  (mapcar #'org-roam-node-file
+          (seq-filter
+           (my/org-roam-filter-by-tag tag-name)
+           (org-roam-node-list))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+
+  (setq org-agenda-files (append'( 
+	"~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
+	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
+	(my/org-roam-list-notes-by-tag "Project"))
+    ))
+
+(advice-add 'org-agenda :before #'my/org-roam-refresh-agenda-list)
+(advice-add 'org-todo-list :before #'my/org-roam-refresh-agenda-list)
+(advice-add 'org-agenda-redo :before #'my/org-roam-refresh-agenda-list)
+#+end_src
 * PERSPECTIVE
 [[https://github.com/nex3/perspective-el][Perspective]] provides multiple named workspaces (or "perspectives") in Emacs, similar to multiple desktops in window managers.  Each perspective has its own buffer list and its own window layout, along with some other isolated niceties, like the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Xref.html][xref]] ring.
 
@@ -1056,6 +1053,7 @@ The following settings are simple modes that are enabled (or disabled) so that E
 (setopt display-time-interval 1)
 (display-time-mode)
 
+
 #+end_src
 
 * SHELLS AND TERMINALS
@@ -1183,6 +1181,7 @@ Helpful resources:
 #+begin_src emacs-lisp
 (use-package eglot
   ;; no :ensure t here because it's built-in
+  :elpaca nil
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -1275,14 +1274,6 @@ Lets you apply sed like transformations to groups of open buffers and save them.
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
-#+end_src
-
-* YASNIPPET
-Templates
-
-#+begin_src emacs-lisp
-(use-package yasnippet :config (yas-global-mode))
-(use-package yasnippet-snippets :ensure t)
 #+end_src
 
 
