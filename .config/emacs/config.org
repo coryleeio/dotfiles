@@ -840,6 +840,9 @@ Zettlekasten in emacs
      ("p" "project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Permanent")
       :unnarrowed t)
+     ("e" "endeavor" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/endeavor.org")
+      :if-new (file+head "%<%Y-%m-%d>-${slug}.org" "#+title: ${title}\n#+filetags: :Endeavor:Zettel:Permanent")
+      :unnarrowed t)
     )
   )
   (org-roam-completion-everywhere t)
@@ -883,7 +886,9 @@ Zettlekasten in emacs
   (setq org-agenda-files (append'( 
 	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"
 	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
-	(my/org-roam-list-notes-by-tag "Project"))
+	(my/org-roam-list-notes-by-tag "Project")
+	(my/org-roam-list-notes-by-tag "Endeavor")
+    )
     ))
 
 (advice-add 'org-agenda :before #'my/org-roam-refresh-agenda-list)
