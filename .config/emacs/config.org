@@ -543,6 +543,16 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
               (dired user-emacs-directory)) 
             :wk "Open user-emacs-directory in dired"))
 
+  (dt/leader-keys
+    "r" '(:ignore t :wk "Roam")
+    "r f" '(org-roam-node-find :wk "Roam node find")
+    "r i" '(org-roam-node-insert :wk "Roam node insert")
+    "r t" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
+    "r j" '(:ignore t :wk "Roam Daily Journal Prefix")
+    "r j d" '(org-roam-dailies-goto-date :wk "Roam Dailies by Date")
+    "r j t" '(org-roam-dailies-goto-today :wk "Roam Dailies Today")
+    "r j y" '(org-roam-dailies-goto-yesterday :wk "Roam Dailies Yesterday")
+ ) 
   ;; projectile-command-map already has a ton of bindings 
   ;; set for us, so no need to specify each individually.
   (dt/leader-keys
@@ -776,12 +786,10 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 * ORG ROAM
 Zettlekasten in emacs
 
-
 #+begin_src emacs-lisp
 (use-package org-roam
   :ensure t
   :init
-
   ;; Build the agenda list the first time for the session
   :custom
   (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
@@ -790,7 +798,7 @@ Zettlekasten in emacs
       "%?"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
-     ("v" "youtube reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/video.org")
+     ("v" "video reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/video.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
       :unnarrowed t)
      ("b" "book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/book.org")
@@ -828,7 +836,7 @@ Zettlekasten in emacs
   (interactive)
 
   (setq org-agenda-files (append'( 
-	"~/Workspace/coryleeio/Scratch/orgfiles/refile.org"
+	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"
 	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
 	(my/org-roam-list-notes-by-tag "Project"))
     ))
