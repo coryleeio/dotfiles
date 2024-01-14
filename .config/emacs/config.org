@@ -40,6 +40,7 @@
   - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
   - [[#org-level-headers][Org Level Headers]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+- [[#org-roam][ORG ROAM]]
 - [[#perspective][PERSPECTIVE]]
 - [[#projectile][PROJECTILE]]
 - [[#persp-projectile][PERSP-PROJECTILE]]
@@ -469,7 +470,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "g u" '(magit-stage-file :wk "Git unstage file"))
 
  (dt/leader-keys
-    "h" '(:ignore t :wk "Help")
+    "h" '(:ignore t :wk "Help/Emacs")
     "h a" '(apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
     "h c" '(describe-char :wk "Describe character under cursor")
@@ -530,7 +531,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "O d" '(dashboard-open :wk "Dashboard")
     "O r" '(elfeed :wk "Elfeed RSS")
     "O f" '(make-frame :wk "Open buffer in new frame")
-    "O F" '(select-frame-by-name :wk "Select frame by name"))
+    "O F" '(select-frame-by-name :wk "Select frame by name")
     "O i" '((lambda () (interactive)
               (find-file (concat user-emacs-directory "init.el")))
             :wk "Open emacs init.el")
@@ -543,7 +544,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "O e" '((lambda () (interactive)
 
               (dired user-emacs-directory)) 
-            :wk "Open user-emacs-directory in dired")
+            :wk "Open user-emacs-directory in dired"))
 
   ;; projectile-command-map already has a ton of bindings 
   ;; set for us, so no need to specify each individually.
@@ -801,6 +802,42 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 #+begin_src emacs-lisp 
 (require 'org-tempo)
+#+end_src
+
+* ORG ROAM
+Zettlekasten in emacs
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("v" "youtube reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/video.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
+      :unnarrowed t)
+     ("b" "book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/book.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
+      :unnarrowed t)
+     ("p" "project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+      :unnarrowed t)))
+  (org-roam-completion-everywhere t)
+  (org-roam-dailies-directory "journal/")
+  (org-roam-dailies-capture-templates
+    '(("d" "default" entry "* %<%I:%M %p>: %?"
+       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-setup)
+  (org-roam-db-autosync-mode))
 #+end_src
 
 * PERSPECTIVE
