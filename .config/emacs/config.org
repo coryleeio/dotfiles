@@ -756,8 +756,6 @@ Orderless: powerful completion style
     
      (setq org-agenda-prefix-format
      '(
-        ;(agenda . " %i %?-12t% s")
-
         (agenda . " %i %?-12t")
         (timeline . "  % s")
         (todo . " %i %-12:c")
