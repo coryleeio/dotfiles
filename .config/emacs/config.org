@@ -754,6 +754,18 @@ Orderless: powerful completion style
       )
      )
     
+     (setq org-agenda-prefix-format
+     '(
+        ;(agenda . " %i %?-12t% s")
+
+        (agenda . " %i %?-12t")
+        (timeline . "  % s")
+        (todo . " %i %-12:c")
+        (tags . " %i %-12:c")
+        (search . " %i %-12:c")
+      )
+    )
+
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
 	;; only works with a wav
