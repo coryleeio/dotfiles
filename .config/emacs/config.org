@@ -861,15 +861,12 @@ Zettlekasten in emacs
   )
   (org-roam-completion-everywhere t)
   (org-roam-dailies-directory "journal/")
+                                            
   (org-roam-dailies-capture-templates
    '(
-     ("d" "default (daily)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/daily.org")
-       :if-new (file+head "daily/%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: :Daily:Fleeting")
-       :unnarrowed t)
 
-     ("w" "weekly" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/weekly.org")
-       :if-new (file+head "weekly/%<%Y>-Week-%(my/get-week-number).org" "#+title: ${title}\n#+filetags: :Weekly:Fleeting")
-       :unnarrowed t)
+     ("d" "daily" entry "* %?" :target (file+head "daily/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\nfiletags: :Daily:Fleeting"))
+     ("w" "weekly" entry "* %?" :target (file+head "weekly/%<%Y>-Week-%(my/get-week-number).org" "#+title: %<%Y-%m-%d>\nfiletags: :Weekly:Fleeting"))
     )
   )
   :config
