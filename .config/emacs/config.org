@@ -833,26 +833,29 @@ Zettlekasten in emacs
   (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
   (org-roam-capture-templates
    '(
+     ("f" "Fleeting" plain "* %?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Fleeting")
+      :unnarrowed t)
      ("z" "Zettel" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Permanent")
       :unnarrowed t)
      ("v" "Video reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
       :unnarrowed t)
      ("b" "Book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
       :unnarrowed t)
      ("a" "Article reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
       :unnarrowed t)
      ("a" "Game reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
       :unnarrowed t)
      ("p" "Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Permanent")
+      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Permanent")
       :unnarrowed t)
      ("e" "Endeavor" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/endeavor.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Endeavor:Zettel:Permanent")
+      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Endeavor:Zettel:Permanent")
       :unnarrowed t)
     )
   )
@@ -861,19 +864,19 @@ Zettlekasten in emacs
   (org-roam-dailies-capture-templates
    '(
      ("d" "default (daily)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/daily.org")
-       :if-new (file+head "%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: :Daily:Fleeting")
+       :if-new (file+head "daily/%<%Y-%m-%d>.org" "#+title: ${title}\n#+filetags: :Daily:Fleeting")
        :unnarrowed t)
 
      ("w" "weekly" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/weekly.org")
-       :if-new (file+head "%<%Y>-Week-%(my/get-week-number).org" "#+title: ${title}\n#+filetags: :Weekly:Fleeting")
+       :if-new (file+head "weekly/%<%Y>-Week-%(my/get-week-number).org" "#+title: ${title}\n#+filetags: :Weekly:Fleeting")
        :unnarrowed t)
     )
   )
   :config
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (defun my/get-week-number ()
     (format-time-string "%V" (org-current-time)))
+ 
   (org-roam-setup)
   (org-roam-db-autosync-mode))
 #+end_src
