@@ -866,7 +866,7 @@ Zettlekasten in emacs
    '(
 
      ("d" "daily" entry "* %?" :target (file+head "daily/%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\nfiletags: :Daily:Fleeting"))
-     ("w" "weekly" entry "* %?" :target (file+head "weekly/%<%Y>-Week-%(my/get-week-number).org" "#+title: %<%Y-%m-%d>\nfiletags: :Weekly:Fleeting"))
+     ("w" "weekly" entry "* %?" :target (file+head "weekly/%<%Y>-Week-%(my/get-week-number).org" "#+title: %<%Y>-Week-%(my/get-week-number)\nfiletags: :Weekly:Fleeting"))
     )
   )
   :config
