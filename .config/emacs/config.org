@@ -565,6 +565,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
     "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
     "r F P" '(my/org-roam-find-permanent :wk "Roam find permanent")
+    "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
     "r F p" '(my/org-roam-find-project :wk "Roam find project")
  ) 
   ;; projectile-command-map already has a ton of bindings 
@@ -855,7 +856,7 @@ Zettlekasten in emacs
      ("a" "Article reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
       :unnarrowed t)
-     ("a" "Game reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+     ("g" "Game reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
       :unnarrowed t)
      ("p" "Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
@@ -914,6 +915,11 @@ Zettlekasten in emacs
     ;; Select a project file to open, creating it if necessary
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Weekly")))
+  (defun my/org-roam-find-reference ()
+    (interactive)
+    ;; Select a project file to open, creating it if necessary
+    (org-roam-node-find nil nil
+        (my/org-roam-filter-by-tag "Reference")))
   (defun my/org-roam-find-permanent ()
     (interactive)
     ;; Select a project file to open, creating it if necessary
