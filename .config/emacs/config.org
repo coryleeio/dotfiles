@@ -224,9 +224,10 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
   (setq dashboard-startup-banner (concat user-emacs-directory "images/pylon.png"))  ;; use custom image as banneru
   (setq dashboard-center-content nil) ;; set to 't' for centered content
-  (setq dashboard-items '((recents . 5)
+  (setq dashboard-items '(
+			   ;; (recents . 0)
                          ;; (agenda . 0 )
-                          (bookmarks . 3)
+                         ;; (bookmarks . 3)
                           (projects . 10)
                           (registers . 3)))
   (setq dashboard-projects-switch-function 'projectile-persp-switch-project)
@@ -583,13 +584,11 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t e" '(eshell-toggle :wk "Toggle eshell")
-    "t f" '(flycheck-mode :wk "Toggle flycheck")
-    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t n" '(neotree-toggle :wk "Toggle neotree file viewer")
-    "t o" '(org-mode :wk "Toggle org mode")
-    "t r" '(rainbow-mode :wk "Toggle rainbow mode")
+    "t r" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t v" '(vterm-toggle :wk "Toggle vterm"))
+
 
   (dt/leader-keys
     "w" '(:ignore t :wk "Windows")
@@ -852,6 +851,9 @@ Zettlekasten in emacs
       :unnarrowed t)
      ("b" "Book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
+      :unnarrowed t)
+     ("t" "Tech reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Tech")
       :unnarrowed t)
      ("a" "Article reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
