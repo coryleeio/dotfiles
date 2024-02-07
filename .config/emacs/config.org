@@ -23,6 +23,7 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
+- [[#hcl-mode][HCL mode]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
 - [[#kind-icons][Kind Icons]]
@@ -612,6 +613,15 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
 #+end_src
 
+
+* HCL mode
+syntax highlighting for terraform
+
+#+begin_src emacs-lisp
+(use-package hcl-mode
+  :custom ((hcl-indent-level 2)))
+
+#+end_src
 * HIGHLIGHT TODO
 Adding highlights to TODO and related words.
 
