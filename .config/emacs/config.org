@@ -536,9 +536,13 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "O r" '(elfeed :wk "Elfeed RSS")
     "O f" '(make-frame :wk "Open buffer in new frame")
     "O F" '(select-frame-by-name :wk "Select frame by name")
-    "O i" '((lambda () (interactive)
+    "O I" '((lambda () (interactive)
               (find-file (concat user-emacs-directory "init.el")))
             :wk "Open emacs init.el")
+
+    "O i" '((lambda () (interactive)
+              (find-file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"))
+            :wk "Open inbox")
 
     "O c" '((lambda () (interactive)
               (find-file (concat user-emacs-directory "config.org")))
