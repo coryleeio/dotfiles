@@ -789,6 +789,7 @@ Orderless: powerful completion style
         (search . " %i %-12:c")
       )
     )
+    (setq org-startup-with-inline-images t)
 
 	;; you need aplay installed and on your path for this to work
     ;; test by running that binary with your clock sound passed in.
