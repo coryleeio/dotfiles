@@ -568,7 +568,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r j c t" '(org-roam-dailies-capture-today :wk "Roam Journal Capture Today")
     "r j c y" '(org-roam-dailies-capture-yesterday :wk "Roam Journal Capture Yesterday")
     "r F" '(:ignore t :wk "Find by tag")
-    "r F e" '(my/org-roam-find-endeavor :wk "Roam find endeavor")
     "r F z" '(my/org-roam-find-zettel :wk "Roam find zettel")
     "r F f" '(my/org-roam-find-fleeting :wk "Roam find fleeting")
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
@@ -879,9 +878,6 @@ Zettlekasten in emacs
      ("p" "Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Permanent")
       :unnarrowed t)
-     ("e" "Endeavor" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/endeavor.org")
-      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Endeavor:Zettel:Permanent")
-      :unnarrowed t)
     )
   )
   (org-roam-completion-everywhere t)
@@ -903,12 +899,6 @@ Zettlekasten in emacs
   (defun my/org-roam-filter-by-tag (tag-name)
     (lambda (node)
       (member tag-name (org-roam-node-tags node))))
-
-  (defun my/org-roam-find-endeavor ()
-    (interactive)
-    ;; Select a project file to open, creating it if necessary
-    (org-roam-node-find nil nil
-        (my/org-roam-filter-by-tag "Endeavor")))
 
   (defun my/org-roam-find-zettel ()
     (interactive)
@@ -972,7 +962,6 @@ Zettlekasten in emacs
 	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"
 	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
 	(my/org-roam-list-notes-by-tag "Project")
-	(my/org-roam-list-notes-by-tag "Endeavor")
     )
     ))
 
