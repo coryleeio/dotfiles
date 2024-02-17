@@ -23,6 +23,7 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
+- [[#gptel][Gptel]]
 - [[#hcl-mode][HCL mode]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
@@ -271,7 +272,8 @@ This package implements hiding or abbreviation of the modeline displays (lighter
 #+end_src
 
 * EMBARK
-Take contextual actions on things in the minibuffer (jump to files, stuff like that)
+Take contextual actions on thin
+gs in the minibuffer (jump to files, stuff like that)
 
 #+begin_src emacs-lisp
 
@@ -619,6 +621,28 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
 #+end_src
 
+
+* Gptel
+GPTel is a simple Large Language Model chat client for Emacs, with support for multiple models and backends.
+#+begin_src emacs-lisp
+(use-package gptel
+  :hook ((gptel-post-stream . gptel-auto-scroll)
+         (gptel-post-response . gptel-end-of-response))
+  :config
+  (setq-default gptel-model "mistral:latest"
+                gptel-backend (gptel-make-ollama
+                               "Ollama"
+                               :host "localhost:11434"
+                               :models '("mistral:latest")
+                               :stream t)
+                gptel-default-mode 'org-mode)
+
+ ;; (gptel-make-gemini
+ ;; "Gemini"
+ ;;  :key (password-store-get "gemini")
+ ;;  :stream t)
+ )
+#+end_src
 
 * HCL mode
 syntax highlighting for terraform
