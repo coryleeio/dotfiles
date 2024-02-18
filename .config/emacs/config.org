@@ -47,6 +47,7 @@
 - [[#persp-projectile][PERSP-PROJECTILE]]
 - [[#rainbow-delimiters][RAINBOW DELIMITERS]]
 - [[#rainbow-mode][RAINBOW MODE]]
+- [[#registers][REGISTERS]]
 - [[#sane-defaults][SANE DEFAULTS]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
   - [[#eshell][Eshell]]
@@ -1082,6 +1083,16 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 (use-package rainbow-mode
   :diminish
   :hook org-mode prog-mode)
+#+end_src
+
+* REGISTERS
+
+
+#+begin_src emacs-lisp
+(defun my/clear-registers()
+   (interactive)
+   (setq register-alist nil)
+)
 #+end_src
 
 * SANE DEFAULTS
