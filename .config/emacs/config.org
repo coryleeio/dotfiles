@@ -52,6 +52,7 @@
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
+- [[#spacious-padding][Spacious Padding]]
 - [[#sudo-edit][SUDO EDIT]]
 - [[#theme][THEME]]
 - [[#tldr][TLDR]]
@@ -1296,6 +1297,14 @@ Vterm is a terminal emulator within Emacs.
 
 #+end_src
 
+* Spacious Padding
+#+begin_src emacs-lisp
+(use-package spacious-padding
+  :config
+  (spacious-padding-mode)
+)
+
+#+end_src
 * SUDO EDIT
 [[https://github.com/nflath/sudo-edit][sudo-edit]] gives us the ability to open files with sudo privileges or switch over to editing with sudo privileges if we initially opened the file without such privileges.
 
@@ -1361,6 +1370,8 @@ Helpful resources:
   ;; Sometimes you need to tell Eglot where to find the language server
   ; (add-to-list 'eglot-server-programs
   ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+
+  (setq eldoc-echo-area-prefer-doc-buffer t)
   )
 #+end_src
 ** TREESITTER
