@@ -135,7 +135,7 @@ Fancy completion-at-point functions
 #+end_src
 * CONSULT
 
-Search for stuff, store and load multiple things in registers
+Search for stuff
 
 #+begin_src emacs-lisp
 (use-package consult
@@ -419,11 +419,19 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "b m" '(bookmark-set :wk "Set bookmark")
     "b n" '(next-buffer :wk "Next buffer")
     "b p" '(previous-buffer :wk "Previous buffer")
-    "b r" '(revert-buffer :wk "Reload buffer")
-    "b R" '(rename-buffer :wk "Rename buffer")
     "b s" '(basic-save-buffer :wk "Save buffer")
     "b S" '(save-some-buffers :wk "Save multiple buffers")
-    "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+    "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file")
+    "b r" '(:ignore t :wk "Registers") 
+    "b r c" '(copy-to-register :wk "Copy region into register")
+    "b r i" '(insert-register :wk "Insert text from register")
+    "b r v" '(view-register :wk "View text in register")
+    "b r A" '(append-to-register :wk "Append region to register")
+    "b r P" '(prepend-to-register :wk "Prepend region to register")
+    "b r p" '(point-to-register :wk "Point saved to position in register")
+    "b r j" '(jump-to-register :wk "Jump to position in register")
+    "b R" '(revert-buffer :wk "Reload buffer")
+  )
 
   (dt/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -1425,6 +1433,7 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
 #+begin_src emacs-lisp
 
 (defun my/prog()
+   (interactive)
    (neotree-toggle)
    (evil-window-right 1)
    (evil-window-vsplit 75 nil)
@@ -1436,6 +1445,7 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
    (evil-window-left 1)
    (buf-move-right)
    (buf-move-left)
+   (evil-window-left 1)
 )
 
 
