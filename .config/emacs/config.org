@@ -62,6 +62,7 @@
   - [[#treesitter][TREESITTER]]
   - [[#file-types][FILE TYPES]]
 - [[#vertico][VERTICO]]
+- [[#window-management][WINDOW MANAGEMENT]]
 - [[#wgrep][WGREP]]
 - [[#which-key][WHICH-KEY]]
 
@@ -230,7 +231,7 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   (setq dashboard-items '(
 			   ;; (recents . 0)
                          ;; (agenda . 0 )
-                         ;; (bookmarks . 3)
+                          (bookmarks . 3)
                           (projects . 10)
                           (registers . 3)))
   (setq dashboard-projects-switch-function 'projectile-persp-switch-project)
@@ -406,7 +407,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
-    "b" '(:ignore t :wk "Bookmarks/Buffers")
+    "b" '(:ignore t :wk "Bookmarks/Buffers/Registers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
@@ -444,10 +445,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
   (dt/leader-keys
     "f" '(:ignore t :wk "Find")    
-    "f f" '(find-file :wk "Find file")
-    "f s" '(find-grep-dired :wk "Search for string in files in DIR")
-    "f F" '(sudo-edit-find-file :wk "Sudo find file")
-    "f E" '(sudo-edit :wk "Sudo edit file"))
+    "f f" '(consult-find :wk "Find file")
+    "f s" '(consult-ripgrep :wk "Search for string in files in DIR")
 
   (dt/leader-keys
     "g" '(:ignore t :wk "Git")    
@@ -1421,7 +1420,26 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
 
 ;; Marginalia: annotations for minibuffer
 #+end_src
+* WINDOW MANAGEMENT
+#+begin_src emacs-lisp
 
+(defun my/prog()
+   (neotree-toggle)
+   (evil-window-right 1)
+   (evil-window-vsplit 75 nil)
+   (evil-window-split nil nil)
+   (call-interactively 'gptel)
+   (buf-move-right)
+   (call-interactively 'eldoc)
+   (call-interactively 'eldoc-doc-buffer)
+   (evil-window-left 1)
+   (buf-move-right)
+   (buf-move-left)
+)
+
+
+
+#+end_src
 * WGREP 
 
 Lets you apply sed like transformations to groups of open buffers and save them.  Useful for really wide editing of files. Write + grep
