@@ -28,6 +28,7 @@
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
 - [[#kind-icons][Kind Icons]]
+- [[#magit][Magit]]
 - [[#marginalia][Marginalia]]
 - [[#minibuffer-escape][MINIBUFFER ESCAPE]]
 - [[#modeline][MODELINE]]
@@ -460,8 +461,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
   (dt/leader-keys
     "g" '(:ignore t :wk "Git")    
-    "g /" '(magit-displatch :wk "Magit dispatch")
-    "g ." '(magit-file-displatch :wk "Magit file dispatch")
+    "g /" '(magit-dispatch :wk "Magit dispatch")
+    "g ." '(magit-file-dispatch :wk "Magit file dispatch")
     "g b" '(magit-branch-checkout :wk "Switch branch")
     "g c" '(:ignore t :wk "Create") 
     "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
@@ -708,6 +709,15 @@ Pretty icons for corfu
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
 
+
+* Magit
+porcellain git in emacs
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :config
+)
+#+end_src
 
 * Marginalia
 
