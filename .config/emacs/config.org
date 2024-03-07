@@ -901,7 +901,7 @@ Zettlekasten in emacs
   (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
   (org-roam-capture-templates
    '(
-     ("f" "Fleeting" plain "* %?"
+     ("f" "Fleeting" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Fleeting")
       :unnarrowed t)
      ("z" "Zettel" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
