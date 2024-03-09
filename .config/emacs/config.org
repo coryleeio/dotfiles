@@ -409,7 +409,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
-    "b" '(:ignore t :wk "Bookmarks/Buffers/Registers")
+    "b" '(:ignore t :wk "Bookmarks/Buffers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
@@ -424,15 +424,19 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "b s" '(basic-save-buffer :wk "Save buffer")
     "b S" '(save-some-buffers :wk "Save multiple buffers")
     "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file")
-    "b r" '(:ignore t :wk "Registers") 
-    "b r c" '(copy-to-register :wk "Copy region into register")
-    "b r i" '(insert-register :wk "Insert text from register")
-    "b r v" '(view-register :wk "View text in register")
-    "b r A" '(append-to-register :wk "Append region to register")
-    "b r P" '(prepend-to-register :wk "Prepend region to register")
-    "b r p" '(point-to-register :wk "Point saved to position in register")
-    "b r j" '(jump-to-register :wk "Jump to position in register")
+
     "b R" '(revert-buffer :wk "Reload buffer")
+  )
+
+  (dt/leader-keys
+    "q" '(:ignore t :wk "Registers") 
+    "q c" '(copy-to-register :wk "Copy region into register")
+    "q i" '(insert-register :wk "Insert text from register")
+    "q v" '(view-register :wk "View text in register")
+    "q a" '(append-to-register :wk "Append region to register")
+    "q p" '(prepend-to-register :wk "Prepend region to register")
+    "q h" '(point-to-register :wk "Point saved to position in register")
+    "q j" '(jump-to-register :wk "Jump to position in register")
   )
 
   (dt/leader-keys
@@ -566,6 +570,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
               (dired user-emacs-directory)) 
             :wk "Open user-emacs-directory in dired"))
+
 
   (dt/leader-keys
     "r" '(:ignore t :wk "Roam")
