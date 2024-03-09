@@ -19,6 +19,7 @@
 - [[#dired][DIRED]]
 - [[#embark][EMBARK]]
 - [[#evil][EVIL]]
+- [[#evil-mc][EVIL-MC]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
@@ -343,6 +344,18 @@ gs in the minibuffer (jump to files, stuff like that)
 #+end_src
 
 
+* EVIL-MC
+Multi line edits like sublime for emacs
+#+begin_src emacs-lisp
+(use-package evil-mc
+  :config
+  (evil-define-key 'visual evil-mc-key-map
+    "A" #'evil-mc-make-cursor-in-visual-selection-end
+    "I" #'evil-mc-make-cursor-in-visual-selection-eg)
+  (global-evil-mc-mode t)  ;; Automatically show changes if the file has changed
+)
+
+#+end_src
 * FONTS
 Defining the various fonts that Emacs will use.
 
