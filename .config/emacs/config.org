@@ -409,6 +409,16 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
+    "a" '(:ignore t :wk "AI LLMs etc")
+    "a s" '(gptel-send :wk "Send selection")
+    "a r" '(gptel-rewrite-menu :wk "Rewrite menu")
+    "a m" '(gptel-menu :wk "Menu")
+    "a p" '(gptel-system-prompt :wk "Prompt (change globally)")
+    "a c" '(gptel :wk "Chat")
+    "a k" '(gptel-abort :wk "Kill")
+  )
+  
+  (dt/leader-keys
     "b" '(:ignore t :wk "Bookmarks/Buffers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
     "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -521,6 +531,10 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
+
+  (dt/leader-keys
+    "m" '(:ignore t :wk "Make")    
+  )
   (dt/leader-keys
     "o" '(:ignore t :wk "Org")
     "o a" '(org-agenda :wk "Org agenda")
