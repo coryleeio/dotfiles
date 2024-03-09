@@ -404,6 +404,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "SPC" '(execute-extended-command :wk "M-x")
     "." '(find-file :wk "Find file")
+    "," '(projectile-persp-switch-project :wk "Find Project")
     "TAB" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
     "=" '(comment-line :wk "Comment lines")
     "u" '(universal-argument :wk "Universal argument"))
@@ -471,6 +472,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "f" '(:ignore t :wk "Find")    
     "f f" '(consult-find :wk "Find file")
     "f s" '(consult-ripgrep :wk "Search for string in files in DIR")
+    "f p" '(projectile-persp-switch-project :wk "Find project")
+    "f d" '(projectile-dired :wk "Dired")
   ) 
 
   (dt/leader-keys
@@ -786,7 +789,8 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
         neo-window-width 55
         neo-window-fixed-size nil
         inhibit-compacting-font-caches t
-        projectile-switch-project-action 'neotree-projectile-action) 
+        projectile-switch-project-action 'projectile-dired
+        )
         ;; truncate long file names in neotree
         (add-hook 'neo-after-create-hook
            #'(lambda (_)
