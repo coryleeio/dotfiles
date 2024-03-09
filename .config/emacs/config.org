@@ -473,7 +473,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "f f" '(consult-find :wk "Find file")
     "f s" '(consult-ripgrep :wk "Search for string in files in DIR")
     "f p" '(projectile-persp-switch-project :wk "Find project")
-    "f d" '(projectile-dired :wk "Dired")
+    "f d" '(projectile-dired :wk "Dired(explore current project)")
   ) 
 
   (dt/leader-keys
