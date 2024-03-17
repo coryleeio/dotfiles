@@ -12,6 +12,8 @@
 - [[#avy][AVY]]
 - [[#backup][BACKUP]]
 - [[#cape][Cape]]
+- [[#citations][Citations]]
+- [[#citar][Citar]]
 - [[#consult][CONSULT]]
 - [[#corfu][CORFU]]
 - [[#dashboard][DASHBOARD]]
@@ -136,6 +138,32 @@ Fancy completion-at-point functions
   (add-to-list 'completion-at-point-functions #'cape-file))
 
 #+end_src
+
+* Citations
+
+#+begin_src emacs-lisp
+(use-package oc
+  :init
+  (require 'oc-csl)
+  (require 'oc-biblatex)
+  (require 'oc-natbib)
+  (setq org-cite-global-bibliography (list "~/Workspace/coryleeio/Scratch/bibliography.bib")))
+#+end_src
+
+* Citar
+QOL for citations
+#+begin_src emacs-lisp
+(use-package citar
+  :ensure t
+  :init
+  (setq org-cite-insert-processor 'citar
+        org-cite-follow-processor 'citar
+        org-cite-activate-processor 'citar
+        citar-bibliography org-cite-global-bibliography
+        citar-notes-paths '("~/Workspace/coryleeio/Scratch/CitarNotes")))
+#+end_src
+
+
 * CONSULT
 
 Search for stuff
@@ -303,6 +331,14 @@ gs in the minibuffer (jump to files, stuff like that)
 
 (use-package embark-consult
   :ensure t)
+
+(use-package citar-embark
+  :after citar embark
+  :ensure t
+  :init
+  (setq citar-at-point-function 'embark-act)
+  :config
+  (citar-embark-mode))
 #+end_src
 
 
