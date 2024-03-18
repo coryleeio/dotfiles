@@ -12,7 +12,6 @@
 - [[#avy][AVY]]
 - [[#backup][BACKUP]]
 - [[#cape][Cape]]
-- [[#citations][Citations]]
 - [[#citar][Citar]]
 - [[#consult][CONSULT]]
 - [[#corfu][CORFU]]
@@ -139,23 +138,13 @@ Fancy completion-at-point functions
 
 #+end_src
 
-* Citations
-
-#+begin_src emacs-lisp
-(use-package oc
-  :init
-  (require 'oc-csl)
-  (require 'oc-biblatex)
-  (require 'oc-natbib)
-  (setq org-cite-global-bibliography (list "~/Workspace/coryleeio/Scratch/bibliography.bib")))
-#+end_src
-
 * Citar
 QOL for citations
 #+begin_src emacs-lisp
 (use-package citar
   :ensure t
   :init
+  (setq org-cite-global-bibliography '("~/Workspace/coryleeio/Scratch/bibliography.bib"))
   (setq org-cite-insert-processor 'citar
         org-cite-follow-processor 'citar
         org-cite-activate-processor 'citar
