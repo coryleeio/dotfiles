@@ -644,7 +644,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F z" '(my/org-roam-find-zettel :wk "Roam find zettel")
     "r F f" '(my/org-roam-find-fleeting :wk "Roam find fleeting")
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
-    "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
+    "r F w" '(my/org-roam-find-work :wk "Roam find work")
+    "r F W" '(my/org-roam-find-weekly :wk "Roam find weekly")
     "r F P" '(my/org-roam-find-permanent :wk "Roam find permanent")
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
     "r F p" '(my/org-roam-find-project :wk "Roam find project")
@@ -982,6 +983,8 @@ Zettlekasten in emacs
       :unnarrowed t)
      ("p" "Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Fleeting")
+     ("w" "Work Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
+      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Work:Zettel:Fleeting")
       :unnarrowed t)
     )
   )
@@ -1021,6 +1024,12 @@ Zettlekasten in emacs
     ;; Select a project file to open, creating it if necessary
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Daily")))
+
+  (defun my/org-roam-find-work ()
+    (interactive)
+    ;; Select a project file to open, creating it if necessary
+    (org-roam-node-find nil nil
+        (my/org-roam-filter-by-tag "Work")))
 
   (defun my/org-roam-find-weekly ()
     (interactive)
