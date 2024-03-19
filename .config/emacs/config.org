@@ -982,7 +982,7 @@ Zettlekasten in emacs
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
       :unnarrowed t)
      ("p" "Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
-      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Fleeting")
+      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Zettel:Fleeting"))
      ("w" "Work Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Work:Zettel:Fleeting")
       :unnarrowed t)
