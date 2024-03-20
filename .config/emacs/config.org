@@ -644,12 +644,12 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F z" '(my/org-roam-find-zettel :wk "Roam find zettel")
     "r F f" '(my/org-roam-find-fleeting :wk "Roam find fleeting")
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
-    "r F R" '(my/org-roam-find-work :wk "Roam find work projects")
-    "r F T" '(my/org-roam-find-personal :wk "Roam find personal projects")
-    "r F W" '(my/org-roam-find-weekly :wk "Roam find weekly")
+    "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
     "r F P" '(my/org-roam-find-permanent :wk "Roam find permanent")
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
     "r F p" '(my/org-roam-find-project :wk "Roam find project")
+    "r F R" '(my/org-roam-find-work :wk "Roam find work projects")
+    "r F T" '(my/org-roam-find-personal :wk "Roam find personal projects")
  ) 
   ;; projectile-command-map already has a ton of bindings 
   ;; set for us, so no need to specify each individually.
