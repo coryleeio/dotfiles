@@ -736,11 +736,11 @@ Adding highlights to TODO and related words.
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
         `(("TODO"       warning bold)
-          ("FIXME"      error bold)
-          ("HACK"       font-lock-constant-face bold)
-          ("REVIEW"     font-lock-keyword-face bold)
-          ("NOTE"       success bold)
-          ("DEPRECATED" font-lock-doc-face bold))))
+          ("WAITING"       font-lock-constant-face bold)
+          ("NEXT"     font-lock-keyword-face bold)
+         )
+  )
+)
 
 #+end_src
 
@@ -902,7 +902,7 @@ Orderless: powerful completion style
 	;; only works with a wav
     (setq org-clock-sound (concat user-emacs-directory "alarm.wav"))
     (setq org-todo-keywords
-        '((sequence "TODO" "NEXT" "|" "DONE" "WAITING")))
+        '((sequence "TODO" "NEXT" "WAITING" "|" "DONE")))
 #+end_src
 
 ** Enabling Org Bullets
