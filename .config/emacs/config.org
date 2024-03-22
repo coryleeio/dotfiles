@@ -901,6 +901,8 @@ Orderless: powerful completion style
     ;; test by running that binary with your clock sound passed in.
 	;; only works with a wav
     (setq org-clock-sound (concat user-emacs-directory "alarm.wav"))
+    (setq org-todo-keywords
+        '((sequence "TODO" "NEXT" "|" "DONE" "WAITING")))
 #+end_src
 
 ** Enabling Org Bullets
