@@ -904,6 +904,15 @@ Orderless: powerful completion style
     (setq org-clock-sound (concat user-emacs-directory "alarm.wav"))
     (setq org-todo-keywords
         '((sequence "TODO" "NEXT" "HOLD" "|" "DONE")))
+
+(setq org-todo-keyword-faces
+      '(
+        ("TODO" . org-todo)
+        ("DONE" . org-done)
+        ("NEXT" . org-warning)
+        ("HOLD" . org-date)
+       ))
+
 #+end_src
 
 ** Enabling Org Bullets
