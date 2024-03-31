@@ -736,9 +736,9 @@ Adding highlights to TODO and related words.
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
         `(
-	    ("TODO"       warning bold)
-          ("HOLD"       font-lock-constant-face bold)
-          ("NEXT"       font-lock-keyword-face bold)
+	    ("TODO"       warning)
+          ("HOLD"       font-lock-constant-face)
+          ("NEXT"       font-lock-keyword-face)
          )
   )
 )
