@@ -737,8 +737,8 @@ Adding highlights to TODO and related words.
         hl-todo-keyword-faces
         `(
 	    ("TODO"       warning)
-          ("HOLD"       font-lock-constant-face)
-          ("NEXT"       font-lock-keyword-face)
+          ("HOLD"       font-lock-keyword-face)
+          ("NEXT"       font-lock-constant-face)
          )
   )
 )
@@ -909,8 +909,8 @@ Orderless: powerful completion style
         '(
           ("TODO" . warning)
           ("DONE" . org-done)
-          ("NEXT" . font-lock-keyword-face)
-          ("HOLD" . font-lock-constant-face)
+          ("NEXT" . font-lock-constant-face)
+          ("HOLD" . font-lock-keyword-face)
          )
     )
 
