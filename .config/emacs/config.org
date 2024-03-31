@@ -905,13 +905,14 @@ Orderless: powerful completion style
     (setq org-todo-keywords
         '((sequence "TODO" "NEXT" "HOLD" "|" "DONE")))
 
-(setq org-todo-keyword-faces
-      '(
-        ("TODO" . org-todo)
-        ("DONE" . org-done)
-        ("NEXT" . org-warning)
-        ("HOLD" . org-date)
-       ))
+    (setq org-todo-keyword-faces
+        '(
+          ("TODO" . warning)
+          ("DONE" . org-done)
+          ("NEXT" . font-lock-keyword-face)
+          ("HOLD" . font-lock-constant-face)
+         )
+    )
 
 #+end_src
 
