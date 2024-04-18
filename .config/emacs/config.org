@@ -39,6 +39,7 @@
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#enable-org-export-to-markdown][Enable org export to markdown]]
   - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
   - [[#org-level-headers][Org Level Headers]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
@@ -925,6 +926,11 @@ Org-bullets gives us attractive bullets rather than asterisks.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
+** Enable org export to markdown
+#+begin_src emacs-lisp
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+#+end_src
 ** Diminish Org Indent Mode
 Removes "Ind" from showing in the modeline.
 
