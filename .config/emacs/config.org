@@ -931,6 +931,7 @@ Org-bullets gives us attractive bullets rather than asterisks.
 (eval-after-load "org"
   '(require 'ox-md nil t))
 #+end_src
+
 ** Diminish Org Indent Mode
 Removes "Ind" from showing in the modeline.
 
@@ -986,24 +987,15 @@ Zettlekasten in emacs
      ("f" "Fleeting" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Fleeting")
       :unnarrowed t)
-     ("z" "Zettel" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/zettel.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Zettel:Permanent")
-      :unnarrowed t)
-     ("v" "Video reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+
+     ("r" "reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
       :unnarrowed t)
-     ("b" "Book reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Book")
-      :unnarrowed t)
-     ("a" "Article reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Article")
-      :unnarrowed t)
-     ("g" "Game reference" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Game")
-      :unnarrowed t)
-     ("T" "Personal Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
+
+     ("p" "Personal Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Personal:Zettel:Fleeting"))
-     ("R" "Work Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
+
+     ("P" "Work Project" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
       :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Work:Zettel:Fleeting")
       :unnarrowed t)
     )
