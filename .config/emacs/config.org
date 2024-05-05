@@ -986,7 +986,7 @@ Zettlekasten in emacs
       :unnarrowed t)
 
      ("r" "Find Reference Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
-      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference:Video")
+      :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference")
       :unnarrowed t)
 
      ("p" "Find Personal Project Notes(personal tag)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
