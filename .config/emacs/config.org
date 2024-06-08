@@ -29,6 +29,7 @@
 - [[#hcl-mode][HCL mode]]
 - [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
+- [[#pyenv][pyenv]]
 - [[#kind-icons][Kind Icons]]
 - [[#magit][Magit]]
 - [[#marginalia][Marginalia]]
@@ -757,6 +758,14 @@ Adding highlights to TODO and related words.
 
 #+end_src
 
+* pyenv
+venvs for python
+#+begin_src emacs-lisp
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))
+#+end_src
 * Kind Icons
 
 Pretty icons for corfu
