@@ -1070,8 +1070,7 @@ Zettlekasten in emacs
   (interactive)
 
   (setq org-agenda-files (append'( 
-	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"
-	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
+	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
 	(my/org-roam-list-notes-by-tag "Context")
     )
     ))
