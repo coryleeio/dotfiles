@@ -876,20 +876,8 @@ Orderless: powerful completion style
 
     (setq org-capture-templates
      '(
-         ("t" "Task" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Tasks") 
-            "* TODO %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\")>")
-         ("d" "Daily Task" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Tasks") 
-            "* TODO %?\nSCHEDULED: <%(org-read-date nil nil \"+0d\") +1d>")
-         ("i" "Idea" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Ideas") 
-            "* %?")
-         ("b" "Book" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Book") 
-            "* %?")
-         ("a" "Article" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Articles") 
-            "* %?")
-         ("v" "Video" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Videos") 
-            "* %?")
-         ("g" "Game" entry (file+headline "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org" "Games") 
-            "* %?")
+         ("t" "Task" entry (file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org") 
+            "* %?\n")
       )
      )
     
@@ -1072,6 +1060,7 @@ Zettlekasten in emacs
   (setq org-agenda-files (append'( 
 	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
 	(my/org-roam-list-notes-by-tag "Context")
+	(my/org-roam-list-notes-by-tag "Tickler")
     )
     ))
 
