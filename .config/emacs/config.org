@@ -647,8 +647,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
     "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
-    "r F p" '(my/org-roam-find-personal :wk "Roam find personal projects")
-    "r F P" '(my/org-roam-find-work :wk "Roam find work projects")
+    "r F c" '(my/org-roam-find-context :wk "Roam find work context")
  ) 
   ;; projectile-command-map already has a ton of bindings 
   ;; set for us, so no need to specify each individually.
@@ -998,12 +997,8 @@ Zettlekasten in emacs
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference")
       :unnarrowed t)
 
-     ("p" "Find Personal Project Notes(personal tag)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
-      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Personal:Note"))
-
-     ("P" "Find Work Project Notes(work tag)" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/project.org")
-      :if-new (file+head "projects/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Work:Note")
-      :unnarrowed t)
+     ("c" "Find Context Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/context.org")
+      :if-new (file+head "contexts/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Context:Note"))
     )
   )
   (org-roam-completion-everywhere t)
@@ -1038,18 +1033,6 @@ Zettlekasten in emacs
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Daily")))
 
-  (defun my/org-roam-find-work ()
-    (interactive)
-    ;; Select a project file to open, creating it if necessary
-    (org-roam-node-find nil nil
-        (my/org-roam-filter-by-tag "Work")))
-
-  (defun my/org-roam-find-personal ()
-    (interactive)
-    ;; Select a project file to open, creating it if necessary
-    (org-roam-node-find nil nil
-        (my/org-roam-filter-by-tag "Personal")))
-
   (defun my/org-roam-find-weekly ()
     (interactive)
     ;; Select a project file to open, creating it if necessary
@@ -1060,11 +1043,11 @@ Zettlekasten in emacs
     ;; Select a project file to open, creating it if necessary
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Reference")))
-  (defun my/org-roam-find-project ()
+  (defun my/org-roam-find-context ()
     (interactive)
     ;; Select a project file to open, creating it if necessary
     (org-roam-node-find nil nil
-        (my/org-roam-filter-by-tag "Project")))
+        (my/org-roam-filter-by-tag "Context")))
  
   (org-roam-setup)
   (org-roam-db-autosync-mode))
@@ -1089,7 +1072,7 @@ Zettlekasten in emacs
   (setq org-agenda-files (append'( 
 	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"
 	"~/Workspace/coryleeio/Scratch/orgfiles/org/")
-	(my/org-roam-list-notes-by-tag "Project")
+	(my/org-roam-list-notes-by-tag "Context")
     )
     ))
 
