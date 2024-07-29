@@ -646,6 +646,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F f" '(my/org-roam-find-note :wk "Roam find note")
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
     "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
+    "r F p" '(my/org-roam-find-project :wk "Roam find project")
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
     "r F c" '(my/org-roam-find-context :wk "Roam find work context")
  ) 
@@ -983,8 +984,12 @@ Zettlekasten in emacs
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Note")
       :unnarrowed t)
 
-     ("r" "Find Reference Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/reference.org")
+     ("r" "Find Reference Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference")
+      :unnarrowed t)
+
+     ("p" "Find Project Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Note")
       :unnarrowed t)
 
      ("c" "Find Context Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/context.org")
@@ -1033,6 +1038,13 @@ Zettlekasten in emacs
     ;; Select a project file to open, creating it if necessary
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Reference")))
+
+  (defun my/org-roam-find-project ()
+    (interactive)
+    ;; Select a project file to open, creating it if necessary
+    (org-roam-node-find nil nil
+        (my/org-roam-filter-by-tag "Project")))
+
   (defun my/org-roam-find-context ()
     (interactive)
     ;; Select a project file to open, creating it if necessary
