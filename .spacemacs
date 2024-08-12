@@ -661,8 +661,7 @@ before packages are loaded."
   (setq org-roam-node-display-template
         (concat "${title:*} "
                 (propertize "${tags:10}" 'face 'org-tag)))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+
   (defun my/get-week-number ()
     (format-time-string "%V" (org-current-time)))
   (defun my/org-roam-filter-by-tag (tag-name)
@@ -706,6 +705,30 @@ before packages are loaded."
 
   (org-roam-setup)
   (org-roam-db-autosync-mode)
+
+  (defun my/org-roam-filter-by-tag (tag-name)
+    (lambda (node)
+      (member tag-name (org-roam-node-tags node))))
+
+  (defun my/org-roam-list-notes-by-tag (tag-name)
+    (mapcar #'org-roam-node-file
+            (seq-filter
+             (my/org-roam-filter-by-tag tag-name)
+             (org-roam-node-list))))
+
+  (defun my/org-roam-refresh-agenda-list ()
+    (interactive)
+
+    (setq org-agenda-files (append'(
+                                    "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
+                                  (my/org-roam-list-notes-by-tag "Context")
+                                  (my/org-roam-list-notes-by-tag "Tickler")
+                                  )
+          ))
+
+  (advice-add 'org-agenda :before #'my/org-roam-refresh-agenda-list)
+  (advice-add 'org-todo-list :before #'my/org-roam-refresh-agenda-list)
+  (advice-add 'org-agenda-redo :before #'my/org-roam-refresh-agenda-list)
 
   )
 
