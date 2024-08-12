@@ -49,10 +49,11 @@ This function should only modify configuration layer settings."
      (org :variables
           org-enable-roam-support t)
      python
-     shell
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            ;;        shell-default-height 30
+            ;;        shell-default-position 'bottom
+            shell-default-shell 'vterm
+            )
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
