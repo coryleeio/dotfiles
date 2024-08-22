@@ -18,7 +18,9 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 -- vim.opt.relativenumber = true
 
--- vim.opt.conceallevel = 1
+-- set for obsidian to allow extra ui features
+-- https://github.com/epwalsh/obsidian.nvim
+vim.opt.conceallevel = 1
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
