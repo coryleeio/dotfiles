@@ -28,6 +28,7 @@ return {
     { '<leader>og', '<cmd>ObsidianSearch<CR>', desc = '[O]bsidian [g]rep' },
     { '<leader>ob', '<cmd>ObsidianBacklinks<CR>', desc = '[O]bsidian [b]acklinks' },
     { '<leader>op', '<cmd>ObsidianTemplate<CR>', desc = '[O]bsidian tem[p]late' },
+    { '<leader>sn', '<cmd>ObsidianQuickSwitch<CR>', desc = '[S]earch [N]otes' },
     { '<leader>so', '<cmd>ObsidianQuickSwitch<CR>', desc = '[S]earch [O]bsidian' },
 
     {
