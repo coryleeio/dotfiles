@@ -616,7 +616,7 @@ require('lazy').setup({
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
           {
-            'rafamadriz/friendly-snippets',
+            'coryleeio/snippets',
             config = function()
               require('luasnip.loaders.from_vscode').lazy_load()
             end,
