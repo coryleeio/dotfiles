@@ -820,6 +820,7 @@ require('lazy').setup({
   { import = 'custom.plugins.obsidian' },
   { import = 'custom.plugins.tmux-navigator' },
   { import = 'custom.plugins.auto-session' },
+  { import = 'custom.plugins.gp' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
