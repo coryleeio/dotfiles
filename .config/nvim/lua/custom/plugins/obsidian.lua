@@ -21,7 +21,9 @@ return {
   },
   keys = {
     { '<leader>of', '<cmd>ObsidianQuickSwitch<CR>', desc = '[O]bsidian [f]ile' },
-    { '<leader>oi', '<cmd>ObsidianQuickSwitch inbox<CR>', desc = '[O]bsidian [i]nbox' },
+    { '<leader>ooi', '<cmd>ObsidianQuickSwitch inbox<CR>', desc = '[O]bsidian [O]pen [i]nbox' },
+    { '<leader>oot', '<cmd>ObsidianQuickSwitch TODO<CR>', desc = '[O]bsidian [O]pen [T]ODO' },
+    { '<leader>oow', '<cmd>ObsidianQuickSwitch Work TODO<CR>', desc = '[O]bsidian [O]pen [W]ork TODO' },
     { '<leader>ot', '<cmd>ObsidianToday<CR>', desc = '[O]bsidian [t]oday' },
     { '<leader>oy', '<cmd>ObsidianYesterday<CR>', desc = '[O]bsidian [y]esterday' },
     { '<leader>on', '<cmd>ObsidianTomorrow<CR>', desc = '[O]bsidian [N]ext day' },
@@ -156,6 +158,8 @@ return {
       local path = spec.dir / spec.title
       return path:with_suffix '.md'
     end,
+
+    -- change which program is called to open lines being hovered on depending on operating system
     follow_url_func = function(url)
       local opencmd
       if vim.loop.os_uname().sysname == 'Linux' then
