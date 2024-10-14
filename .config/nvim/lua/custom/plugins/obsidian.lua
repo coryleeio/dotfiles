@@ -22,6 +22,7 @@ return {
   keys = {
     { '<leader>of', '<cmd>ObsidianQuickSwitch<CR>', desc = '[O]bsidian [f]ile' },
     { '<leader>ooi', '<cmd>ObsidianQuickSwitch inbox<CR>', desc = '[O]bsidian [O]pen [i]nbox' },
+    { '<leader>ooW', '<cmd>ObsidianQuickSwitch Waiting<CR>', desc = '[O]bsidian [O]pen [W]aiting' },
     { '<leader>ooh', '<cmd>ObsidianQuickSwitch Home<CR>', desc = '[O]bsidian [O]pen [H]ome' },
     { '<leader>oow', '<cmd>ObsidianQuickSwitch Work<CR>', desc = '[O]bsidian [O]pen [W]ork' },
     { '<leader>ooe', '<cmd>ObsidianQuickSwitch Evening TODO<CR>', desc = '[O]bsidian [O]pen [E]vening TODO' },
