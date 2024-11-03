@@ -13,8 +13,8 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          venvDir = ".venv";
-          packages = with pkgs; [ ansible ] ++
+          LC_ALL="C.UTF-8";
+          packages = with pkgs; [ ansible ];
         };
       });
     };

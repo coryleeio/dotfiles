@@ -3,8 +3,15 @@
 My dotfiles repo, installed via ansible
 
 # How to use this
+Either install nix or ansible
 
-Install ansible then
+## With nix
+```shell
+nix-develop
+```
+
+or just install ansible then do:
+
 
 ### For Linux
 ```shell
