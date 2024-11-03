@@ -80,7 +80,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 #git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting direnv)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -115,3 +115,5 @@ export EDITOR=nvim
 #[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source ~/.zshmacros
 eval "$(starship init zsh)"
+
+if [ -e /home/coryl/.nix-profile/etc/profile.d/nix.sh ]; then . /home/coryl/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
