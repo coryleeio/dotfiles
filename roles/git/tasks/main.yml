@@ -4,6 +4,6 @@
     name:
       - git
     state: present
-  become: yes
+  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
 
 - include_tasks: "{{ ansible_os_family }}.yml"

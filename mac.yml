@@ -4,4 +4,9 @@
   roles: 
     - base
     - nix
+    - bash
     - zsh
+    - kitty
+    - nvim
+    - tmux
+    - starship

@@ -4,7 +4,7 @@
     name:
       - kitty
     state: present
-  become: yes
+  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
 
 - name: create kitty config directory
   file:

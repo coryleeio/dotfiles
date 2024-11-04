@@ -4,7 +4,7 @@
     name:
       - neovim
     state: present
-  become: yes
+  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
 
 - name: create nvim config directory
   file:

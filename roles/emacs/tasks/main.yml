@@ -5,7 +5,7 @@
     name:
       - emacs
     state: present
-  become: yes
+  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
 
 - name: create emacs config directory
   file:
