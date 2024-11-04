@@ -1,0 +1,17 @@
+
+- name: make sure zsh is installed
+  package:
+    name:
+      - zsh
+    state: present
+  become: yes
+
+- name: symlink config files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/zsh/files/{{ item }}"
+    path: "~/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - .zshrc

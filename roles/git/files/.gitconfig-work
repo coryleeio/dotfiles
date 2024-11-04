@@ -1,0 +1,8 @@
+
+[user]
+        email = coryl@indeed.com
+        name = Cory Lee
+[init]
+        defaultBranch = main
+[http]
+        postBuffer = 157286400

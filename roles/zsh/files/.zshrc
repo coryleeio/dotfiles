@@ -111,7 +111,36 @@ export EDITOR=nvim
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/.aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias work='cd ~/Workspace/coryleeio/Scratch && git status'
+alias docker='sudo docker'
+alias kind='sudo kind'
+alias kubectl='sudo kubectl'
+alias linkerd='sudo linkerd'
+alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
+alias ws='work && x && ./Scripts/upload-files-state && ./Scripts/reset-files-state'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias vim="nvim"
+alias emacs="emacsclient -c -a 'emacs'"
+
+export PATH=$PATH:/home/coryl/.linkerd2/bin
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:$HOME/.bin
+export PATH=$PATH:$HOME/.config/emacs/bin
+source "$HOME/.cargo/env"
+source "$HOME/.asdf/asdf.sh"
+
 eval "$(starship init zsh)"
 
-if [ -e /home/coryl/.nix-profile/etc/profile.d/nix.sh ]; then . /home/coryl/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+#
+
+# Using oh-my-zsh core plugin instead
+# https://direnv.net/docs/hook.html#oh-my-zsh
+# eval "$(direnv hook zsh)"

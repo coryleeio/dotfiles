@@ -1,4 +1,6 @@
 - name: Setup local environment
   hosts: localhost
   vars: {}
-  roles: []
+  roles: 
+    - base
+    - nix

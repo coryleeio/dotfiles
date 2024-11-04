@@ -1,8 +1,9 @@
 - name: make sure packages are installed
-  package:
+  community.general.homebrew:
     name:
+      - coreutils
       - fzf
-      - direnv
+      - gnu-sed
       - jq
     state: present
-  become: yes
+

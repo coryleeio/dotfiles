@@ -1,4 +1,7 @@
 ---
+- name: Print target system
+  ansible.builtin.debug:
+    var: installer_path
 - name: Get nix version
   shell: |
     . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh

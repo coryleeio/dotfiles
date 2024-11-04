@@ -1,0 +1,16 @@
+- name: make sure starship is installed
+  package:
+    name:
+      - starship
+    state: present
+  become: yes
+
+- name: symlink config files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/starship/files/{{ item }}"
+    path: "~/.config/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - starship.toml

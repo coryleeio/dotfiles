@@ -1,0 +1,27 @@
+
+- name: make sure neovim is installed
+  package:
+    name:
+      - neovim
+    state: present
+  become: yes
+
+- name: create nvim config directory
+  file:
+    path: ~/.config/nvim
+    state: directory
+
+- name: symlink config files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/nvim/files/{{ item }}"
+    path: "~/.config/nvim/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - LICENSE.md
+    - README.md
+    - doc
+    - init.lua
+    - lazy-lock.json
+    - lua

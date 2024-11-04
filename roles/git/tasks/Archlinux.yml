@@ -1,0 +1,11 @@
+
+
+- name: symlink gitconfig files personal
+  file:
+    src: "{{ ansible_env.PWD }}/roles/git/files/.gitconfig-personal"
+    path: "~/.gitconfig"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - .gitconfig

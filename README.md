@@ -1,12 +1,12 @@
 # What is this
 
-My dotfiles repo, installed via ansible
+My dotfiles repo, installed via ansible. 
 
 # How to use this
 
 ## Initial bootstrap
 
-You need an initial ansible install to run it, i usually install it via pacman then remove it after the bootstrap completes
+You need an initial ansible install to run it, i usually install it via pacman then remove it after the first run (using the nix flake after that)
 
 ## Subsequent runs
 

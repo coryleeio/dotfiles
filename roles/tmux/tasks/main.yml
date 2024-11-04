@@ -1,0 +1,23 @@
+
+- name: make sure tmux is installed
+  package:
+    name:
+      - tmux
+    state: present
+  become: yes
+
+- name: create tmux config directory
+  file:
+    path: ~/.config/tmux
+    state: directory
+
+
+- name: symlink config files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/tmux/files/{{ item }}"
+    path: "~/.config/tmux/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - tmux.conf
