@@ -18,7 +18,7 @@ Either using nix develop via direnv or install via package manager, you just nee
 
 ### For Linux
 ```shell
-ansible-playbook --ask-become-pass \
+LC_ALL="C.UTF-8" ansible-playbook --ask-become-pass \
         -i hosts \
         linux.yml
 ```

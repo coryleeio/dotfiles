@@ -1,3 +1,11 @@
 ---
-nix_build: nix-{{ nix_version }}-{{ ansible_facts['env']['system'] }}
+nix_build: nix-{{ nix_version }}-{{ ansible_architecture }}-{{ ansible_os_family|lower }}
 installer_path: https://releases.nixos.org/nix/nix-{{ nix_version }}/{{ nix_build }}.tar.xz
+
+
+os_family_values_darwin:
+   checksum: 'sha512:b894ec23ddd1db9eef13b4d68bf37dce2ffb98d3330078d8ebf527b237cc1431860730df50ac5df07ecfdea8f09633004df4f5cc5245a93fa3e31f25fa5a7d8d'
+
+os_family_values_linux:
+   checksum: 'sha512:6ebe7710fccb71e495dafd0a65c57c3c63ce7633ab4c82a72e4a75b2ce4bed3ff75e2ff8baf4e739f038e0be7109c8ce4313bbc468cfb06854151758e882ff76'
+installer_checksum: "{{ lookup('vars','os_family_values_' + ansible_os_family|lower)['checksum'] }}"

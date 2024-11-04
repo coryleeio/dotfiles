@@ -13,7 +13,6 @@
     {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          LC_ALL="C.UTF-8";
           packages = with pkgs; [ ansible ];
         };
       });
