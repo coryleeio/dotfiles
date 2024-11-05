@@ -5,22 +5,64 @@
     state: present
   become: yes
 
-- name: create nvim config directory
+- name: make sure dolphin is installed
+  package:
+    name:
+      - dolphin
+    state: present
+  become: yes
+
+- name: make sure wofi is installed
+  package:
+    name:
+      - wofi
+    state: present
+  become: yes
+
+
+- name: make sure ttf-font-awesome is installed so waybar can render
+  package:
+    name:
+      - ttf-font-awesome
+    state: present
+  become: yes
+
+- name: make sure waybar is installed
+  package:
+    name:
+      - waybar
+    state: present
+  become: yes
+
+# https://github.com/Alexays/Waybar
+# https://github.com/Alexays/Waybar/wiki
+- name: create waybar config directory
   file:
-    path: ~/.config/nvim
+    path: ~/.config/waybar
     state: directory
 
-- name: symlink config files
+- name: symlink config files for waybar
   file:
-    src: "{{ ansible_env.PWD }}/roles/nvim/files/{{ item }}"
-    path: "~/.config/nvim/{{ item }}"
+    src: "{{ ansible_env.PWD }}/roles/hyprland/files/waybar/{{ item }}"
+    path: "~/.config/waybar/{{ item }}"
     state: link
     follow: false
     force: yes
   loop:
-    - LICENSE.md
-    - README.md
-    - doc
-    - init.lua
-    - lazy-lock.json
-    - lua
+    - config.jsonc
+
+- name: create hyprland config directory
+  file:
+    path: ~/.config/hypr
+    state: directory
+
+
+- name: symlink config files for hyprland
+  file:
+    src: "{{ ansible_env.PWD }}/roles/hyprland/files/{{ item }}"
+    path: "~/.config/hypr/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - hyprland.conf
