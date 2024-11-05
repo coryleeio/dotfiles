@@ -6,4 +6,12 @@
     state: present
   become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
 
-- include_tasks: "{{ ansible_os_family }}.yml"
+- name: symlink gitconfig files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/git/files/.gitconfig"
+    path: "~/.gitconfig"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - .gitconfig
