@@ -1,0 +1,5 @@
+# ansible-galaxy dependencies
+
+collections:
+  # Used to install AUR packages
+  - name: kewlfft.aur

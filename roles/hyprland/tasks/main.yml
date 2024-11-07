@@ -1,38 +1,24 @@
-- name: make sure hyprland is installed
+- name: make sure packages are installed
   package:
     name:
       - hyprland
-    state: present
-  become: yes
-
-- name: make sure dolphin is installed
-  package:
-    name:
-      - dolphin
-    state: present
-  become: yes
-
-- name: make sure wofi is installed
-  package:
-    name:
+      - thunar
       - wofi
-    state: present
-  become: yes
-
-
-- name: make sure ttf-font-awesome is installed so waybar can render
-  package:
-    name:
       - ttf-font-awesome
+      - waybar
+      - swaync
+      - hyprlock
+      - hypridle
     state: present
   become: yes
 
-- name: make sure waybar is installed
-  package:
-    name:
-      - waybar
+- name: Install hyprshot via AUR
+  kewlfft.aur.aur:
+    name: hyprshot
+    use: makepkg
     state: present
   become: yes
+  become_user: aur_builder
 
 # https://github.com/Alexays/Waybar
 # https://github.com/Alexays/Waybar/wiki
@@ -66,3 +52,5 @@
     force: yes
   loop:
     - hyprland.conf
+    - hyprlock.conf
+    - hypridle.conf

@@ -8,6 +8,10 @@ My dotfiles repo, installed via ansible.
 
 You need an initial ansible install to run it, i usually install it via pacman then remove it after the first run (using the nix flake after that)
 
+```shell
+ansible-galaxy collection install -r requirements.yml
+```
+
 ## Subsequent runs
 
 ```shell
@@ -18,6 +22,8 @@ Either using nix develop via direnv or install via package manager, you just nee
 
 ### For Linux
 ```shell
+
+ansible-galaxy collection install -r requirements.yml
 LC_ALL="C.UTF-8" ansible-playbook --ask-become-pass \
         -i hosts \
         linux.yml

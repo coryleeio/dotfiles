@@ -4,5 +4,26 @@
       - fzf
       - direnv
       - jq
+      - ranger
     state: present
   become: yes
+
+
+# Allow AUR building with become without priviledge escalation
+# https://github.com/kewlfft/ansible-aur
+#https://wiki.archlinux.org/title/Ansible
+- name: Create the `aur_builder` user
+  become: yes
+  ansible.builtin.user:
+    name: aur_builder
+    create_home: yes
+    group: wheel
+
+- name: Allow the `aur_builder` user to run `sudo pacman` without a password
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/11-install-aur_builder
+    line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+    create: yes
+    mode: 0644
+    validate: 'visudo -cf %s'
