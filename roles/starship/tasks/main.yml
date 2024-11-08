@@ -3,7 +3,7 @@
     name:
       - starship
     state: present
-  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
+  become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
 - name: symlink config files
   file:

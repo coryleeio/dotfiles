@@ -1,10 +1,11 @@
 
-- name: make sure kitty is installed
+- name: make sure kitty and font are installed
   package:
     name:
       - kitty
+      - ttf-cascadia-code-nerd
     state: present
-  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
+  become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
 - name: create kitty config directory
   file:

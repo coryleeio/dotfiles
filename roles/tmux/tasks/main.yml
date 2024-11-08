@@ -4,7 +4,7 @@
     name:
       - tmux
     state: present
-  become: "{{yes if ansible_os_family == 'linux' else 'no'}}"
+  become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
 - name: create tmux config directory
   file:

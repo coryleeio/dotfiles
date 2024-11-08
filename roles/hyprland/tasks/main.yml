@@ -9,6 +9,9 @@
       - swaync
       - hyprlock
       - hypridle
+      - pavucontrol
+      - nm-connection-editor
+      - nwg-look
     state: present
   become: yes
 
@@ -36,12 +39,13 @@
     force: yes
   loop:
     - config.jsonc
+    - mocha.css
+    - style.css
 
 - name: create hyprland config directory
   file:
     path: ~/.config/hypr
     state: directory
-
 
 - name: symlink config files for hyprland
   file:
