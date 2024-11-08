@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LC_ALL="C.UTF-8" ansible-galaxy install -r requirements.yml
-LC_ALL="C.UTF-8" ansible-playbook --ask-become-pass \
+ansible-galaxy install -r requirements.yml
+ansible-playbook --ask-become-pass \
         -i hosts \
         mac.yml
