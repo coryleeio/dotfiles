@@ -7,4 +7,4 @@ killall -q wofi
 while pgrep -x wofi >/dev/null; do sleep 1; done
 
 # Launch main
-wofi --show=drun --lines=5 --prompt="" --hide-scroll --insensitive --columns=2
+wofi --show=drun --prompt "" --hide-scroll --insensitive --columns=1 -W 400 --lines=4 --allow-images
