@@ -5,6 +5,7 @@
       - direnv
       - jq
       - ranger
+      - xwaylandvideobridge
     state: present
   become: yes
 
