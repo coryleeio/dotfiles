@@ -41,17 +41,23 @@
   become: yes
   become_user: aur_builder
 
-# nwg-look installed above can also be used to set these
-- name: Set theme in dconf
+# nwg-look installed above can also be used to set these (GTK settings application)
+- name: Set gtk theme for gnome widgets in dconf
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Tokyonight-Light'"
+    value: "'Tokyonight-Dark'"
     state: present
 
-- name: Set themeicons in dconf
+- name: Set themeicons for gnome widget in dconf
   dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Tokyonight-Light'"
+    value: "'Tokyonight-Dark'"
+    state: present
+
+- name: Set prefer dark for gnome widget in dconf
+  dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
     state: present
 
 # https://github.com/Alexays/Waybar
@@ -70,7 +76,7 @@
     force: yes
   loop:
     - config.jsonc
-    - mocha.css
+    - colors.css
     - style.css
 
 - name: create hyprland config directory
