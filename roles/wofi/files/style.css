@@ -48,6 +48,7 @@ window {
 
 #entry:selected {
     background-color: #151718;
+    border: 1px solid #A8AFD4;
 }
 
 #text:selected {
