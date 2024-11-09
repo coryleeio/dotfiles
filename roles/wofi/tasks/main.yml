@@ -1,0 +1,30 @@
+
+- name: make sure packages are installed
+  package:
+    name:
+      - wofi
+    state: present
+  become: yes
+
+- name: create wofi config directory
+  file:
+    path: ~/.config/wofi
+    state: directory
+
+
+# Started by copying 
+#https://github.com/stronk-dev/Tokyo-Night-Linux/tree/master/.config
+- name: symlink config files
+  file:
+    src: "{{ ansible_env.PWD }}/roles/wofi/files/{{ item }}"
+    path: "~/.config/wofi/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - colors.rasi
+    - launch.sh
+    - launcher.rasi
+    - launcherSmoll.rasi
+    - style.css
+    - wofi-power.sh

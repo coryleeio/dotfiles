@@ -8,13 +8,6 @@
     state: present
   become: yes
 
-- name: make sure packages are not installed
-  package:
-    name:
-      - xwaylandvideobridge
-    state: absent
-  become: yes
-
 # Allow AUR building with become without priviledge escalation
 # https://github.com/kewlfft/ansible-aur
 #https://wiki.archlinux.org/title/Ansible
