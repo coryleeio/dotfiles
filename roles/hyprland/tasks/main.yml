@@ -76,7 +76,7 @@
     force: yes
   loop:
     - config.jsonc
-    - colors.css
+    - mocha.css
     - style.css
 
 - name: create hyprland config directory
@@ -95,6 +95,7 @@
     - hyprland.conf
     - hyprlock.conf
     - hypridle.conf
+    - locker.sh
 
 - name: create gtk-3.0 config directory
   file:
