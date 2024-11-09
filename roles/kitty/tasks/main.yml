@@ -3,7 +3,7 @@
   package:
     name:
       - kitty
-      - ttf-cascadia-code-nerd
+      - "{{'ttf-cascadia-code-nerd' if ansible_os_family == 'Archlinux' else 'font-hack-nerd-font'}}"
     state: present
   become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
