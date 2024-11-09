@@ -12,8 +12,6 @@
     state: directory
 
 
-# Started by copying 
-#https://github.com/stronk-dev/Tokyo-Night-Linux/tree/master/.config
 - name: symlink config files
   file:
     src: "{{ ansible_env.PWD }}/roles/wofi/files/{{ item }}"
@@ -22,10 +20,6 @@
     follow: false
     force: yes
   loop:
-    - colors.rasi
     - launch.sh
-    - launcher.rasi
-    - launcherSmoll.rasi
     - style.css
-    - wofi-power.sh
     - config
