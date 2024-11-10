@@ -11,7 +11,6 @@
     path: ~/.config/wofi
     state: directory
 
-
 - name: symlink config files
   file:
     src: "{{ ansible_env.PWD }}/roles/wofi/files/{{ item }}"
