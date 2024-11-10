@@ -16,7 +16,7 @@
 
 - name: symlink config files for backgrounds
   file:
-    src: "{{ ansible_env.PWD }}/roles/swww/files/{{ item }}"
+    src: "{{ ansible_env.PWD }}/roles/swww/files/backgrounds/{{ item }}"
     path: "~/.config/backgrounds/{{ item }}"
     state: link
     follow: false
