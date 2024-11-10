@@ -1,0 +1,28 @@
+
+
+- name: make sure packages are installed
+  package:
+    name:
+      - waybar
+    state: present
+  become: yes
+
+# https://github.com/Alexays/Waybar
+# https://github.com/Alexays/Waybar/wiki
+- name: create waybar config directory
+  file:
+    path: ~/.config/waybar
+    state: directory
+
+- name: symlink config files for waybar
+  file:
+    src: "{{ ansible_env.PWD }}/roles/hyprland/files/waybar/{{ item }}"
+    path: "~/.config/waybar/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - config.jsonc
+    - mocha.css
+    - style.css
+

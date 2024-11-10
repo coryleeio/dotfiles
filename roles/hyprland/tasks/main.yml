@@ -4,7 +4,6 @@
       - hyprland
       - thunar
       - ttf-font-awesome
-      - waybar
       - swaync
       - hyprlock
       - hypridle
@@ -14,25 +13,7 @@
     state: present
   become: yes
 
-
-- name: make sure theme dependencies are installed
-  package:
-    name:
-      - nwg-look
-      - sassc
-      - gnome-themes-extra
-      - gtk-engine-murrine
-    state: present
-  become: yes
-
-- name: Install theme via AUR.. this will take like 10m and you will think it is stuck
-  kewlfft.aur.aur:
-    name: hyprshot
-    use: makepkg
-    state: present
-  become: yes
-  become_user: aur_builder
-
+# Take screenshots
 - name: Install hyprshot via AUR
   kewlfft.aur.aur:
     name: hyprshot
@@ -40,44 +21,6 @@
     state: present
   become: yes
   become_user: aur_builder
-
-# nwg-look installed above can also be used to set these (GTK settings application)
-- name: Set gtk theme for gnome widgets in dconf
-  dconf:
-    key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Tokyonight-Dark'"
-    state: present
-
-- name: Set themeicons for gnome widget in dconf
-  dconf:
-    key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Tokyonight-Dark'"
-    state: present
-
-- name: Set prefer dark for gnome widget in dconf
-  dconf:
-    key: "/org/gnome/desktop/interface/color-scheme"
-    value: "'prefer-dark'"
-    state: present
-
-# https://github.com/Alexays/Waybar
-# https://github.com/Alexays/Waybar/wiki
-- name: create waybar config directory
-  file:
-    path: ~/.config/waybar
-    state: directory
-
-- name: symlink config files for waybar
-  file:
-    src: "{{ ansible_env.PWD }}/roles/hyprland/files/waybar/{{ item }}"
-    path: "~/.config/waybar/{{ item }}"
-    state: link
-    follow: false
-    force: yes
-  loop:
-    - config.jsonc
-    - mocha.css
-    - style.css
 
 - name: create hyprland config directory
   file:
@@ -97,36 +40,5 @@
     - hypridle.conf
     - locker.sh
 
-- name: create gtk-3.0 config directory
-  file:
-    path: ~/.config/gtk-3.0
-    state: directory
-
-- name: symlink config files for gtk-3.0
-  file:
-    src: "{{ ansible_env.PWD }}/roles/hyprland/files/gtk-3.0/{{ item }}"
-    path: "~/.config/gtk-3.0/{{ item }}"
-    state: link
-    follow: false
-    force: yes
-  loop:
-    - colors.css
-    - gtk.css
-    - settings.ini
-
-- name: create gtk-4.0 config directory
-  file:
-    path: ~/.config/gtk-4.0
-    state: directory
-
-- name: symlink config files for gtk-4.0
-  file:
-    src: "{{ ansible_env.PWD }}/roles/hyprland/files/gtk-4.0/{{ item }}"
-    path: "~/.config/gtk-4.0/{{ item }}"
-    state: link
-    follow: false
-    force: yes
-  loop:
-    - colors.css
-    - gtk.css
-    - settings.ini
+- include_tasks: "waybar.yml"
+- include_tasks: "theme.yml"

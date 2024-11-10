@@ -1,0 +1,16 @@
+- name: create gtk-4.0 config directory
+  file:
+    path: ~/.config/gtk-4.0
+    state: directory
+
+- name: symlink config files for gtk-4.0
+  file:
+    src: "{{ ansible_env.PWD }}/roles/hyprland/files/gtk-4.0/{{ item }}"
+    path: "~/.config/gtk-4.0/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - colors.css
+    - gtk.css
+    - settings.ini
