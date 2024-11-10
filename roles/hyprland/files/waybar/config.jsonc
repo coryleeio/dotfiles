@@ -32,7 +32,8 @@
     "format-ethernet": "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
-    "tooltip-format-wifi": "Signal Strength: {signalStrength}%"
+    "tooltip-format-wifi": "Signal Strength: {signalStrength}%",
+     "on-click": "nm-connection-editor"
   },
   "pulseaudio": {
       "format": "{icon}  {volume}%",
