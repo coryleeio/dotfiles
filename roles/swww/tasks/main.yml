@@ -23,3 +23,5 @@
     force: yes
   loop:
     - 2077.gif
+    - hyprchantransparent.png
+    - hyprchantransparent2.png

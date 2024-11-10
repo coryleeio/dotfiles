@@ -9,7 +9,7 @@
   "modules-center": ["hyprland/window"],
   "modules-right": ["network", "pulseaudio", "battery", "clock"],
   "clock": {
-    "format": "<span foreground='#71d6c6'>   </span>{:%a %d %H:%M}",
+    "format": "<span foreground='#9ECE6A'>   </span>{:%a %d %H:%M}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "battery": {
