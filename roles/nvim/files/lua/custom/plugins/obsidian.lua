@@ -25,7 +25,7 @@ return {
     { '<leader>ooW', '<cmd>ObsidianQuickSwitch Waiting<CR>', desc = '[O]bsidian [O]pen [W]aiting' },
     { '<leader>ooh', '<cmd>ObsidianQuickSwitch Home<CR>', desc = '[O]bsidian [O]pen [H]ome' },
     { '<leader>oow', '<cmd>ObsidianQuickSwitch Work<CR>', desc = '[O]bsidian [O]pen [W]ork' },
-    { '<leader>ooe', '<cmd>ObsidianQuickSwitch Evening TODO<CR>', desc = '[O]bsidian [O]pen [E]vening TODO' },
+    { '<leader>ooe', '<cmd>ObsidianQuickSwitch Evening<CR>', desc = '[O]bsidian [O]pen [E]vening' },
     { '<leader>ot', '<cmd>ObsidianToday<CR>', desc = '[O]bsidian [t]oday' },
     { '<leader>oy', '<cmd>ObsidianYesterday<CR>', desc = '[O]bsidian [y]esterday' },
     { '<leader>on', '<cmd>ObsidianTomorrow<CR>', desc = '[O]bsidian [N]ext day' },
