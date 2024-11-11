@@ -12,7 +12,7 @@ find $1 -name '*.desktop' -exec sed -i -e 's/Exec=steam/Exec=flatpak run com.val
 find $1 -name '*.desktop' -exec ln -sv "{}" ~/.local/share/applications/ \;
 
 # Find the icons and link them as well
-for Item in $(ls ${1}/data/icons/hicolor/);
+for Item in $(ls "${1}/data/icons/hicolor/");
 do
   targ="${1}/data/icons/hicolor/${Item}/apps";
   find "${targ}" -name "*.png*" -exec ln -sv "{}" ~/.local/share/icons/hicolor/${Item}/apps/ \;
