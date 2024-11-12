@@ -18,6 +18,7 @@
     state: present
   become: yes
   become_user: aur_builder
+
 - name: Set gtk theme for gnome widgets in dconf
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
@@ -37,3 +38,4 @@
     state: present
 - include_tasks: "gtk3.yml"
 - include_tasks: "gtk4.yml"
+
