@@ -3,7 +3,7 @@
   vars: {}
   roles: 
     - base
-    - nix
+#    - nix
     - kitty
     - hyprland
     - nvim
