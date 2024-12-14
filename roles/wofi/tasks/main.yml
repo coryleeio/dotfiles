@@ -20,6 +20,7 @@
     force: yes
   loop:
     - launch.sh
+    - link_flatpak_applications.sh
     - link_flatpak_steam_games.sh
     - style.css
     - config
