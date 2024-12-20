@@ -4,6 +4,24 @@
   package:
     name:
       - emacs
+
+    state: present
+  become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
+
+
+- name: make sure fonts are installed
+  package:
+    name:
+      - ttf-jetbrains-mono
+      - ttf-ubuntu-font-family
+    state: present
+  become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
+
+
+- name: make sure libraries are installed
+  package:
+    name:
+      - cmake
     state: present
   become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
