@@ -31,7 +31,6 @@
   - [[#linting][LINTING]]
 - [[#pyenv][pyenv]]
 - [[#kind-icons][Kind Icons]]
-- [[#magit][Magit]]
 - [[#marginalia][Marginalia]]
 - [[#minibuffer-escape][MINIBUFFER ESCAPE]]
 - [[#modeline][MODELINE]]
@@ -516,29 +515,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "f d" '(projectile-dired :wk "Dired(explore current project)")
   ) 
 
-  (dt/leader-keys
-    "g" '(:ignore t :wk "Git")    
-    "g /" '(magit-dispatch :wk "Magit dispatch")
-    "g ." '(magit-file-dispatch :wk "Magit file dispatch")
-    "g b" '(magit-branch-checkout :wk "Switch branch")
-    "g c" '(:ignore t :wk "Create") 
-    "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
-    "g c c" '(magit-commit-create :wk "Create commit")
-    "g c f" '(magit-commit-fixup :wk "Create fixup commit")
-    "g C" '(magit-clone :wk "Clone repo")
-    "g f" '(:ignore t :wk "Find") 
-    "g f c" '(magit-show-commit :wk "Show commit")
-    "g f f" '(magit-find-file :wk "Magit find file")
-    "g f g" '(magit-find-git-config-file :wk "Find gitconfig file")
-    "g F" '(magit-fetch :wk "Git fetch")
-    "g g" '(magit-status :wk "Magit status")
-    "g i" '(magit-init :wk "Initialize git repo")
-    "g l" '(magit-log-buffer-file :wk "Magit buffer log")
-    "g r" '(vc-revert :wk "Git revert file")
-    "g s" '(magit-stage-file :wk "Git stage file")
-    "g t" '(git-timemachine :wk "Git time machine")
-    "g u" '(magit-stage-file :wk "Git unstage file"))
-
  (dt/leader-keys
     "h" '(:ignore t :wk "Help/Emacs")
     "h a" '(apropos :wk "Apropos")
@@ -779,16 +755,6 @@ Pretty icons for corfu
   :after corfu
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
-#+end_src
-
-
-* Magit
-porcellain git in emacs
-#+begin_src emacs-lisp
-(use-package magit
-  :ensure t
-  :config
-)
 #+end_src
 
 * Marginalia
