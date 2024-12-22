@@ -939,7 +939,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+end_src
 
 * ORG ROAM
-Zettlekasten in emacs
+Notes with cross and backlinking
 
 #+begin_src emacs-lisp
 (use-package org-roam
@@ -1054,8 +1054,7 @@ Zettlekasten in emacs
 #+end_src
 
 * ORG ROAM UI
-
-
+Node graph for roam notes displayed in the browser
 
 #+begin_src emacs-lisp
 (use-package org-roam-ui
@@ -1065,6 +1064,7 @@ Zettlekasten in emacs
           org-roam-ui-update-on-save t
           org-roam-ui-open-on-start t))
 #+end_src
+
 * PERSPECTIVE
 [[https://github.com/nex3/perspective-el][Perspective]] provides multiple named workspaces (or "perspectives") in Emacs, similar to multiple desktops in window managers.  Each perspective has its own buffer list and its own window layout, along with some other isolated niceties, like the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Xref.html][xref]] ring.
 
@@ -1097,7 +1097,7 @@ Zettlekasten in emacs
 #+end_src
 
 * PROJECTILE
-[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.  It should be noted that many projectile commands do not work if you have set "fish" as the "shell-file-name" for Emacs.  I had initially set "fish" as the "shell-file-name" in the Vterm section of this config, but oddly enough I changed it to "bin/sh" and projectile now works as expected, and Vterm still uses "fish" because my default user "sh" on my Linux system is "fish".
+[[https://github.com/bbatsov/projectile][Projectile]] is a project interaction library for Emacs.  It does things like the derivation of sourcing per project configs, build, run, test commands
 
 #+begin_src emacs-lisp
 (use-package projectile
@@ -1108,7 +1108,7 @@ Zettlekasten in emacs
 #+end_src
 
 * PERSP-PROJECTILE 
-Automatically create perspectives when new projects are encountered
+Automatically create perspectives when new projects are encountered by projectile, integrate projectile and perspective
 #+begin_src emacs-lisp
 (use-package persp-projectile
   :ensure t
@@ -1135,7 +1135,7 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 #+end_src
 
 * REGISTERS
-
+Define a function for clearing all registers
 
 #+begin_src emacs-lisp
 (defun my/clear-registers()
@@ -1299,7 +1299,6 @@ The following settings are simple modes that are enabled (or disabled) so that E
 #+end_src
 
 * SHELLS AND TERMINALS
-In my configs, all of my shells (bash, fish, zsh and the ESHELL) require my shell-color-scripts-git package to be installed.  On Arch Linux, you can install it from the AUR.  Otherwise, go to my shell-color-scripts repository on GitLab to get it.
 
 ** Eshell
 Eshell is an Emacs 'shell' that is written in Elisp.
