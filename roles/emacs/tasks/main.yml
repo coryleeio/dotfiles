@@ -22,6 +22,8 @@
   package:
     name:
       - cmake
+      - make
+      - libvterm
     state: present
   become: "{{'yes' if ansible_os_family == 'Archlinux' else 'no'}}"
 
