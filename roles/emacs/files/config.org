@@ -265,11 +265,9 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
 #+end_src
 
 * DIMINISH
-This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
-
+This package implements hiding or abbreviation of the modeline displays of minor-modes.  . It lets you Diminish less important minor modes in the modeline by adding ':diminish' to any use-package block to hide that particular mode in the modeline
 #+begin_src emacs-lisp
 (use-package diminish)
-
 #+end_src
 
 * DIRED
@@ -1422,6 +1420,7 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 
 
 ** EGLOT 
+
 LSP Client
 
 Helpful resources:
@@ -1443,10 +1442,12 @@ Helpful resources:
   ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
 
   (setq eldoc-echo-area-prefer-doc-buffer t)
-  )
+)
 #+end_src
-** TREESITTER
 
+** TREESITTER
+Treesitter is already included in my installation. LSPs utilize it for increased accuracy and speed of text manipulation if it is installed. 
+See (treesit-available-p) and (treesit-language-available-p 'python), grammers for all languages wont be installed. This configures emacs to prompt, download, compile and install grammers for treesitter when encountered
 #+begin_src emacs-lisp
 (use-package treesit-auto
   :custom
@@ -1475,7 +1476,7 @@ Syntax highlighting spacing awareness etc for various common file types
 
 #+end_src
 * VERTICO
-Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR THE MINIBUFFER.  Corfu for the minibuffer.
+Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR THE MINIBUFFER. Corfu for the minibuffer.
 
 #+begin_src emacs-lisp
 (use-package vertico
@@ -1492,9 +1493,11 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
 
 ;; Marginalia: annotations for minibuffer
 #+end_src
-* WINDOW MANAGEMENT
-#+begin_src emacs-lisp
 
+* WINDOW MANAGEMENT
+An IDE like window layout for pair programming
+
+#+begin_src emacs-lisp
 (defun my/prog()
    (interactive)
    (neotree-toggle)
@@ -1511,12 +1514,9 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
    (call-interactively 'list-flycheck-errors)
    (evil-window-left 1)
 )
-
-
-
 #+end_src
-* WGREP 
 
+* WGREP 
 Lets you apply sed like transformations to groups of open buffers and save them.  Useful for really wide editing of files. Write + grep
 
 #+begin_src emacs-lisp
@@ -1527,7 +1527,7 @@ Lets you apply sed like transformations to groups of open buffers and save them.
 #+end_src
 
 * WHICH-KEY
-
+Show key mappings after a delay in the minibuffer
 #+begin_src emacs-lisp
 (use-package which-key
   :init
