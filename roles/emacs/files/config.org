@@ -333,7 +333,7 @@ gs in the minibuffer (jump to files, stuff like that)
 
 
 * EVIL
-[[https://github.com/emacs-evil/evil][Evil]] is an extensible vi/vim layer for Emacs.  Because...let's face it.  The Vim keybindings are just plain better.
+[[https://github.com/emacs-evil/evil][Evil]] is an extensible vi/vim layer for Emacs
 
 #+begin_src emacs-lisp
 ;; Expands to: (elpaca evil (use-package evil :demand t))
@@ -382,6 +382,7 @@ Multi line edits like sublime for emacs
 )
 
 #+end_src
+
 * FONTS
 Defining the various fonts that Emacs will use.
 
@@ -702,6 +703,7 @@ syntax highlighting for terraform
   :custom ((hcl-indent-level 2)))
 
 #+end_src
+
 * HIGHLIGHT TODO
 Adding highlights to TODO and related words.
 
@@ -744,6 +746,7 @@ venvs for python
   :config
   (pyvenv-mode 1))
 #+end_src
+
 * Kind Icons
 
 Pretty icons for corfu
@@ -758,6 +761,7 @@ Pretty icons for corfu
 #+end_src
 
 * Marginalia
+text to the side of the mini buffer
 
 #+begin_src emacs-lisp
 (use-package marginalia
