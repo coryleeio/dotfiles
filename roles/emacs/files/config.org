@@ -217,7 +217,7 @@ Popup completion-at-point, does the same thing as company, but uses the native e
 
 ;; Part of corfu
 (use-package corfu-popupinfo
-  :elpaca nil
+  :ensure nil
   :after corfu
   :hook (corfu-mode . corfu-popupinfo-mode)
   :custom
@@ -229,7 +229,7 @@ Popup completion-at-point, does the same thing as company, but uses the native e
 ;; Make corfu popup come up in terminal overlay
 (use-package corfu-terminal
   :if (not (display-graphic-p))
-  :elpaca nil
+  :ensure nil
   :config
   (corfu-terminal-mode))
 
@@ -1461,7 +1461,7 @@ Helpful resources:
 #+begin_src emacs-lisp
 (use-package eglot
   ;; no :ensure t here because it's built-in
-  :elpaca nil
+  :ensure nil
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -1517,7 +1517,7 @@ Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR T
 
 (use-package vertico-directory
   :after vertico
-  :elpaca nil
+  :ensure nil
   :bind (:map vertico-map
               ("M-DEL" . vertico-directory-delete-word)))
 
