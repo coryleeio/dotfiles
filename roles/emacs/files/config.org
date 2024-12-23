@@ -1125,6 +1125,7 @@ Ranger like functionality in emacs, like dired but always peeking
     (setq ranger-width-preview 0.40
         ranger-show-literal nil
         ranger-max-preview-size 10
+	  ranger-show-hidden t
     )
 )
 #+end_src
