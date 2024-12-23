@@ -1,0 +1,27 @@
+- name: make sure emacs is installed
+  package:
+    name:
+      - emacs
+
+    state: present
+  become: "yes"
+
+- name: make sure fonts are installed
+  package:
+    name:
+      - ttf-jetbrains-mono
+      - ttf-ubuntu-font-family
+    state: present
+  become: "yes"
+
+- name: make sure libraries are installed
+  package:
+    name:
+      - cmake
+
+      # required to build vterm-module
+      - make
+      - libvterm
+    state: present
+  become: "yes"
+

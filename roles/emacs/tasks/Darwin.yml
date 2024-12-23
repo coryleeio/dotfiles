@@ -1,0 +1,6 @@
+- name: make sure packages are installed
+  community.general.homebrew:
+    name:
+      - emacs
+    state: present
+
