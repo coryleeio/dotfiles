@@ -4,3 +4,7 @@
       - emacs
     state: present
 
+- name: Unset preference that keeps titlebar in light mode
+  ansible.builtin.shell:
+    cmd: defaults write org.gnu.Emacs NSRequiresAquaSystemAppearance -bool no
+
