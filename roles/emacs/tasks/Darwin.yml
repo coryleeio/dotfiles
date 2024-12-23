@@ -1,7 +1,13 @@
-- name: make sure packages are installed
+- name: Install emacs as an application
   community.general.homebrew_cask:
     name:
       - emacs
+    state: present
+
+- name: make sure packages are installed
+  community.general.homebrew:
+    name:
+      - pyright
     state: present
 
 - name: Unset preference that keeps titlebar in light mode
