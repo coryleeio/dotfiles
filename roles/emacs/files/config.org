@@ -1,6 +1,6 @@
 #+TITLE: Cory's Emacs Config
 #+AUTHOR: Cory Lee
-#+DESCRIPTION: Cory's personal Emacs config.
+#+DESCRIPTION: Cory's Emacs config
 #+STARTUP: showeverything
 #+OPTIONS: toc:2
 
@@ -26,7 +26,7 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
-- [[#gptel][Gptel]]
+- [[#gptel][GPTEL]]
   - [[#linting][LINTING]]
 - [[#pyenv][PYENV]]
 - [[#kind-icons][KIND ICONS]]
@@ -61,7 +61,7 @@
 - [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
 - [[#language-support][LANGUAGE SUPPORT]]
-  - [[#eglot][EGLOT]]
+  - [[#lsp-mode][LSP MODE]]
   - [[#treesitter][TREESITTER]]
   - [[#highlighting][Highlighting]]
 - [[#vertico][VERTICO]]
@@ -126,14 +126,16 @@ If the new path's directories does not exist, create them."
 
 * Cape
 
-Fancy completion-at-point functions
+Cape provides Completion At Point Extensions which can be used in combination with Corfu, Company or the default completion UI.
+Prebuilt addtional completion-at-point functions
 
 #+begin_src emacs-lisp
 (use-package cape
   :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  (add-to-list 'completion-at-point-functions #'cape-file)
+)
 
 #+end_src
 
@@ -184,7 +186,8 @@ Search for stuff
 
 * CORFU
 
-Popup completion-at-point, does the same thing as company, but uses the native emacs apis.  It is not the completion in the minibuffer, that is vertico
+Popup completion-at-point frontend, It is not the completion in the minibuffer, that is vertico
+https://github.com/minad/corfu/wiki#configuring-corfu-for-lsp-mode
 
 #+begin_src emacs-lisp
 
@@ -192,15 +195,6 @@ Popup completion-at-point, does the same thing as company, but uses the native e
   :ensure t
   :init
   (global-corfu-mode)
-  :custom
-  (corfu-cycle t)                 ; Allows cycling through candidates
-  (corfu-auto t)                  ; Enable auto completion
-  (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.3)
-  (corfu-popupinfo-delay '(0.5 . 0.2))
-  (corfu-preview-current 'insert) ; insert previewed candidate
-  (corfu-preselect 'prompt)
-  (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
   :bind (:map corfu-map
               ("S-SPC"      . corfu-insert-separator)
               ("C-n"        . corfu-next)
@@ -210,26 +204,6 @@ Popup completion-at-point, does the same thing as company, but uses the native e
               ("ESC"        . corfu-reset))
   )
 
-;; Part of corfu
-(use-package corfu-popupinfo
-  :ensure nil
-  :after corfu
-  :hook (corfu-mode . corfu-popupinfo-mode)
-  :custom
-  (corfu-popupinfo-delay '(0.25 . 0.1))
-  (corfu-popupinfo-hide nil)
-  :config
-  (corfu-popupinfo-mode))
-
-;; Make corfu popup come up in terminal overlay
-(use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :ensure nil
-  :config
-  (corfu-terminal-mode))
-
-;; Fancy completion-at-point functions; there's too much in the cape package to
-;; configure here; dive in when you're comfortable!
 #+end_src
 * DASHBOARD
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
@@ -243,8 +217,8 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "These are your fathers parenthesis. Elegant weapons for a more... civilized age")
   ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner (concat user-emacs-directory "images/pylon.png"))  ;; use custom image as banneru
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-startup-banner (concat user-emacs-directory "images/pylon.png"))  ;; use custom image as banner
+  (setq dashboard-center-content t) ;; set to 't' for centered content
   (setq dashboard-items '(
 			   ;; (recents . 0)
                          ;; (agenda . 0 )
@@ -499,6 +473,10 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   )
 
   (dt/leader-keys
+    "c" '(:ignore t :wk "Code Actions")
+  )
+
+  (dt/leader-keys
     "q" '(:ignore t :wk "Registers") 
     "q c" '(copy-to-register :wk "Copy region into register")
     "q i" '(insert-register :wk "Insert text from register")
@@ -692,7 +670,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 #+end_src
 
 
-* Gptel
+* GPTEL
 GPTel is a simple Large Language Model chat client for Emacs, with support for multiple models and backends.
 #+begin_src emacs-lisp
 (use-package gptel
@@ -792,7 +770,13 @@ Orderless: powerful completion style
 (use-package orderless
   :ensure t
   :config
-  (setq completion-styles '(orderless)))
+  (setq completion-styles '(orderless))
+  ;; This affects the minibuffer and non-lsp completion at point.
+  (setq completion-styles '(orderless partial-completion basic)
+        completion-category-defaults nil
+        completion-category-overrides nil)
+  )
+
 #+end_src
 
 * ORG MODE
@@ -1135,152 +1119,154 @@ The following settings are simple modes that are enabled (or disabled) so that E
 
 #+begin_src emacs-lisp
 
-  (delete-selection-mode 1)    ;; You can select text and delete it by typing.
-  (electric-indent-mode -1)    ;; Turn off the weird indenting that Emacs does by default.
-  (electric-pair-mode 1)       ;; Turns on automatic parens pairing
-  ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
-  ;; Otherwise, org-tempo is broken when you try to <s TAB...
-  (add-hook 'org-mode-hook (lambda ()
-             (setq-local electric-pair-inhibit-predicate
-                     `(lambda (c)
-                    (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-  (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
-  (global-display-line-numbers-mode 1) ;; Display line numbers
-  (global-visual-line-mode t)  ;; Enable truncated lines
-  (menu-bar-mode -1)           ;; Disable the menu bar 
-  (scroll-bar-mode -1)         ;; Disable the scroll bar
-  (tool-bar-mode -1)           ;; Disable the tool bar
-  (setq org-edit-src-content-indentation 0) ;; Set src block automatic indent to 0 instead of 2.
+
+(setq vc-follow-symlinks t)  ;; Always follow symlinks, disable this if you need to edit a synlink itself
+(delete-selection-mode 1)    ;; You can select text and delete it by typing.
+(electric-indent-mode -1)    ;; Turn off the weird indenting that Emacs does by default.
+(electric-pair-mode 1)       ;; Turns on automatic parens pairing
+;; The following prevents <> from auto-pairing when electric-pair-mode is on.
+;; Otherwise, org-tempo is broken when you try to <s TAB...
+(add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+(global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
+(global-display-line-numbers-mode 1) ;; Display line numbers
+(global-visual-line-mode t)  ;; Enable truncated lines
+(menu-bar-mode -1)           ;; Disable the menu bar 
+(scroll-bar-mode -1)         ;; Disable the scroll bar
+(tool-bar-mode -1)           ;; Disable the tool bar
+(setq org-edit-src-content-indentation 0) ;; Set src block automatic indent to 0 instead of 2.
 
 
 
 
-  (setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
+(setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
 
-  ;; Automatically reread from disk if the underlying file changes
-  (setopt auto-revert-avoid-polling t)
-  ;; Some systems don't do file notifications well; see
-  ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
-  (setopt auto-revert-interval 5)
-  (setopt auto-revert-check-vc-info t)
-  (global-auto-revert-mode)
-
-
-  ;; Save history of minibuffer
-  (savehist-mode)
-
-  ;; Move through windows with Ctrl-<arrow keys>
-  (windmove-default-keybindings 'control) ; You can use other modifiers here
-
-  ;; Fix archaic defaults
-  (setopt sentence-end-double-space nil)
-
-  ;; Make right-click do something sensible
-  (when (display-graphic-p)
-    (context-menu-mode))
+;; Automatically reread from disk if the underlying file changes
+(setopt auto-revert-avoid-polling t)
+;; Some systems don't do file notifications well; see
+;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
+(setopt auto-revert-interval 5)
+(setopt auto-revert-check-vc-info t)
+(global-auto-revert-mode)
 
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;
-  ;;;   Discovery aids
-  ;;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Save history of minibuffer
+(savehist-mode)
 
-  ;; Show the help buffer after startup
-  ;; (add-hook 'after-init-hook 'help-quick)
+;; Move through windows with Ctrl-<arrow keys>
+(windmove-default-keybindings 'control) ; You can use other modifiers here
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;
-  ;;;   Minibuffer/completion settings
-  ;;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Fix archaic defaults
+(setopt sentence-end-double-space nil)
 
-  ;; For help, see: https://www.masteringemacs.org/article/understanding-minibuffer-completion
+;; Make right-click do something sensible
+(when (display-graphic-p)
+  (context-menu-mode))
 
-  (setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
-  (setopt completion-cycle-threshold 1)                  ; TAB cycles candidates
-  (setopt completions-detailed t)                        ; Show annotations
-  (setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-  (setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-  (setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-  (setopt completions-max-height 20)                     ; This is arbitrary
-  (setopt completions-detailed t)
-  (setopt completions-format 'one-column)
-  (setopt completions-group t)
-  (setopt completion-auto-select 'second-tab)            ; Much more eager
-  ;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Discovery aids
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
+;; Show the help buffer after startup
+;; (add-hook 'after-init-hook 'help-quick)
 
-  ;; For a fancier built-in completion option, try ido-mode,
-  ;; icomplete-vertical, or fido-mode. See also the file extras/base.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Minibuffer/completion settings
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;(icomplete-vertical-mode)
-  ;(fido-vertical-mode)
-  ;(setopt icomplete-delay-completions-threshold 4000)
+;; For help, see: https://www.masteringemacs.org/article/understanding-minibuffer-completion
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;
-  ;;;   Interface enhancements/defaults
-  ;;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
+(setopt completion-cycle-threshold 1)                  ; TAB cycles candidates
+(setopt completions-detailed t)                        ; Show annotations
+(setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
+(setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-  ;; Mode line information
-  (setopt line-number-mode t)                        ; Show current line in modeline
-  (setopt column-number-mode t)                      ; Show column as well
+(setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
+(setopt completions-max-height 20)                     ; This is arbitrary
+(setopt completions-detailed t)
+(setopt completions-format 'one-column)
+(setopt completions-group t)
+(setopt completion-auto-select 'second-tab)            ; Much more eager
+;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
-  (setopt x-underline-at-descent-line nil)           ; Prettier underlines
-  (setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
+(keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
-  (setopt show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-  (setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
+;; For a fancier built-in completion option, try ido-mode,
+;; icomplete-vertical, or fido-mode. See also the file extras/base.el
 
-  ;; Enable horizontal scrolling
-  (setopt mouse-wheel-tilt-scroll t)
-  (setopt mouse-wheel-flip-direction t)
+;(icomplete-vertical-mode)
+;(fido-vertical-mode)
+;(setopt icomplete-delay-completions-threshold 4000)
 
-  ;; We won't set these, but they're good to know about
-  ;;
-  ;; (setopt indent-tabs-mode nil)
-  ;; (setopt tab-width 4)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Interface enhancements/defaults
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; Misc. UI tweaks
-  (blink-cursor-mode -1)                                ; Steady cursor
-  (pixel-scroll-precision-mode)                         ; Smooth scrolling
+;; Mode line information
+(setopt line-number-mode t)                        ; Show current line in modeline
+(setopt column-number-mode t)                      ; Show column as well
 
-  ;; Use common keystrokes by default
-  (cua-mode)
+(setopt x-underline-at-descent-line nil)           ; Prettier underlines
+(setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
 
-  ;; Display line numbers in programming mode
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-  (setopt display-line-numbers-width 3)           ; Set a minimum width
+(setopt show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
+(setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
 
-  ;; Nice line wrapping when working with text
-  (add-hook 'text-mode-hook 'visual-line-mode)
+;; Enable horizontal scrolling
+(setopt mouse-wheel-tilt-scroll t)
+(setopt mouse-wheel-flip-direction t)
 
-  ;; Modes to highlight the current line with
-  (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
-    (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+;; We won't set these, but they're good to know about
+;;
+;; (setopt indent-tabs-mode nil)
+;; (setopt tab-width 4)
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;;;
-  ;;;   Tab-bar configuration
-  ;;;
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Misc. UI tweaks
+(blink-cursor-mode -1)                                ; Steady cursor
+(pixel-scroll-precision-mode)                         ; Smooth scrolling
 
-  ;; Show the tab-bar as soon as tab-bar functions are invoked
-  (setopt tab-bar-show 1)
+;; Use common keystrokes by default
+(cua-mode)
 
-  ;; Add the time to the tab-bar, if visible
-  (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
-  (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
-  (setopt display-time-format "%a %F %T")
-  (setopt display-time-interval 1)
-  (display-time-mode)
+;; Display line numbers in programming mode
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setopt display-line-numbers-width 3)           ; Set a minimum width
 
-  ;; Turn off the bell
-  (setq ring-bell-function 'ignore)
+;; Nice line wrapping when working with text
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+;; Modes to highlight the current line with
+(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
+  (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Tab-bar configuration
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Show the tab-bar as soon as tab-bar functions are invoked
+(setopt tab-bar-show 1)
+
+;; Add the time to the tab-bar, if visible
+(add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
+(add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+(setopt display-time-format "%a %F %T")
+(setopt display-time-interval 1)
+(display-time-mode)
+
+;; Turn off the bell
+(setq ring-bell-function 'ignore)
 
 
 #+end_src
@@ -1373,31 +1359,38 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 
 * LANGUAGE SUPPORT 
 
-** EGLOT 
 
-LSP Client
-
-Helpful resources:
-- https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
-
+** LSP MODE
+Using LSP mode since eglot doesnt work with DAP
+https://emacs-lsp.github.io/lsp-mode/page/installation/
+https://github.com/emacs-lsp/lsp-mode
+https://github.com/minad/corfu/wiki#configuring-corfu-for-lsp-mode
 #+begin_src emacs-lisp
-(use-package eglot
-  ;; no :ensure t here because it's built-in
-  :ensure nil
-
+(use-package lsp-mode
   :custom
-  (eglot-send-changes-idle-time 0.1)
-  (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
+  (lsp-completion-provider :none) ;; we use Corfu!
+  (lsp-ui-doc-show-with-cursor t)
+  :commands (lsp lsp-deferred)
+  :init
+  (defun my/orderless-dispatch-flex-first (_pattern index _total)
+    (and (eq index 0) 'orderless-flex))
 
-  :config
-  (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
-  ;; Sometimes you need to tell Eglot where to find the language server
-  ; (add-to-list 'eglot-server-programs
-  ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))
+    ;; Optionally configure the first word as flex filtered.
+    (add-hook 'orderless-style-dispatchers #'my/orderless-dispatch-flex-first nil 'local)
+    ;; Optionally configure the cape-capf-buster.
+    (setq-local completion-at-point-functions (list (cape-capf-buster #'lsp-completion-at-point))))
 
-  (setq eldoc-echo-area-prefer-doc-buffer t)
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion)
+  (lsp-mode . lsp-enable-which-key-integration)
+  (python-ts-mode . lsp-deferred)
 )
+(use-package lsp-ui)
 #+end_src
+
 
 ** TREESITTER
 Treesitter is already included in my installation. LSPs utilize it for increased accuracy and speed of text manipulation if it is installed. 
@@ -1451,7 +1444,7 @@ Syntax highlighting spacing awareness etc for various common file types
 
 
 * VERTICO
-Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR THE MINIBUFFER. Corfu for the minibuffer.
+Modern vertical selector with autocomplete filtering an intuitive hotkeys FOR THE MINIBUFFER. Corfu for the minibuffer.
 
 #+begin_src emacs-lisp
 (use-package vertico
