@@ -1,5 +1,5 @@
 - name: make sure packages are installed
-  community.general.homebrew:
+  community.general.homebrew_cask:
     name:
       - emacs
     state: present
