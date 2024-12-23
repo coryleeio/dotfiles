@@ -21,13 +21,12 @@
 - [[#embark][EMBARK]]
 - [[#evil][EVIL]]
 - [[#evil-mc][EVIL-MC]]
+- [[#evil-goggles][EVIL-GOGGLES]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
 - [[#gptel][Gptel]]
-- [[#hcl-mode][HCL mode]]
-- [[#highlight-todo][HIGHLIGHT TODO]]
   - [[#linting][LINTING]]
 - [[#pyenv][pyenv]]
 - [[#kind-icons][Kind Icons]]
@@ -52,9 +51,9 @@
 - [[#rainbow-delimiters][RAINBOW DELIMITERS]]
 - [[#rainbow-mode][RAINBOW MODE]]
 - [[#registers][REGISTERS]]
+- [[#ranger][RANGER]]
 - [[#sane-defaults][SANE DEFAULTS]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
-  - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
 - [[#spacious-padding][Spacious Padding]]
@@ -65,7 +64,7 @@
 - [[#language-support][LANGUAGE SUPPORT]]
   - [[#eglot][EGLOT]]
   - [[#treesitter][TREESITTER]]
-  - [[#file-types][FILE TYPES]]
+  - [[#highlighting][Highlighting]]
 - [[#vertico][VERTICO]]
 - [[#window-management][WINDOW MANAGEMENT]]
 - [[#wgrep][WGREP]]
@@ -381,6 +380,36 @@ Multi line edits like sublime for emacs
 
 #+end_src
 
+* EVIL-GOGGLES
+Edit animations for text actions
+https://github.com/edkolev/evil-goggles
+run `M-x list-faces-display` in a fresh emacs to get a list of faces on your emacs
+
+#+begin_src emacs-lisp
+(use-package evil-goggles
+  :ensure t
+  :config
+  (evil-goggles-mode)
+
+  ;; optionally use diff-mode's faces; as a result, deleted text
+  ;; will be highlighed with `diff-removed` face which is typically
+  ;; some red color (as defined by the color theme)
+  ;; other faces such as `diff-added` will be used for other actions
+  (evil-goggles-use-diff-faces)
+  (setq evil-goggles-duration 0.3
+      evil-goggles-pulse t)
+  (custom-set-faces
+   '(evil-goggles-change-face ((t (:inherit diff-removed))))
+   '(evil-goggles-delete-face ((t (:inherit diff-removed))))
+   '(evil-goggles-paste-face ((t (:inherit diff-added))))
+   '(evil-goggles-undo-redo-add-face ((t (:inherit diff-added))))
+   '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
+   '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
+   '(evil-goggles-yank-face ((t (:inherit diff-removed))))
+))
+#+end_src
+
+
 * FONTS
 Defining the various fonts that Emacs will use.
 
@@ -444,11 +473,10 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "." '(find-file :wk "Find file")
     "," '(projectile-persp-switch-project :wk "Find Project")
     "TAB" '(perspective-map :wk "Perspective") ;; Lists all the perspective keybindings
-    "=" '(comment-line :wk "Comment lines")
     "u" '(universal-argument :wk "Universal argument"))
 
   (dt/leader-keys
-    "a" '(:ignore t :wk "AI LLMs etc")
+    "a" '(:ignore t :wk "AI")
     "a s" '(gptel-send :wk "Send selection")
     "a r" '(gptel-rewrite-menu :wk "Rewrite menu")
     "a m" '(gptel-menu :wk "Menu")
@@ -460,10 +488,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "b" '(:ignore t :wk "Bookmarks/Buffers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
-    "b c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
-    "b C" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "b d" '(bookmark-delete :wk "Delete bookmark")
-    "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-current-buffer :wk "Kill current buffer")
     "b K" '(kill-some-buffers :wk "Kill multiple buffers")
     "b l" '(list-bookmarks :wk "List bookmarks")
@@ -473,7 +498,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "b s" '(basic-save-buffer :wk "Save buffer")
     "b S" '(save-some-buffers :wk "Save multiple buffers")
     "b w" '(bookmark-save :wk "Save current bookmarks to bookmark file")
-
     "b R" '(revert-buffer :wk "Reload buffer")
   )
 
@@ -693,34 +717,6 @@ GPTel is a simple Large Language Model chat client for Emacs, with support for m
  )
 #+end_src
 
-* HCL mode
-syntax highlighting for terraform
-
-#+begin_src emacs-lisp
-(use-package hcl-mode
-  :custom ((hcl-indent-level 2)))
-
-#+end_src
-
-* HIGHLIGHT TODO
-Adding highlights to TODO and related words.
-
-#+begin_src emacs-lisp
-(use-package hl-todo
-  :hook ((org-mode . hl-todo-mode)
-         (prog-mode . hl-todo-mode))
-  :config
-  (setq hl-todo-highlight-punctuation ":"
-        hl-todo-keyword-faces
-        `(
-	    ("TODO"       warning)
-          ("HOLD"       font-lock-keyword-face)
-          ("NEXT"       font-lock-constant-face)
-         )
-  )
-)
-
-#+end_src
 
 
 ** LINTING
@@ -833,6 +829,12 @@ Orderless: powerful completion style
 
 * ORG MODE
 ** Enabling Table of Contents
+Allows you to embed a table of contents by including the :toc: on an org mode header line
+
+You can also use something like this in the org frontmatter to limit the depth of the table of contents
++OPTIONS: toc:2
+
+https://orgmode.org/manual/Table-of-Contents.html
 #+begin_src emacs-lisp
 (use-package toc-org
     :commands toc-org-enable
@@ -1130,6 +1132,7 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 (use-package rainbow-mode
   :diminish
   :hook org-mode prog-mode)
+
 #+end_src
 
 * REGISTERS
@@ -1142,192 +1145,178 @@ Define a function for clearing all registers
 )
 #+end_src
 
+* RANGER
+Ranger like functionality in emacs, like dired but always peeking
+
+#+begin_src emacs-lisp
+(use-package ranger
+  :ensure t
+  :init
+  (ranger-override-dired-mode t)
+  :config
+    (setq ranger-width-preview 0.40
+        ranger-show-literal nil
+        ranger-max-preview-size 10
+    )
+)
+#+end_src
+
 * SANE DEFAULTS
 The following settings are simple modes that are enabled (or disabled) so that Emacs functions more like you would expect a proper editor/IDE to function.
 
 #+begin_src emacs-lisp
-(delete-selection-mode 1)    ;; You can select text and delete it by typing.
-(electric-indent-mode -1)    ;; Turn off the weird indenting that Emacs does by default.
-(electric-pair-mode 1)       ;; Turns on automatic parens pairing
-;; The following prevents <> from auto-pairing when electric-pair-mode is on.
-;; Otherwise, org-tempo is broken when you try to <s TAB...
-(add-hook 'org-mode-hook (lambda ()
-           (setq-local electric-pair-inhibit-predicate
-                   `(lambda (c)
-                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-(global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
-(global-display-line-numbers-mode 1) ;; Display line numbers
-(global-visual-line-mode t)  ;; Enable truncated lines
-(menu-bar-mode -1)           ;; Disable the menu bar 
-(scroll-bar-mode -1)         ;; Disable the scroll bar
-(tool-bar-mode -1)           ;; Disable the tool bar
-(setq org-edit-src-content-indentation 0) ;; Set src block automatic indent to 0 instead of 2.
+
+  (delete-selection-mode 1)    ;; You can select text and delete it by typing.
+  (electric-indent-mode -1)    ;; Turn off the weird indenting that Emacs does by default.
+  (electric-pair-mode 1)       ;; Turns on automatic parens pairing
+  ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
+  ;; Otherwise, org-tempo is broken when you try to <s TAB...
+  (add-hook 'org-mode-hook (lambda ()
+             (setq-local electric-pair-inhibit-predicate
+                     `(lambda (c)
+                    (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+  (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
+  (global-display-line-numbers-mode 1) ;; Display line numbers
+  (global-visual-line-mode t)  ;; Enable truncated lines
+  (menu-bar-mode -1)           ;; Disable the menu bar 
+  (scroll-bar-mode -1)         ;; Disable the scroll bar
+  (tool-bar-mode -1)           ;; Disable the tool bar
+  (setq org-edit-src-content-indentation 0) ;; Set src block automatic indent to 0 instead of 2.
 
 
 
 
-(setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
+  (setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
 
-;; Automatically reread from disk if the underlying file changes
-(setopt auto-revert-avoid-polling t)
-;; Some systems don't do file notifications well; see
-;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
-(setopt auto-revert-interval 5)
-(setopt auto-revert-check-vc-info t)
-(global-auto-revert-mode)
-
-
-;; Save history of minibuffer
-(savehist-mode)
-
-;; Move through windows with Ctrl-<arrow keys>
-(windmove-default-keybindings 'control) ; You can use other modifiers here
-
-;; Fix archaic defaults
-(setopt sentence-end-double-space nil)
-
-;; Make right-click do something sensible
-(when (display-graphic-p)
-  (context-menu-mode))
+  ;; Automatically reread from disk if the underlying file changes
+  (setopt auto-revert-avoid-polling t)
+  ;; Some systems don't do file notifications well; see
+  ;; https://todo.sr.ht/~ashton314/emacs-bedrock/11
+  (setopt auto-revert-interval 5)
+  (setopt auto-revert-check-vc-info t)
+  (global-auto-revert-mode)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Discovery aids
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Save history of minibuffer
+  (savehist-mode)
 
-;; Show the help buffer after startup
-;; (add-hook 'after-init-hook 'help-quick)
+  ;; Move through windows with Ctrl-<arrow keys>
+  (windmove-default-keybindings 'control) ; You can use other modifiers here
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Minibuffer/completion settings
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Fix archaic defaults
+  (setopt sentence-end-double-space nil)
 
-;; For help, see: https://www.masteringemacs.org/article/understanding-minibuffer-completion
+  ;; Make right-click do something sensible
+  (when (display-graphic-p)
+    (context-menu-mode))
 
-(setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
-(setopt completion-cycle-threshold 1)                  ; TAB cycles candidates
-(setopt completions-detailed t)                        ; Show annotations
-(setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-(setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-(setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-(setopt completions-max-height 20)                     ; This is arbitrary
-(setopt completions-detailed t)
-(setopt completions-format 'one-column)
-(setopt completions-group t)
-(setopt completion-auto-select 'second-tab)            ; Much more eager
-;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;
+  ;;;   Discovery aids
+  ;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
+  ;; Show the help buffer after startup
+  ;; (add-hook 'after-init-hook 'help-quick)
 
-;; For a fancier built-in completion option, try ido-mode,
-;; icomplete-vertical, or fido-mode. See also the file extras/base.el
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;
+  ;;;   Minibuffer/completion settings
+  ;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;(icomplete-vertical-mode)
-;(fido-vertical-mode)
-;(setopt icomplete-delay-completions-threshold 4000)
+  ;; For help, see: https://www.masteringemacs.org/article/understanding-minibuffer-completion
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Interface enhancements/defaults
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
+  (setopt completion-cycle-threshold 1)                  ; TAB cycles candidates
+  (setopt completions-detailed t)                        ; Show annotations
+  (setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
+  (setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-;; Mode line information
-(setopt line-number-mode t)                        ; Show current line in modeline
-(setopt column-number-mode t)                      ; Show column as well
+  (setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
+  (setopt completions-max-height 20)                     ; This is arbitrary
+  (setopt completions-detailed t)
+  (setopt completions-format 'one-column)
+  (setopt completions-group t)
+  (setopt completion-auto-select 'second-tab)            ; Much more eager
+  ;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
-(setopt x-underline-at-descent-line nil)           ; Prettier underlines
-(setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
+  (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
-(setopt show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
-(setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
+  ;; For a fancier built-in completion option, try ido-mode,
+  ;; icomplete-vertical, or fido-mode. See also the file extras/base.el
 
-;; Enable horizontal scrolling
-(setopt mouse-wheel-tilt-scroll t)
-(setopt mouse-wheel-flip-direction t)
+  ;(icomplete-vertical-mode)
+  ;(fido-vertical-mode)
+  ;(setopt icomplete-delay-completions-threshold 4000)
 
-;; We won't set these, but they're good to know about
-;;
-;; (setopt indent-tabs-mode nil)
-;; (setopt tab-width 4)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;
+  ;;;   Interface enhancements/defaults
+  ;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Misc. UI tweaks
-(blink-cursor-mode -1)                                ; Steady cursor
-(pixel-scroll-precision-mode)                         ; Smooth scrolling
+  ;; Mode line information
+  (setopt line-number-mode t)                        ; Show current line in modeline
+  (setopt column-number-mode t)                      ; Show column as well
 
-;; Use common keystrokes by default
-(cua-mode)
+  (setopt x-underline-at-descent-line nil)           ; Prettier underlines
+  (setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
 
-;; Display line numbers in programming mode
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(setopt display-line-numbers-width 3)           ; Set a minimum width
+  (setopt show-trailing-whitespace nil)      ; By default, don't underline trailing spaces
+  (setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
 
-;; Nice line wrapping when working with text
-(add-hook 'text-mode-hook 'visual-line-mode)
+  ;; Enable horizontal scrolling
+  (setopt mouse-wheel-tilt-scroll t)
+  (setopt mouse-wheel-flip-direction t)
 
-;; Modes to highlight the current line with
-(let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
-  (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+  ;; We won't set these, but they're good to know about
+  ;;
+  ;; (setopt indent-tabs-mode nil)
+  ;; (setopt tab-width 4)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Tab-bar configuration
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Misc. UI tweaks
+  (blink-cursor-mode -1)                                ; Steady cursor
+  (pixel-scroll-precision-mode)                         ; Smooth scrolling
 
-;; Show the tab-bar as soon as tab-bar functions are invoked
-(setopt tab-bar-show 1)
+  ;; Use common keystrokes by default
+  (cua-mode)
 
-;; Add the time to the tab-bar, if visible
-(add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
-(add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
-(setopt display-time-format "%a %F %T")
-(setopt display-time-interval 1)
-(display-time-mode)
+  ;; Display line numbers in programming mode
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (setopt display-line-numbers-width 3)           ; Set a minimum width
 
-;; Turn off the bell
-(setq ring-bell-function 'ignore)
+  ;; Nice line wrapping when working with text
+  (add-hook 'text-mode-hook 'visual-line-mode)
+
+  ;; Modes to highlight the current line with
+  (let ((hl-line-hooks '(text-mode-hook prog-mode-hook)))
+    (mapc (lambda (hook) (add-hook hook 'hl-line-mode)) hl-line-hooks))
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;
+  ;;;   Tab-bar configuration
+  ;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; Show the tab-bar as soon as tab-bar functions are invoked
+  (setopt tab-bar-show 1)
+
+  ;; Add the time to the tab-bar, if visible
+  (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
+  (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+  (setopt display-time-format "%a %F %T")
+  (setopt display-time-interval 1)
+  (display-time-mode)
+
+  ;; Turn off the bell
+  (setq ring-bell-function 'ignore)
 
 
 #+end_src
 
 * SHELLS AND TERMINALS
-
-** Eshell
-Eshell is an Emacs 'shell' that is written in Elisp.
-
-#+begin_src emacs-lisp
-(use-package eshell-toggle
-  :custom
-  (eshell-toggle-size-fraction 3)
-  (eshell-toggle-use-projectile-root t)
-  (eshell-toggle-run-command nil)
-  (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
-
-  (use-package eshell-syntax-highlighting
-    :after esh-mode
-    :config
-    (eshell-syntax-highlighting-global-mode +1))
-
-  ;; eshell-syntax-highlighting -- adds fish/zsh-like syntax highlighting.
-  ;; eshell-rc-script -- your profile for eshell; like a bashrc for eshell.
-  ;; eshell-aliases-file -- sets an aliases file for the eshell.
-
-  (setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
-        eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
-        eshell-history-size 5000
-        eshell-buffer-maximum-lines 5000
-        eshell-hist-ignoredups t
-        eshell-scroll-to-bottom-on-input t
-        eshell-destroy-buffer-when-process-dies t
-        eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
-#+end_src
-
 ** Vterm
 Vterm is a terminal emulator within Emacs. 
 
@@ -1369,10 +1358,9 @@ Vterm is a terminal emulator within Emacs.
 * Spacious Padding
 #+begin_src emacs-lisp
 (use-package spacious-padding
-  :config
-  (spacious-padding-mode)
+ :config
+ (spacious-padding-mode)
 )
-
 #+end_src
 * SUDO EDIT
 [[https://github.com/nflath/sudo-edit][sudo-edit]] gives us the ability to open files with sudo privileges or switch over to editing with sudo privileges if we initially opened the file without such privileges.
@@ -1418,7 +1406,6 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 
 * LANGUAGE SUPPORT 
 
-
 ** EGLOT 
 
 LSP Client
@@ -1457,10 +1444,13 @@ See (treesit-available-p) and (treesit-language-available-p 'python), grammers f
   (global-treesit-auto-mode))
 #+end_src
 
-** FILE TYPES
+** Highlighting
 Syntax highlighting spacing awareness etc for various common file types
 
 #+begin_src emacs-lisp
+
+(use-package hcl-mode
+  :custom ((hcl-indent-level 2)))
 
 (use-package markdown-mode
   :hook ((markdown-mode . visual-line-mode)))
@@ -1475,6 +1465,24 @@ Syntax highlighting spacing awareness etc for various common file types
   :ensure t)
 
 #+end_src
+
+#+begin_src emacs-lisp
+(use-package hl-todo
+  :hook ((org-mode . hl-todo-mode)
+         (prog-mode . hl-todo-mode))
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(
+	    ("TODO"       warning)
+          ("HOLD"       font-lock-keyword-face)
+          ("NEXT"       font-lock-constant-face)
+         )
+  )
+)
+#+end_src
+
+
 * VERTICO
 Modern vertical selector with autocomplete filtering an  intuitive hotkeys FOR THE MINIBUFFER. Corfu for the minibuffer.
 
