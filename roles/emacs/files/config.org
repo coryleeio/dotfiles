@@ -28,13 +28,13 @@
 - [[#general-keybindings][GENERAL KEYBINDINGS]]
 - [[#gptel][Gptel]]
   - [[#linting][LINTING]]
-- [[#pyenv][pyenv]]
-- [[#kind-icons][Kind Icons]]
-- [[#marginalia][Marginalia]]
+- [[#pyenv][PYENV]]
+- [[#kind-icons][KIND ICONS]]
+- [[#marginalia][MARGINALIA]]
 - [[#minibuffer-escape][MINIBUFFER ESCAPE]]
 - [[#modeline][MODELINE]]
 - [[#neotree][NEOTREE]]
-- [[#orderless][Orderless]]
+- [[#orderless][ORDERLESS]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -515,6 +515,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d d" '(dired :wk "Open dired")
+    "d r" '(ranger :wk "Open ranger")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
@@ -533,9 +534,9 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "f" '(:ignore t :wk "Find")    
     "f f" '(consult-find :wk "Find file")
-    "f s" '(consult-ripgrep :wk "Search for string in files in DIR")
     "f p" '(projectile-persp-switch-project :wk "Find project")
     "f d" '(projectile-dired :wk "Dired(explore current project)")
+    "f r" '(ranger :wk "Ranger(explore current project)")
   ) 
 
  (dt/leader-keys
@@ -658,6 +659,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "s" '(:ignore t :wk "Search")
     "s d" '(dictionary-search :wk "Search dictionary")
     "s m" '(man :wk "Man pages")
+    "s g" '(consult-ripgrep :wk "Search for string in files in DIR")
     "s t" '(tldr :wk "Lookup TLDR docs for a command")
     "s w" '(woman :wk "Similar to man but doesn't require man"))
 
@@ -732,7 +734,7 @@ GPTel is a simple Large Language Model chat client for Emacs, with support for m
 
 #+end_src
 
-* pyenv
+* PYENV
 venvs for python
 #+begin_src emacs-lisp
 (use-package pyvenv
@@ -741,7 +743,7 @@ venvs for python
   (pyvenv-mode 1))
 #+end_src
 
-* Kind Icons
+* KIND ICONS
 
 Pretty icons for corfu
 
@@ -754,7 +756,7 @@ Pretty icons for corfu
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 #+end_src
 
-* Marginalia
+* MARGINALIA
 text to the side of the mini buffer
 
 #+begin_src emacs-lisp
@@ -816,7 +818,7 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
 
 #+end_src
 
-* Orderless 
+* ORDERLESS 
 
 Orderless: powerful completion style
 
@@ -1152,7 +1154,7 @@ Ranger like functionality in emacs, like dired but always peeking
 (use-package ranger
   :ensure t
   :init
-  (ranger-override-dired-mode t)
+  ;;(ranger-override-dired-mode t)
   :config
     (setq ranger-width-preview 0.40
         ranger-show-literal nil
