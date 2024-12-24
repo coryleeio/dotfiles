@@ -118,7 +118,7 @@ alias dot='cd ~/Workspace/coryleeio/dotfiles && git status'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
 alias ws='work && x && ./Scripts/upload-files-state && ./Scripts/reset-files-state'
 alias vim="nvim"
-alias emacs="emacsclient -c -a 'emacs'"
+alias emacs="emacsclientw"
 alias em=emacs
 
 eval "$(starship init zsh)"

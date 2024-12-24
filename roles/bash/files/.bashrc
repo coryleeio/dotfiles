@@ -14,7 +14,7 @@ alias x='git add --all && ( git commit -am "Iterating..." || git status --porcel
 alias ws='work && x && ./Scripts/upload-files-state && ./Scripts/reset-files-state'
 alias vim="nvim"
 
-alias emacs="emacsclient -c -a 'emacs'"
+alias emacs="emacsclientw"
 alias em=emacs
 
 # Nix
