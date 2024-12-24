@@ -18,3 +18,14 @@
     - images
     - init.el
     - scripts
+
+- name: symlink emacsclientw script
+  file:
+    src: "{{ ansible_env.PWD }}/roles/emacs/files/{{ item }}"
+    path: "/usr/local/bin/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  become: yes
+  loop:
+    - emacsclientw
