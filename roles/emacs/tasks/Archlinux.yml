@@ -37,7 +37,7 @@
 - name: Override the provided .desktop files with ones that will call clientwrapper script
   file:
     src: "{{ ansible_env.PWD }}/roles/emacs/files/{{ item }}"
-    path: "/usr/local/bin/{{ item }}"
+    path: "~/.local/share/applications/{{ item }}"
     state: link
     follow: false
     force: yes
