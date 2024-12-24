@@ -14,10 +14,6 @@
   ansible.builtin.shell:
     cmd: defaults write org.gnu.Emacs NSRequiresAquaSystemAppearance -bool no
 
-- name: get the non root remote user
-  set_fact:
-    remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
-
 # https://jherrlin.github.io/posts/emacs-on-macos-monterey/
 - name: Deploy custom emacs job definition
   template:
@@ -26,6 +22,7 @@
     owner: "root"
     group: "wheel"
     mode: "0644"
+  become: yes
 
 - name: Run emacs
   community.general.launchd:
