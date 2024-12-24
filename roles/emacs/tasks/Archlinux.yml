@@ -19,9 +19,17 @@
     name:
       - cmake
 
+      - pyright
+
       # required to build vterm-module
       - make
       - libvterm
     state: present
   become: "yes"
 
+- name: Start and enable user service for emacs
+  ansible.builtin.systemd_service:
+    name: emacs
+    state: started
+    enabled: true
+    scope: user

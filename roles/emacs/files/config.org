@@ -17,11 +17,13 @@
 - [[#corfu][CORFU]]
 - [[#dashboard][DASHBOARD]]
 - [[#diminish][DIMINISH]]
+- [[#direnv][DIRENV]]
 - [[#dired][DIRED]]
 - [[#embark][EMBARK]]
 - [[#evil][EVIL]]
 - [[#evil-mc][EVIL-MC]]
 - [[#evil-goggles][EVIL-GOGGLES]]
+- [[#exec-path-from-shell][EXEC PATH FROM SHELL]]
 - [[#fonts][FONTS]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#zooming-inout][Zooming In/Out]]
@@ -62,6 +64,8 @@
 - [[#transparency][TRANSPARENCY]]
 - [[#language-support][LANGUAGE SUPPORT]]
   - [[#lsp-mode][LSP MODE]]
+  - [[#lsp-clients][LSP CLIENTS]]
+  - [[#debugger][DEBUGGER]]
   - [[#treesitter][TREESITTER]]
   - [[#highlighting][Highlighting]]
 - [[#vertico][VERTICO]]
@@ -240,6 +244,17 @@ This package implements hiding or abbreviation of the modeline displays of minor
 (use-package diminish)
 #+end_src
 
+* DIRENV
+source direnv in the emacs environment when changing directories
+this changes exec-path and process-environment to be what you'd expect when changing into a directory with an .envrc
+https://github.com/wbolster/emacs-direnv
+
+#+begin_src emacs-lisp
+(use-package direnv
+ :config
+ (direnv-mode))
+#+end_src
+
 * DIRED
 #+begin_src emacs-lisp
 (use-package dired-open
@@ -380,6 +395,15 @@ run `M-x list-faces-display` in a fresh emacs to get a list of faces on your ema
 ))
 #+end_src
 
+* EXEC PATH FROM SHELL
+Emacs run through systemd wont have the same path as your user shell, this causes things to fail only when using the client, this will sync them up
+#+begin_src emacs-lisp
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+(exec-path-from-shell-initialize)
+)
+#+end_src
 
 * FONTS
 Defining the various fonts that Emacs will use.
@@ -1365,6 +1389,7 @@ Using LSP mode since eglot doesnt work with DAP
 https://emacs-lsp.github.io/lsp-mode/page/installation/
 https://github.com/emacs-lsp/lsp-mode
 https://github.com/minad/corfu/wiki#configuring-corfu-for-lsp-mode
+https://emacs-lsp.github.io/lsp-mode/page/languages/
 #+begin_src emacs-lisp
 (use-package lsp-mode
   :custom
@@ -1391,6 +1416,29 @@ https://github.com/minad/corfu/wiki#configuring-corfu-for-lsp-mode
 (use-package lsp-ui)
 #+end_src
 
+** LSP CLIENTS
+*** PYRIGHT
+#+begin_src emacs-lisp
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-ts-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp-deferred))))  ; or lsp-defe
+#+end_src
+** DEBUGGER
+https://emacs-lsp.github.io/dap-mode/page/configuration/#python
+#+begin_src emacs-lisp
+(use-package dap-mode
+  :after lsp-mode
+  :commands dap-debug
+  :config
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy)
+  :hook ((python-ts-mode . dap-ui-mode)
+	 (python-ts-mode . dap-mode))
+)
+#+end_src
 
 ** TREESITTER
 Treesitter is already included in my installation. LSPs utilize it for increased accuracy and speed of text manipulation if it is installed. 
