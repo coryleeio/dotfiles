@@ -19,6 +19,7 @@
     - init.el
     - scripts
 
+# Then on mac call automator script and put it in the applications folder...
 - name: symlink emacsclientw script
   file:
     src: "{{ ansible_env.PWD }}/roles/emacs/files/{{ item }}"

@@ -32,6 +32,4 @@
 
 
 
-# Then put this in an automator script and put it in the applications folder...
-#emacsclient -nc
 
