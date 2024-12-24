@@ -1,0 +1,8 @@
+#/usr/env/bin bash
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    socket=$(lsof -c Emacs | grep server | tr -s " " | cut -d ' ' -f8)
+    emacsclient -s $socket -c -a 'emacs'
+else
+    emacsclient -c -a 'emacs'
+fi
