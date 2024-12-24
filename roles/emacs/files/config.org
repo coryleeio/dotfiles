@@ -483,6 +483,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "b" '(:ignore t :wk "Bookmarks/Buffers")
     "b b" '(switch-to-buffer :wk "Switch to buffer")
+    "b i" '(ibuffer :wk "Switch to buffer (interactive)")
     "b d" '(bookmark-delete :wk "Delete bookmark")
     "b k" '(kill-current-buffer :wk "Kill current buffer")
     "b K" '(kill-some-buffers :wk "Kill multiple buffers")
@@ -498,6 +499,11 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
   (dt/leader-keys
     "c" '(:ignore t :wk "Code Actions")
+    "c r" '(lsp-rename :wk "Rename")
+    "c d" '(lsp-find-definition :wk "Find Declaration")
+    "c l" '(lsp-find-declaration :wk "Find Declaration")
+    "c r" '(lsp-find-references :wk "Find References")
+    "c i" '(lsp-find-implementation :wk "Find Implementation")
   )
 
   (dt/leader-keys
@@ -512,30 +518,26 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   )
 
   (dt/leader-keys
-    "d" '(:ignore t :wk "Dired")
-    "d d" '(dired :wk "Open dired")
-    "d r" '(ranger :wk "Open ranger")
-    "d j" '(dired-jump :wk "Dired jump to current")
-    "d p" '(peep-dired :wk "Peep-dired"))
-
-  (dt/leader-keys
-    "e" '(:ignore t :wk "Eshell/Evaluate")    
+    "e" '(:ignore t :wk "Evaluate")    
     "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
     "e d" '(eval-defun :wk "Evaluate defun containing or after point")
     "e e" '(eval-expression :wk "Evaluate and elisp expression")
-    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
     "e r" '(eval-region :wk "Evaluate elisp in region")
-    "e R" '(eww-reload :which-key "Reload current page in EWW")
-    "e s" '(eshell :which-key "Eshell")
-    "e w" '(eww :which-key "EWW emacs web wowser"))
+  )
 
   (dt/leader-keys
     "f" '(:ignore t :wk "Find")    
     "f f" '(consult-find :wk "Find file")
     "f p" '(projectile-persp-switch-project :wk "Find project")
-    "f d" '(projectile-dired :wk "Dired(explore current project)")
-    "f r" '(ranger :wk "Ranger(explore current project)")
-  ) 
+    "f d" '(projectile-dired :wk "Find with Dired(explore current project)")
+    "f D" '(dictionary-search :wk "Find in dictionary")
+    "f p" '(peep-dired :wk "Peep w/ Dired")
+    "f r" '(ranger :wk "Find with Ranger")
+    "f g" '(consult-ripgrep :wk "Search for string in files")
+    "f t" '(tldr :wk "Lookup TLDR docs for a command")
+    "f m" '(man :wk "Find in man pages")
+    "f w" '(woman :wk "Similar to man but doesn't require man")
+   )
 
  (dt/leader-keys
     "h" '(:ignore t :wk "Help/Emacs")
@@ -572,10 +574,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "h w" '(where-is :wk "Prints keybinding for command if set")
     "h x" '(describe-command :wk "Display full documentation for command"))
 
-
-  (dt/leader-keys
-    "m" '(:ignore t :wk "Make")    
-  )
   (dt/leader-keys
     "o" '(:ignore t :wk "Org")
     "o a" '(org-agenda :wk "Org agenda")
@@ -593,14 +591,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "o l" '(:ignore t :wk "Org link")
     "o l s" '(org-store-link :wk "Org Store Link")
     "o l i" '(org-insert-link :wk "Org Insert Link"))
-
-  (dt/leader-keys
-    "o b" '(:ignore t :wk "Tables")
-    "o b -" '(org-table-insert-hline :wk "Insert hline in table"))
-
-  (dt/leader-keys
-    "o d" '(:ignore t :wk "Date/deadline")
-    "o d t" '(org-time-stamp :wk "Org time stamp"))
 
   (dt/leader-keys
     "O" '(:ignore t :wk "Open")
@@ -622,10 +612,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
             :wk "Open emacs config.org")
 
     "O e" '((lambda () (interactive)
-
               (dired user-emacs-directory)) 
             :wk "Open user-emacs-directory in dired"))
-
 
   (dt/leader-keys
     "r" '(:ignore t :wk "Roam")
@@ -648,34 +636,20 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
     "r F c" '(my/org-roam-find-context :wk "Roam find work context")
  ) 
-  ;; projectile-command-map already has a ton of bindings 
-  ;; set for us, so no need to specify each individually.
-  (dt/leader-keys
-    "p" '(projectile-command-map :wk "Projectile"))
 
-  (dt/leader-keys
-    "s" '(:ignore t :wk "Search")
-    "s d" '(dictionary-search :wk "Search dictionary")
-    "s m" '(man :wk "Man pages")
-    "s g" '(consult-ripgrep :wk "Search for string in files in DIR")
-    "s t" '(tldr :wk "Lookup TLDR docs for a command")
-    "s w" '(woman :wk "Similar to man but doesn't require man"))
 
   (dt/leader-keys
     "t" '(:ignore t :wk "Toggle")
-    "t e" '(eshell-toggle :wk "Toggle eshell")
     "t r" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t v" '(vterm-toggle :wk "Toggle vterm"))
-
 
   (dt/leader-keys
     "w" '(:ignore t :wk "Windows")
     ;; Window splits
     "w c" '(evil-window-delete :wk "Close window")
     "w n" '(evil-window-new :wk "New window")
-    "w s" '(evil-window-split :wk "Horizontal split window")
-    "w v" '(evil-window-vsplit :wk "Vertical split window")
+    "w %" '(evil-window-split :wk "Horizontal split window")
+    "w /" '(evil-window-vsplit :wk "Vertical split window")
     ;; Window motions
     "w h" '(evil-window-left :wk "Window left")
     "w j" '(evil-window-down :wk "Window down")
@@ -715,8 +689,6 @@ GPTel is a simple Large Language Model chat client for Emacs, with support for m
  ;;  :stream t)
  )
 #+end_src
-
-
 
 ** LINTING
 *** flycheck
@@ -1078,7 +1050,7 @@ Node graph for roam notes displayed in the browser
 #+begin_src emacs-lisp
 (use-package projectile
   :config
-     (setq projectile-project-search-path '("~/Workspace/"))
+     (setq projectile-project-search-path '("~/Workspace/coryleeio" "~/Workspace/indeed"))
 
   (projectile-mode 1))
 #+end_src
