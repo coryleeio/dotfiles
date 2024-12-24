@@ -1,0 +1,5 @@
+- name: make sure packages are installed
+  community.general.homebrew:
+    name:
+      - ollama
+    state: present

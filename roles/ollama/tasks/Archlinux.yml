@@ -1,0 +1,13 @@
+- name: make sure ollama is installed
+  package:
+    name:
+      - ollama
+    state: present
+  become: yes
+
+- name: Start and enable user service for ollama
+  ansible.builtin.systemd_service:
+    name: ollama
+    state: started
+    enabled: true
+  become: yes

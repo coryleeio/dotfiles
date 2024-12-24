@@ -1,0 +1,7 @@
+- include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: Ensure the model used by emacs is installed
+  ansible.builtin.shell:
+    cmd: ollama pull llama3:latest
+
+

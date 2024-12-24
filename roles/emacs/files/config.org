@@ -226,8 +226,8 @@ Emacs Dashboard is an extensible startup screen showing you recent files, bookma
   (setq dashboard-items '(
 			   ;; (recents . 0)
                          ;; (agenda . 0 )
-                          (bookmarks . 3)
                           (projects . 10)
+                          (bookmarks . 3)
                           (registers . 3)))
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-projects-switch-function 'projectile-persp-switch-project)
@@ -258,6 +258,7 @@ https://github.com/wbolster/emacs-direnv
 #+end_src
 
 * DIRED
+Configure built in directory navigation
 #+begin_src emacs-lisp
 (use-package dired-open
   :config
@@ -509,17 +510,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   )
 
   (dt/leader-keys
-    "q" '(:ignore t :wk "Registers") 
-    "q c" '(copy-to-register :wk "Copy region into register")
-    "q i" '(insert-register :wk "Insert text from register")
-    "q v" '(view-register :wk "View text in register")
-    "q a" '(append-to-register :wk "Append region to register")
-    "q p" '(prepend-to-register :wk "Prepend region to register")
-    "q h" '(point-to-register :wk "Point saved to position in register")
-    "q j" '(jump-to-register :wk "Jump to position in register")
-  )
-
-  (dt/leader-keys
     "e" '(:ignore t :wk "Evaluate")    
     "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
     "e d" '(eval-defun :wk "Evaluate defun containing or after point")
@@ -532,6 +522,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "f f" '(consult-find :wk "Find file")
     "f p" '(projectile-persp-switch-project :wk "Find project")
     "f d" '(projectile-dired :wk "Find with Dired(explore current project)")
+    "f ." '(dired :wk "Find with Dired(current directory)")
     "f D" '(dictionary-search :wk "Find in dictionary")
     "f p" '(peep-dired :wk "Peep w/ Dired")
     "f r" '(ranger :wk "Find with Ranger")
@@ -639,6 +630,16 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r F c" '(my/org-roam-find-context :wk "Roam find work context")
  ) 
 
+  (dt/leader-keys
+    "s" '(:ignore t :wk "Store in Registers") 
+    "s c" '(copy-to-register :wk "Copy region into register")
+    "s i" '(insert-register :wk "Insert text from register")
+    "s v" '(view-register :wk "View text in register")
+    "s a" '(append-to-register :wk "Append region to register")
+    "s p" '(prepend-to-register :wk "Prepend region to register")
+    "s h" '(point-to-register :wk "Point saved to position in register")
+    "s j" '(jump-to-register :wk "Jump to position in register")
+  )
 
   (dt/leader-keys
     "t" '(:ignore t :wk "Toggle")
