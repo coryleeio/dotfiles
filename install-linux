@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -xe
+
 LC_ALL="C.UTF-8" ansible-galaxy install -r requirements.yml
 LC_ALL="C.UTF-8" ansible-playbook --ask-become-pass \
         -i hosts \
