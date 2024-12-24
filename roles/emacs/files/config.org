@@ -520,9 +520,8 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (dt/leader-keys
     "f" '(:ignore t :wk "Find")    
     "f f" '(consult-find :wk "Find file")
-    "f p" '(projectile-persp-switch-project :wk "Find project")
-    "f d" '(projectile-dired :wk "Find with Dired(explore current project)")
-    "f ." '(dired :wk "Find with Dired(current directory)")
+    "f d" '(projectile-dired :wk "Find in project directory")
+    "f ." '(dired :wk "Find in current directory" )
     "f D" '(dictionary-search :wk "Find in dictionary")
     "f p" '(peep-dired :wk "Peep w/ Dired")
     "f r" '(ranger :wk "Find with Ranger")
@@ -678,11 +677,11 @@ GPTel is a simple Large Language Model chat client for Emacs, with support for m
   :hook ((gptel-post-stream . gptel-auto-scroll)
          (gptel-post-response . gptel-end-of-response))
   :config
-  (setq-default gptel-model "llama3:latest"
+  (setq-default gptel-model 'llama3:8b
                 gptel-backend (gptel-make-ollama
-                               "Ollama"
+                               'llama3:8b
                                :host "localhost:11434"
-                               :models '("llama3:latest")
+                               :models '("llama3:8b")
                                :stream t)
                 gptel-default-mode 'org-mode)
 
