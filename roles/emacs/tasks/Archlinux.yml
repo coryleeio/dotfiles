@@ -33,3 +33,14 @@
     state: started
     enabled: true
     scope: user
+
+- name: Override the provided .desktop files with ones that will call clientwrapper script
+  file:
+    src: "{{ ansible_env.PWD }}/roles/emacs/files/{{ item }}"
+    path: "/usr/local/bin/{{ item }}"
+    state: link
+    follow: false
+    force: yes
+  loop:
+    - emacs.desktop
+    - emacsclient.desktop
