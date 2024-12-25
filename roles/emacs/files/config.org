@@ -505,7 +505,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "c r" '(lsp-rename :wk "Rename")
     "c d" '(lsp-find-definition :wk "Find Declaration")
     "c l" '(lsp-find-declaration :wk "Find Declaration")
-    "c r" '(lsp-find-references :wk "Find References")
+    "c f" '(lsp-find-references :wk "Find References")
     "c i" '(lsp-find-implementation :wk "Find Implementation")
   )
 
@@ -621,12 +621,13 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "r j c t" '(org-roam-dailies-capture-today :wk "Roam Journal Capture Today")
     "r j c y" '(org-roam-dailies-capture-yesterday :wk "Roam Journal Capture Yesterday")
     "r F" '(:ignore t :wk "Find by tag")
-    "r F f" '(my/org-roam-find-note :wk "Roam find note")
+    "r F n" '(my/org-roam-find-note :wk "Roam find note")
     "r F d" '(my/org-roam-find-daily :wk "Roam find daily")
     "r F w" '(my/org-roam-find-weekly :wk "Roam find weekly")
     "r F p" '(my/org-roam-find-project :wk "Roam find project")
+    "r F a" '(my/org-roam-find-active-project :wk "Roam find active project")
     "r F r" '(my/org-roam-find-reference :wk "Roam find reference")
-    "r F c" '(my/org-roam-find-context :wk "Roam find work context")
+    "r F c" '(my/org-roam-find-context :wk "Roam find context")
  ) 
 
   (dt/leader-keys
@@ -674,21 +675,13 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 GPTel is a simple Large Language Model chat client for Emacs, with support for multiple models and backends.
 #+begin_src emacs-lisp
 (use-package gptel
-  :hook ((gptel-post-stream . gptel-auto-scroll)
-         (gptel-post-response . gptel-end-of-response))
   :config
-  (setq-default gptel-model 'llama3:8b
-                gptel-backend (gptel-make-ollama
-                               'llama3:8b
-                               :host "localhost:11434"
-                               :models '("llama3:8b")
-                               :stream t)
-                gptel-default-mode 'org-mode)
-
- ;; (gptel-make-gemini
- ;; "Gemini"
- ;;  :key (password-store-get "gemini")
- ;;  :stream t)
+    (setq
+    gptel-model 'mistral:latest
+    gptel-backend (gptel-make-ollama "Ollama"
+                    :host "localhost:11434"
+                    :stream t
+                    :models '(llama3:8b)))
  )
 #+end_src
 
@@ -909,7 +902,7 @@ Notes with cross and backlinking
       :unnarrowed t)
 
      ("p" "Find Project Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:Note")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:ActiveProject:Note")
       :unnarrowed t)
 
      ("c" "Find Context Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/context.org")
@@ -965,6 +958,12 @@ Notes with cross and backlinking
     (org-roam-node-find nil nil
         (my/org-roam-filter-by-tag "Project")))
 
+  (defun my/org-roam-find-active-project ()
+    (interactive)
+    ;; Select a project file to open, creating it if necessary
+    (org-roam-node-find nil nil
+        (my/org-roam-filter-by-tag "ActiveProject")))
+
   (defun my/org-roam-find-context ()
     (interactive)
     ;; Select a project file to open, creating it if necessary
@@ -995,6 +994,7 @@ Notes with cross and backlinking
 	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
 	(my/org-roam-list-notes-by-tag "Context")
 	(my/org-roam-list-notes-by-tag "Tickler")
+	(my/org-roam-list-notes-by-tag "Project")
     )
     ))
 
@@ -1347,6 +1347,10 @@ Lets you view cheatsheets for various tools
 
 #+end_src
 
+#+begin_src emacs-lisp
+(use-package transient)
+
+#+end_src
 * TRANSPARENCY
 With Emacs version 29, true transparency has been added.  I have turned transparency off by setting the alpha to '100'.  If you want some slight transparency, try setting alpha to '90'.  Of course, if you set alpha to '0', the background of Emacs would completely transparent.
 
