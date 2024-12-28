@@ -1,0 +1,5 @@
+- name: Install zotero as an application
+  community.general.homebrew_cask:
+    name:
+      - zotero
+    state: present

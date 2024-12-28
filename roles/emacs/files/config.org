@@ -819,7 +819,7 @@ https://orgmode.org/manual/Table-of-Contents.html
     (setq org-todo-keyword-faces
         '(
           ("TODO" . warning)
-          ("DONE" . org-done)
+          ("DONE" . success)
           ("NEXT" . font-lock-constant-face)
           ("WAIT" . font-lock-keyword-face)
          )

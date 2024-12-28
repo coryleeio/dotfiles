@@ -1,0 +1,7 @@
+- name: Install zotero via AUR
+  kewlfft.aur.aur:
+    name: zotero
+    use: makepkg
+    state: present
+  become: yes
+  become_user: aur_builder
