@@ -1,7 +1,34 @@
-- name: Install zotero via AUR
-  kewlfft.aur.aur:
-    name: zotero
-    use: makepkg
-    state: present
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/zotero
+    state: directory
+    mode: '0755'
   become: yes
-  become_user: aur_builder
+
+- name: Download and install
+  block:
+    - name: Download tarball
+      get_url:
+        url: "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64&version=7.0.11"
+        dest: /tmp
+        checksum: "sha512:ec69ba264a3bf05a579057122738a38316f7de43ce46229d3b6ef6b13c4a43b01d647179206b46a1c46d5e093579f81dc875d022675d167ad7e023ac7558f806"
+    - name: extract tarball
+      unarchive:
+        src: /tmp/Zotero-7.0.11_linux-x86_64.tar.bz2
+        remote_src: true
+        dest: /opt/zotero/
+      become: yes
+    - name: Set the launcher icon
+      ansible.builtin.shell:
+        cmd: ./set_launcher_icon
+        chdir: /opt/zotero/Zotero_linux-x86_64/
+      become: yes
+
+- name: symlink desktop file
+  file:
+    src: "/opt/zotero/Zotero_linux-x86_64/zotero.desktop"
+    path: "~/.local/share/applications/zotero.desktop"
+    state: link
+    follow: false
+    force: yes
