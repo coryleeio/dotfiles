@@ -595,7 +595,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
             :wk "Open emacs init.el")
 
     "O i" '((lambda () (interactive)
-              (find-file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org"))
+              (find-file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org"))
             :wk "Open inbox")
 
     "O c" '((lambda () (interactive)
@@ -787,13 +787,14 @@ https://orgmode.org/manual/Table-of-Contents.html
       '((nil :maxlevel . 1)
 	(org-agenda-files :maxlevel . 1)))
     (setq org-refile-use-outline-path 'file)
+    (setq org-agenda-todo-ignore-scheduled 'all)
 
-    (setq org-default-notes-file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
+    (setq org-default-notes-file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org")
 
     (setq org-capture-templates
      '(
-         ("t" "Task" entry (file "~/Workspace/coryleeio/Scratch/orgfiles/inbox.org") 
-            "* %?\n")
+         ("t" "Task" entry (file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org") 
+            "* TODO %?\n")
       )
      )
     
@@ -813,14 +814,14 @@ https://orgmode.org/manual/Table-of-Contents.html
 	;; only works with a wav
     (setq org-clock-sound (concat user-emacs-directory "alarm.wav"))
     (setq org-todo-keywords
-        '((sequence "TODO" "NEXT" "HOLD" "|" "DONE")))
+        '((sequence "TODO" "NEXT" "WAIT" "|" "DONE")))
 
     (setq org-todo-keyword-faces
         '(
           ("TODO" . warning)
           ("DONE" . org-done)
           ("NEXT" . font-lock-constant-face)
-          ("HOLD" . font-lock-keyword-face)
+          ("WAIT" . font-lock-keyword-face)
          )
     )
 
@@ -991,9 +992,8 @@ Notes with cross and backlinking
   (interactive)
 
   (setq org-agenda-files (append'( 
-	"~/Workspace/coryleeio/Scratch/orgfiles/inbox.org")
+	"~/Workspace/coryleeio/Scratch/slipbox/inbox.org" "~/Workspace/coryleeio/Scratch/CalendarExports")
 	(my/org-roam-list-notes-by-tag "Context")
-	(my/org-roam-list-notes-by-tag "Tickler")
 	(my/org-roam-list-notes-by-tag "Project")
     )
     ))
@@ -1461,7 +1461,7 @@ Syntax highlighting spacing awareness etc for various common file types
         hl-todo-keyword-faces
         `(
 	    ("TODO"       warning)
-          ("HOLD"       font-lock-keyword-face)
+          ("WAIT"       font-lock-keyword-face)
           ("NEXT"       font-lock-constant-face)
          )
   )
