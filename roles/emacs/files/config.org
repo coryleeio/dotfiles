@@ -1275,7 +1275,6 @@ Praise the sun
 https://github.com/hlissner/emacs-solaire-mode
 
 #+begin_src emacs-lisp
-
 (use-package solaire
 :config
 (solaire-global-mode +1)
