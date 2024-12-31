@@ -54,6 +54,7 @@
 - [[#registers][REGISTERS]]
 - [[#ranger][RANGER]]
 - [[#sane-defaults][SANE DEFAULTS]]
+- [[#solaire][SOLAIRE]]
 - [[#shells-and-terminals][SHELLS AND TERMINALS]]
   - [[#vterm][Vterm]]
   - [[#vterm-toggle][Vterm-Toggle]]
@@ -1267,6 +1268,18 @@ The following settings are simple modes that are enabled (or disabled) so that E
 (setq ring-bell-function 'ignore)
 
 
+#+end_src
+
+* SOLAIRE
+Praise the sun
+https://github.com/hlissner/emacs-solaire-mode
+
+#+begin_src emacs-lisp
+
+(use-package solaire
+:config
+(solaire-global-mode +1)
+)
 #+end_src
 
 * SHELLS AND TERMINALS
