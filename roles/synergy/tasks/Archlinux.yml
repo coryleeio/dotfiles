@@ -1,0 +1,8 @@
+
+- name: Install synergy3 via aur
+  kewlfft.aur.aur:
+    name: synergy3-bin
+    use: makepkg
+    state: present
+  become: yes
+  become_user: aur_builder
