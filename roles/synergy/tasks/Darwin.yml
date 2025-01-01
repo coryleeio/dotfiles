@@ -1,28 +1,23 @@
 
-# https://symless.com/synergy/download/package/mac/synergy-3.2.1-macos-x64.dmg
-# https://symless.com/synergy/download/package/mac/synergy-3.2.1-macos-arm64.dmg
-# https://symless.com/synergy/download
+# https://formulae.brew.sh/formula/synergy-core
 
-    - name: Download Synergy DMG file
-      get_url:
-        url: "https://symless.com/synergy/download/package/mac/synergy-3.2.1-macos-x64.dmg"
-        dest: "/tmp/synergy.dmg"
-        checksum: "sha256:8b7a4b02b728c2f2918f18f24d878427b2be3d83b027785e838888487d8d9b04"
 
-    - name: Mount Synergy DMG
-      command: hdiutil mount "/tmp/synergy.dmg"
+- name: make sure packages are installed
+  community.general.homebrew:
+    name:
+      - synergy-core
+    state: present
 
-    - name: Install Synergy application
-      command: /Volumes/Synergy/Synergy.app/Contents/MacOS/Synergy 
-        args: 
-          - --agree-to-license
-          - --no-restart
-        # Adjust the above command and args based on the actual installation command 
+# Synergy requires the 'Accessibility' permission.
+# You can grant this permission by navigating to:
+#     System Preferences -> Security & Privacy -> Privacy -> Accessibility
 
-    - name: Unmount Synergy DMG
-      command: hdiutil unmount "/tmp/synergy.dmg" 
+# If Synergy still doesn't work, try clearing the 'Accessibility' list:
+#     sudo tccutil reset Accessibility
+# You can then grant the 'Accessibility' permission again.
+# You may need to clear this list each time you upgrade synergy-core.
 
-    - name: Cleanup Synergy DMG
-      file:
-        path: "/tmp/synergy.dmg"
-        state: absent
+# On ARM macOS machines, the 'Accessibility' permission must be granted to
+# both of the following two items:
+#     (1) $HOMEBREW_PREFIX/opt/synergy-core/bundle/Synergy.app
+#     (2) $HOMEBREW_PREFIX/opt/synergy-core/bin/synergy

@@ -29,6 +29,7 @@
     name: gnu.emacs
     state: started
     enabled: true
+  become: yes
 
 # Then you need to create an automator script named Emacs Client in the applications folder that runs a bash script like(dont overwrite Emacs as you wont be able to execute the emacsclient binary if you do), replace its icon by doing get info and dragging the emacs icon over the automator one (the small one at the top left and not the big preview one), drag this onto your quickbar afterwards
 # export PATH=/usr/local/bin:$PATH
