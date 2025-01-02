@@ -59,6 +59,7 @@
     mode: 0644
   become: yes
 
+# If you dont do this you need to start the service and do systemctl daemon-reload
 # - name: Start and enable user service for minecraft
 #   ansible.builtin.systemd_service:
 #     name: minecraft
