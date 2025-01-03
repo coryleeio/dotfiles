@@ -1,0 +1,16 @@
+- include_tasks: "{{ ansible_os_family }}.yml"
+
+- name: make sure docker is installed
+  package:
+    name:
+      - docker
+    state: present
+  become: yes
+
+- name: Start and enable user service for docker
+  ansible.builtin.systemd_service:
+     name: docker
+     state: started
+     daemon_reload: true
+     enabled: true
+  become: yes
