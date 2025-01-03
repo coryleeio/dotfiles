@@ -11,7 +11,7 @@ TimeoutStartSec=0
 Restart=never
 ExecStartPre=-/usr/bin/docker stop %n
 ExecStartPre=-/usr/bin/docker rm %n
-#ExecStartPre=/usr/bin/docker pull coryleeio/minecraft:latest
+ExecStartPre=/usr/bin/docker pull coryleeio/minecraft:latest
 ExecStart=/usr/bin/docker run --init --rm --name %n \
     -v /opt/minecraft:/opt/minecraft \
     -p 0.0.0.0:1337:25565 \
