@@ -6,7 +6,7 @@ Requires=docker.service
 [Service]
 KillMode=process
 KillSignal=SIGINT
-SuccessExitStatus=130
+SuccessExitStatus=143
 TimeoutStartSec=0
 Restart=never
 ExecStartPre=-/usr/bin/docker stop %n
