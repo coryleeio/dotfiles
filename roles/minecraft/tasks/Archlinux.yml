@@ -8,9 +8,10 @@
     mode: '0644'
   become: yes
 
-# - name: Start and enable user service for minecraft
-#   ansible.builtin.systemd_service:
-#     name: minecraft
-#     state: started
-#     daemon_reload: true
-#     enabled: true
+- name: Start and enable user service for minecraft
+  ansible.builtin.systemd_service:
+    name: minecraft
+    state: stopped
+    daemon_reload: true
+    enabled: false
+  become: yes
