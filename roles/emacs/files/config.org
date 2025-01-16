@@ -416,15 +416,15 @@ Defining the various fonts that Emacs will use.
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
   :font "JetBrains Mono"
-  :height 140
+  :height 160
   :weight 'medium)
 (set-face-attribute 'variable-pitch nil
   :font "Ubuntu"
-  :height 150
+  :height 170
   :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
   :font "JetBrains Mono"
-  :height 120
+  :height 140
   :weight 'medium)
 ;; Makes commented text and keywords italics.
 ;; This is working in emacsclient but not emacs.
