@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -xe
-mkdir -p roles/$1/{tasks,files}
-echo '- include_tasks: "{{ ansible_os_family }}.yml"' > roles/$1/tasks/main.yml
-touch roles/$1/tasks/Archlinux.yml
-touch roles/$1/tasks/Darwin.yml
-echo "    - ${1}" >> linux.yml
-echo "    - ${1}" >> mac.yml

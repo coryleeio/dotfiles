@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -xe
-
-ansible-galaxy install -r requirements.yml
-ansible-playbook --ask-become-pass \
-        -i hosts \
-        mac.yml
