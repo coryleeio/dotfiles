@@ -20,20 +20,20 @@ return {
     'nvim-treesitter/nvim-treesitter',
   },
   keys = {
-    { '<leader>of', '<cmd>ObsidianQuickSwitch<CR>', desc = '[O]bsidian [f]ile' },
-    { '<leader>ooi', '<cmd>ObsidianQuickSwitch inbox<CR>', desc = '[O]bsidian [O]pen [i]nbox' },
+    { '<leader>of',  '<cmd>ObsidianQuickSwitch<CR>',         desc = '[O]bsidian [f]ile' },
+    { '<leader>ooi', '<cmd>ObsidianQuickSwitch inbox<CR>',   desc = '[O]bsidian [O]pen [i]nbox' },
     { '<leader>ooW', '<cmd>ObsidianQuickSwitch Waiting<CR>', desc = '[O]bsidian [O]pen [W]aiting' },
-    { '<leader>ooh', '<cmd>ObsidianQuickSwitch Home<CR>', desc = '[O]bsidian [O]pen [H]ome' },
-    { '<leader>oow', '<cmd>ObsidianQuickSwitch Work<CR>', desc = '[O]bsidian [O]pen [W]ork' },
+    { '<leader>ooh', '<cmd>ObsidianQuickSwitch Home<CR>',    desc = '[O]bsidian [O]pen [H]ome' },
+    { '<leader>oow', '<cmd>ObsidianQuickSwitch Work<CR>',    desc = '[O]bsidian [O]pen [W]ork' },
     { '<leader>ooe', '<cmd>ObsidianQuickSwitch Evening<CR>', desc = '[O]bsidian [O]pen [E]vening' },
-    { '<leader>ot', '<cmd>ObsidianToday<CR>', desc = '[O]bsidian [t]oday' },
-    { '<leader>oy', '<cmd>ObsidianYesterday<CR>', desc = '[O]bsidian [y]esterday' },
-    { '<leader>on', '<cmd>ObsidianTomorrow<CR>', desc = '[O]bsidian [N]ext day' },
-    { '<leader>og', '<cmd>ObsidianSearch<CR>', desc = '[O]bsidian [g]rep' },
-    { '<leader>ob', '<cmd>ObsidianBacklinks<CR>', desc = '[O]bsidian [b]acklinks' },
-    { '<leader>op', '<cmd>ObsidianTemplate<CR>', desc = '[O]bsidian tem[p]late' },
-    { '<leader>sn', '<cmd>ObsidianQuickSwitch<CR>', desc = '[S]earch [N]otes' },
-    { '<leader>so', '<cmd>ObsidianQuickSwitch<CR>', desc = '[S]earch [O]bsidian' },
+    { '<leader>ot',  '<cmd>ObsidianToday<CR>',               desc = '[O]bsidian [t]oday' },
+    { '<leader>oy',  '<cmd>ObsidianYesterday<CR>',           desc = '[O]bsidian [y]esterday' },
+    { '<leader>on',  '<cmd>ObsidianTomorrow<CR>',            desc = '[O]bsidian [N]ext day' },
+    { '<leader>og',  '<cmd>ObsidianSearch<CR>',              desc = '[O]bsidian [g]rep' },
+    { '<leader>ob',  '<cmd>ObsidianBacklinks<CR>',           desc = '[O]bsidian [b]acklinks' },
+    { '<leader>op',  '<cmd>ObsidianTemplate<CR>',            desc = '[O]bsidian tem[p]late' },
+    { '<leader>sn',  '<cmd>ObsidianQuickSwitch<CR>',         desc = '[S]earch [N]otes' },
+    { '<leader>so',  '<cmd>ObsidianQuickSwitch<CR>',         desc = '[S]earch [O]bsidian' },
 
     {
       '<leader>oc',
@@ -61,8 +61,8 @@ return {
   },
   opts = {
     ui = {
-      enable = true, -- set to false to disable all additional syntax features
-      update_debounce = 200, -- update delay after a text change (in milliseconds)
+      enable = true,          -- set to false to disable all additional syntax features
+      update_debounce = 200,  -- update delay after a text change (in milliseconds)
       max_file_length = 5000, -- disable UI features for files with more than this many lines
       -- Define how various check-boxes are displayed
       checkboxes = {
@@ -105,7 +105,7 @@ return {
     workspaces = {
       {
         name = 'vault',
-        path = '~/Workspace/coryleeio/Scratch',
+        path = '~/Workspace/coryleeio/scratch',
       },
     },
     notes_subdir = 'slipbox',

@@ -150,12 +150,12 @@ QOL for citations
 (use-package citar
   :ensure t
   :init
-  (setq org-cite-global-bibliography '("~/Workspace/coryleeio/Scratch/bibliography.bib"))
+  (setq org-cite-global-bibliography '("~/Workspace/coryleeio/scratch/bibliography.bib"))
   (setq org-cite-insert-processor 'citar
         org-cite-follow-processor 'citar
         org-cite-activate-processor 'citar
         citar-bibliography org-cite-global-bibliography
-        citar-notes-paths '("~/Workspace/coryleeio/Scratch/CitarNotes")))
+        citar-notes-paths '("~/Workspace/coryleeio/scratch/CitarNotes")))
 #+end_src
 
 
@@ -596,7 +596,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
             :wk "Open emacs init.el")
 
     "O i" '((lambda () (interactive)
-              (find-file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org"))
+              (find-file "~/Workspace/coryleeio/scratch/slipbox/inbox.org"))
             :wk "Open inbox")
 
     "O c" '((lambda () (interactive)
@@ -790,11 +790,11 @@ https://orgmode.org/manual/Table-of-Contents.html
     (setq org-refile-use-outline-path 'file)
     (setq org-agenda-todo-ignore-scheduled 'all)
 
-    (setq org-default-notes-file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org")
+    (setq org-default-notes-file "~/Workspace/coryleeio/scratch/slipbox/inbox.org")
 
     (setq org-capture-templates
      '(
-         ("t" "Task" entry (file "~/Workspace/coryleeio/Scratch/slipbox/inbox.org") 
+         ("t" "Task" entry (file "~/Workspace/coryleeio/scratch/slipbox/inbox.org") 
             "* TODO %?\n")
       )
      )
@@ -892,22 +892,22 @@ Notes with cross and backlinking
   :init
   ;; Build the agenda list the first time for the session
   :custom
-  (org-roam-directory "~/Workspace/coryleeio/Scratch/slipbox")
+  (org-roam-directory "~/Workspace/coryleeio/scratch/slipbox")
   (org-roam-capture-templates
    '(
-     ("f" "Find Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
+     ("f" "Find Note" plain (file "~/Workspace/coryleeio/scratch/slipbox/templates/note.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Note")
       :unnarrowed t)
 
-     ("r" "Find Reference Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
+     ("r" "Find Reference Note" plain (file "~/Workspace/coryleeio/scratch/slipbox/templates/note.org")
       :if-new (file+head "references/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Reference")
       :unnarrowed t)
 
-     ("p" "Find Project Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/note.org")
+     ("p" "Find Project Note" plain (file "~/Workspace/coryleeio/scratch/slipbox/templates/note.org")
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Project:ActiveProject:Note")
       :unnarrowed t)
 
-     ("c" "Find Context Note" plain (file "~/Workspace/coryleeio/Scratch/slipbox/templates/context.org")
+     ("c" "Find Context Note" plain (file "~/Workspace/coryleeio/scratch/slipbox/templates/context.org")
       :if-new (file+head "contexts/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: :Context:Note"))
     )
   )
@@ -993,7 +993,7 @@ Notes with cross and backlinking
   (interactive)
 
   (setq org-agenda-files (append'( 
-	"~/Workspace/coryleeio/Scratch/slipbox/inbox.org" "~/Workspace/coryleeio/Scratch/CalendarExports")
+	"~/Workspace/coryleeio/scratch/slipbox/inbox.org" "~/Workspace/coryleeio/scratch/CalendarExports")
 	(my/org-roam-list-notes-by-tag "Context")
 	(my/org-roam-list-notes-by-tag "Project")
     )
