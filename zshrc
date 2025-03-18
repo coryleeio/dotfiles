@@ -121,11 +121,6 @@ alias vim="nvim"
 
 eval "$(starship init zsh)"
 
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
 #
 
 # Using oh-my-zsh core plugin instead
