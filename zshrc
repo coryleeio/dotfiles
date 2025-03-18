@@ -113,10 +113,9 @@ export EDITOR=nvim
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias work='cd ~/Workspace/coryleeio/scratch && git status'
-alias dot='cd ~/Workspace/coryleeio/dotfiles && git status'
+alias work='cd ~/Workspace/coryleeio/'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
-alias ws='work && x && ./Scripts/upload-files-state && ./Scripts/reset-files-state'
+alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ./scripts/upload-files-state && ./Scripts/reset-files-state'
 alias vim="nvim"
 
 eval "$(starship init zsh)"
