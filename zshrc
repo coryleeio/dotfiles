@@ -119,6 +119,7 @@ alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-stat
 alias vim="nvim"
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
+export PATH=${PATH}:~/.local/bin/
 eval "$(starship init zsh)"
 
 #
