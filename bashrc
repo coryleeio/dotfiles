@@ -14,7 +14,8 @@ alias x='git add --all && ( git commit -am "Iterating..." || git status --porcel
 alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-state && ../scripts/reset-files-state'
 alias vim="nvim"
 
-#
+export PATH=${PATH}:~/Workspace/coryleeio/scripts/
+
 eval "$(direnv hook bash)"
 
 # BEGIN env Setup -- Managed by Ansible DO NOT EDIT.
