@@ -140,3 +140,6 @@ if [ -e "${INDEED_ENV_DIR}/etc/indeedrc" ]; then
 fi
 # END env Setup -- Managed by Ansible DO NOT EDIT.
 
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+. "/Users/coryl/.indeed-kube-profile"
