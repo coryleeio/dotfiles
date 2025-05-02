@@ -131,7 +131,7 @@ eval "$(starship init zsh)"
 
 # Setup INDEED_ENV_DIR earlier.
 if [ -z "${INDEED_ENV_DIR}" ]; then
-    export INDEED_ENV_DIR="/opt/indeed/env"
+    export INDEED_ENV_DIR="/Users/coryl/env"
 fi
 
 # Single-brace syntax because this is required in bash and sh alike
@@ -143,3 +143,11 @@ fi
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 . "/Users/coryl/.indeed-kube-profile"
+
+# pnpm
+export PNPM_HOME="/Users/coryl/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

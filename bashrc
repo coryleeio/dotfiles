@@ -23,7 +23,7 @@ eval "$(direnv hook bash)"
 
 # Setup INDEED_ENV_DIR earlier.
 if [ -z "${INDEED_ENV_DIR}" ]; then
-    export INDEED_ENV_DIR="/opt/indeed/env"
+    export INDEED_ENV_DIR="/Users/coryl/env"
 fi
 
 # Single-brace syntax because this is required in bash and sh alike
