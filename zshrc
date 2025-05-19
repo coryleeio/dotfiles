@@ -97,7 +97,7 @@ export LANG=C.UTF-8
 # else
 #   export EDITOR='nvim'
 # fi
-export EDITOR=nvim
+export EDITOR=cursor
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
