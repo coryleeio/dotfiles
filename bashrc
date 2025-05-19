@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export EDITOR=cursor
+export EDITOR=nvim
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias work='cd ~/Workspace/coryleeio/scratch && git status'
