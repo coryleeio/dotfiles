@@ -111,7 +111,7 @@ return {
     notes_subdir = "slipbox",
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
-      folder = "journal/daily",
+      folder = "slipbox",
     },
     -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
     completion = {
