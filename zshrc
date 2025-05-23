@@ -144,6 +144,7 @@ fi
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 . "/Users/coryl/.indeed-kube-profile"
+. "/Users/coryl/.llm-proxy-api-key"
 
 # pnpm
 export PNPM_HOME="/Users/coryl/Library/pnpm"
