@@ -31,3 +31,8 @@ if [ -e "${INDEED_ENV_DIR}/etc/indeedrc" ]; then
     . "${INDEED_ENV_DIR}/etc/indeedrc"
 fi
 # END env Setup -- Managed by Ansible DO NOT EDIT.
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/coryl/.lmstudio/bin"
+# End of LM Studio CLI section
+
