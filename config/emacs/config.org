@@ -596,7 +596,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
             :wk "Open emacs init.el")
 
     "O i" '((lambda () (interactive)
-              (find-file "~/Workspace/coryleeio/scratch/slipbox/inbox.org"))
+              (find-file "~/Workspace/coryleeio/scratch/5-tasks/inbox.md"))
             :wk "Open inbox")
 
     "O c" '((lambda () (interactive)
@@ -790,11 +790,11 @@ https://orgmode.org/manual/Table-of-Contents.html
     (setq org-refile-use-outline-path 'file)
     (setq org-agenda-todo-ignore-scheduled 'all)
 
-    (setq org-default-notes-file "~/Workspace/coryleeio/scratch/slipbox/inbox.org")
+    (setq org-default-notes-file "~/Workspace/coryleeio/scratch/5-tasks/inbox.md")
 
     (setq org-capture-templates
      '(
-         ("t" "Task" entry (file "~/Workspace/coryleeio/scratch/slipbox/inbox.org") 
+         ("t" "Task" entry (file "~/Workspace/coryleeio/scratch/5-tasks/inbox.md") 
             "* TODO %?\n")
       )
      )

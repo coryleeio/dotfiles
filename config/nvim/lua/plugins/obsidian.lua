@@ -107,10 +107,10 @@ return {
         path = "~/Workspace/coryleeio/scratch",
       },
     },
-    notes_subdir = "slipbox",
+    -- notes_subdir = "slipbox",
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
-      folder = "slipbox",
+      folder = "2-areas/standup",
     },
     -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
     completion = {
@@ -148,7 +148,7 @@ return {
     sort_by = "modified",
     sort_reversed = true,
     attachments = {
-      img_folder = "slipbox/files",
+      img_folder = "4-archives/files",
     },
 
     -- Optional, customize how note file names are generated given the ID, target directory, and title.
