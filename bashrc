@@ -14,6 +14,15 @@ alias dot='cd ~/Workspace/coryleeio/dotfiles && git status'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
 alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-state && ../scripts/reset-files-state'
 
+# Function for amp with meta prompt
+a() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: a \"your input here\""
+        return 1
+    fi
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp
+}
+
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
 
@@ -36,3 +45,4 @@ fi
 export PATH="$PATH:/Users/coryl/.lmstudio/bin"
 # End of LM Studio CLI section
 
+. "$HOME/.cargo/env"

@@ -119,6 +119,15 @@ alias x='git add --all && ( git commit -am "Iterating..." || git status --porcel
 alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-state && ../scripts/reset-files-state'
 alias vim="nvim"
 
+# Function for amp with meta prompt
+a() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: a \"your input here\""
+        return 1
+    fi
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp
+}
+
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
 eval "$(starship init zsh)"
