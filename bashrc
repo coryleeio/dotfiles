@@ -20,7 +20,7 @@ a() {
         echo "Usage: a \"your input here\""
         return 1
     fi
-    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp --visibility private
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
@@ -46,3 +46,9 @@ export PATH="$PATH:/Users/coryl/.lmstudio/bin"
 # End of LM Studio CLI section
 
 . "$HOME/.cargo/env"
+
+# AsyncAPI CLI Autocomplete
+
+ASYNCAPI_AC_BASH_SETUP_PATH=/Users/coryl/Library/Caches/@asyncapi/cli/autocomplete/bash_setup && test -f $ASYNCAPI_AC_BASH_SETUP_PATH && source $ASYNCAPI_AC_BASH_SETUP_PATH; # asyncapi autocomplete setup
+
+

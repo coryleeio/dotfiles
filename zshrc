@@ -125,7 +125,7 @@ a() {
         echo "Usage: a \"your input here\""
         return 1
     fi
-    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp --visibility private
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
@@ -166,4 +166,10 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/coryl/.lmstudio/bin"
 # End of LM Studio CLI section
+
+
+# AsyncAPI CLI Autocomplete
+
+ASYNCAPI_AC_ZSH_SETUP_PATH=/Users/coryl/Library/Caches/@asyncapi/cli/autocomplete/zsh_setup && test -f $ASYNCAPI_AC_ZSH_SETUP_PATH && source $ASYNCAPI_AC_ZSH_SETUP_PATH; # asyncapi autocomplete setup
+
 
