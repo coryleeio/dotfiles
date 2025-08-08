@@ -16,11 +16,14 @@ alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-stat
 
 # Function for amp with meta prompt
 a() {
-    if [ $# -eq 0 ]; then
-        echo "Usage: a \"your input here\""
-        return 1
-    fi
-    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp --visibility private
+  if [ $# -eq 0 ]; then
+    echo "Usage: a \"your input here\""
+    return 1
+  fi
+  (
+    cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    echo "$*"
+  ) | amp --visibility private
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
@@ -32,12 +35,12 @@ eval "$(direnv hook bash)"
 
 # Setup INDEED_ENV_DIR earlier.
 if [ -z "${INDEED_ENV_DIR}" ]; then
-    export INDEED_ENV_DIR="/Users/coryl/env"
+  export INDEED_ENV_DIR="/Users/coryl/env"
 fi
 
 # Single-brace syntax because this is required in bash and sh alike
 if [ -e "${INDEED_ENV_DIR}/etc/indeedrc" ]; then
-    . "${INDEED_ENV_DIR}/etc/indeedrc"
+  . "${INDEED_ENV_DIR}/etc/indeedrc"
 fi
 # END env Setup -- Managed by Ansible DO NOT EDIT.
 
@@ -49,6 +52,4 @@ export PATH="$PATH:/Users/coryl/.lmstudio/bin"
 
 # AsyncAPI CLI Autocomplete
 
-ASYNCAPI_AC_BASH_SETUP_PATH=/Users/coryl/Library/Caches/@asyncapi/cli/autocomplete/bash_setup && test -f $ASYNCAPI_AC_BASH_SETUP_PATH && source $ASYNCAPI_AC_BASH_SETUP_PATH; # asyncapi autocomplete setup
-
-
+ASYNCAPI_AC_BASH_SETUP_PATH=/Users/coryl/Library/Caches/@asyncapi/cli/autocomplete/bash_setup && test -f $ASYNCAPI_AC_BASH_SETUP_PATH && source $ASYNCAPI_AC_BASH_SETUP_PATH # asyncapi autocomplete setup
