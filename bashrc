@@ -23,7 +23,7 @@ a() {
   (
     cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
     echo "$*"
-  ) | amp --visibility private
+  ) | amp visibility private
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
