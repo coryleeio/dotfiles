@@ -118,6 +118,7 @@ alias work='cd ~/Workspace/coryleeio/'
 alias x='git add --all && ( git commit -am "Iterating..." || git status --porcelain ) && git fetch && git rebase && git push'
 alias ws='cd ~/Workspace/coryleeio/scratch/ && x && ../scripts/upload-files-state && ../scripts/reset-files-state'
 alias vim="nvim"
+alias codex='a'
 
 # Function for amp with meta prompt
 a() {
