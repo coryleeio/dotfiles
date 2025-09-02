@@ -189,3 +189,9 @@ format = '\[[$symbol($version)]($style)\]'
 
 [solidity]
 format = '\[[$symbol($version)]($style)\]'
+
+[custom.ranger_level]
+command = 'echo $RANGER_LEVEL'
+when = 'test -n "$RANGER_LEVEL"'
+format = '\[[ranger:$output]($style)\]'
+style = 'bold yellow'
