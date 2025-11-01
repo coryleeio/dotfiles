@@ -126,7 +126,7 @@ a() {
         echo "Usage: a \"your input here\""
         return 1
     fi
-    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp --visibility private
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp 
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
