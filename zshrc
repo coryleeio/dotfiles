@@ -140,15 +140,23 @@ c() {
         fi
     else
         if [ $# -eq 0 ]; then
-            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits --allow-dangerously-skip-permissions
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits
         else
-            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits --allow-dangerously-skip-permissions "$*"
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits "$*"
         fi
     fi
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
+
+# Sourcegraph CLI configuration
+if [ -f ~/.sourcegraph.env ]; then
+    source ~/.sourcegraph.env
+    export SRC_ACCESS_TOKEN="$SOURCEGRAPH_TOKEN"
+    export SRC_ENDPOINT="$SOURCEGRAPH_URL"
+fi
+
 eval "$(starship init zsh)"
 
 #
