@@ -131,14 +131,19 @@ a() {
 
 # Function for claude with meta prompt
 c() {
-    if [ $# -eq 0 ]; then
-        echo "Usage: c \"your input here\""
-        return 1
-    fi
+    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
     if [[ "$(uname)" == "Linux" ]]; then
-        opencode -m "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+        if [ $# -eq 0 ]; then
+            opencode --agent codex
+        else
+            opencode run --agent codex "$*"
+        fi
     else
-        claude --append-system-prompt "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+        if [ $# -eq 0 ]; then
+            claude --append-system-prompt "$(cat "$META_PROMPT")"
+        else
+            claude --append-system-prompt "$(cat "$META_PROMPT")" "$*"
+        fi
     fi
 }
 
