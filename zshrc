@@ -126,12 +126,12 @@ a() {
         echo "Usage: a \"your input here\""
         return 1
     fi
-    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp 
+    (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"; echo "$*") | amp 
 }
 
 # Function for claude with meta prompt, auto-accept edits, and toggleable dangerous mode
 c() {
-    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"
     if [[ "$(uname)" == "Linux" ]]; then
         if [ $# -eq 0 ]; then
             opencode --agent codex

@@ -22,14 +22,14 @@ a() {
     return 1
   fi
   (
-    cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"
     echo "$*"
   ) | amp visibility private
 }
 
 # Function for claude with meta prompt
 c() {
-    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"
     if [ $# -eq 0 ]; then
         claude --append-system-prompt "$(cat "$META_PROMPT")" --dangerously-skip-permissions
     else
@@ -39,7 +39,7 @@ c() {
 
 # Function for safe claude (prompts for permissions)
 cs() {
-    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"
     if [[ "$(uname)" == "Linux" ]]; then
         if [ $# -eq 0 ]; then
             opencode --agent codex
