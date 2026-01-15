@@ -150,13 +150,6 @@ c() {
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
 
-# Sourcegraph CLI configuration
-if [ -f ~/.sourcegraph.env ]; then
-    source ~/.sourcegraph.env
-    export SRC_ACCESS_TOKEN="$SOURCEGRAPH_TOKEN"
-    export SRC_ENDPOINT="$SOURCEGRAPH_URL"
-fi
-
 eval "$(starship init zsh)"
 
 #
