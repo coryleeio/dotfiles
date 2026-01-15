@@ -129,6 +129,15 @@ a() {
     (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"; echo "$*") | amp 
 }
 
+# Function for claude with meta prompt
+c() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: c \"your input here\""
+        return 1
+    fi
+    claude --append-system-prompt "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+}
+
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
 eval "$(starship init zsh)"
