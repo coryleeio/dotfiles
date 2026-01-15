@@ -135,7 +135,11 @@ c() {
         echo "Usage: c \"your input here\""
         return 1
     fi
-    claude --append-system-prompt "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+    if [[ "$(uname)" == "Linux" ]]; then
+        opencode -m "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+    else
+        claude --append-system-prompt "$(cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md")" "$*"
+    fi
 }
 
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
