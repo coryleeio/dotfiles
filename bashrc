@@ -27,6 +27,16 @@ a() {
   ) | amp visibility private
 }
 
+# Function for claude with meta prompt
+c() {
+    local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
+    if [ $# -eq 0 ]; then
+        claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits
+    else
+        claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits "$*"
+    fi
+}
+
 export PATH=${PATH}:~/Workspace/coryleeio/scripts/
 export PATH=${PATH}:~/.local/bin/
 

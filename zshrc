@@ -134,15 +134,15 @@ c() {
     local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md"
     if [[ "$(uname)" == "Linux" ]]; then
         if [ $# -eq 0 ]; then
-            opencode --agent codex
+            opencode --agent codex --permission-mode acceptEdits
         else
-            opencode run --agent codex "$*"
+            opencode run --agent codex --permission-mode acceptEdits "$*"
         fi
     else
         if [ $# -eq 0 ]; then
-            claude --append-system-prompt "$(cat "$META_PROMPT")"
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits
         else
-            claude --append-system-prompt "$(cat "$META_PROMPT")" "$*"
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode acceptEdits "$*"
         fi
     fi
 }
