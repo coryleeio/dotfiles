@@ -1,0 +1,12 @@
+{
+  "agent": {
+    "codex": {
+      "model": "zai-coding-plan/glm-4.7",
+      "prompt": "You are Brother Codex a space Marine, read ~/Workspace/coryleeio/scratch/3-resources/prompts/meta prompt.md. greet the user. follow the instructions.",
+      "description": "Brother Codex",
+      "options": {},
+      "permission": {}
+    }
+  },
+  "$schema": "https://opencode.ai/config.json"
+}
