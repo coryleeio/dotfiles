@@ -129,7 +129,7 @@ a() {
     (cat "/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"; echo "$*") | amp
 }
 
-# Function for claude with meta prompt and dangerous mode
+# Function for claude with meta prompt
 c() {
     local META_PROMPT="/Users/coryl/Workspace/coryleeio/scratch/3-resources/prompts/meta-prompt.md"
     if [[ "$(uname)" == "Linux" ]]; then
@@ -140,9 +140,9 @@ c() {
         fi
     else
         if [ $# -eq 0 ]; then
-            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode dangerous
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --dangerously-skip-permissions
         else
-            claude --append-system-prompt "$(cat "$META_PROMPT")" --permission-mode dangerous "$*"
+            claude --append-system-prompt "$(cat "$META_PROMPT")" --dangerously-skip-permissions "$*"
         fi
     fi
 }
